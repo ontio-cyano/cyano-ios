@@ -1,6 +1,6 @@
 //
 //  Cyano_WalletTests.m
-//  Cyano WalletTests
+//  cyanoTests
 //
 //  Created by Apple on 2018/12/17.
 //  Copyright © 2018 LR. All rights reserved.

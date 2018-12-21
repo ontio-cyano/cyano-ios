@@ -1,6 +1,6 @@
 //
 //  CapitalViewController.m
-//  Cyano Wallet
+//  cyano
 //
 //  Created by Apple on 2018/12/19.
 //  Copyright © 2018 LR. All rights reserved.
@@ -238,7 +238,7 @@
     
     UILabel * nameLB = [[UILabel alloc]init];
     nameLB.textColor = [UIColor whiteColor];
-    nameLB.text =@"Cyano Wallet";
+    nameLB.text =@"cyano";
     nameLB.textAlignment = NSTextAlignmentCenter;
     nameLB.font = [UIFont systemFontOfSize:28];
     [nameLB changeSpace:0 wordSpace:1];

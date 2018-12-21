@@ -1,6 +1,6 @@
 //
 //  DiscoverViewController.m
-//  Cyano Wallet
+//  cyano
 //
 //  Created by Apple on 2018/12/19.
 //  Copyright © 2018 LR. All rights reserved.
@@ -32,7 +32,7 @@
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
     }];
-
+    
 }
 - (UICollectionView*)collectionView{
     if (!_collectionView) {
@@ -75,7 +75,7 @@
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat W = (SYSWidth - 2*20*SCALE_W - 3*10*SCALE_W)/4;
     NSLog(@"W=%f",W);
-//    CGFloat H =
+    //    CGFloat H =
     return CGSizeMake(W, W + 20*SCALE_W);
 }
 //调节item边距
@@ -97,27 +97,27 @@
 
 - (void)getData{
     [[CCRequest shareInstance] requestWithURLString1:@"http://101.132.193.149:4027/dapps" MethodType:MethodTypeGET Params:nil Success:^(id responseObject, id responseOriginal)
-    {
-        NSDictionary * result = responseOriginal[@"result"];
-        
-//        self.dataArray = result[@"apps"];
-        [self.dataArray addObjectsFromArray:result[@"apps"]];
-        [self.collectionView reloadData];
-        NSLog(@"222=%@",self.dataArray);
-        
-    } Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
-        NSLog(@"responseOriginal=%@",responseOriginal);
-        
-    }];
+     {
+         NSDictionary * result = responseOriginal[@"result"];
+         
+         //        self.dataArray = result[@"apps"];
+         [self.dataArray addObjectsFromArray:result[@"apps"]];
+         [self.collectionView reloadData];
+         NSLog(@"222=%@",self.dataArray);
+         
+     } Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
+         NSLog(@"responseOriginal=%@",responseOriginal);
+         
+     }];
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

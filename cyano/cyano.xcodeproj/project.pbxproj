@@ -7,15 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		09C13B6AECC9564F7EA706E5 /* libPods-cyano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = E0B04AC0A2B02D1C642E3B8A /* libPods-cyano.a */; };
 		18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259BB821CB8DBA00DB863E /* DAppCell.m */; };
-		1875262A21C77FAE00AADDB7 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875262921C77FAE00AADDB7 /* AppDelegate.m */; };
 		1875263021C77FAE00AADDB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1875262E21C77FAE00AADDB7 /* Main.storyboard */; };
 		1875263221C77FAF00AADDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1875263121C77FAF00AADDB7 /* Assets.xcassets */; };
 		1875263521C77FAF00AADDB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1875263321C77FAF00AADDB7 /* LaunchScreen.storyboard */; };
 		1875263821C77FAF00AADDB7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875263721C77FAF00AADDB7 /* main.m */; };
 		1875264221C77FB000AADDB7 /* cyanoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264121C77FB000AADDB7 /* cyanoTests.m */; };
 		1875264D21C77FB000AADDB7 /* cyanoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264C21C77FB000AADDB7 /* cyanoUITests.m */; };
+		1883881921CCE915000CADFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875262921C77FAE00AADDB7 /* AppDelegate.m */; };
 		18838C0321CBA81A00D52A1F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18838BF521CBA81A00D52A1F /* SGQRCode.bundle */; };
 		18838C0421CBA81A00D52A1F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BF721CBA81A00D52A1F /* UIImage+SGImageSize.m */; };
 		18838C0521CBA81A00D52A1F /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BF921CBA81A00D52A1F /* SGQRCodeHelperTool.m */; };
@@ -24,6 +23,7 @@
 		18838C0821CBA81A00D52A1F /* SGQRCodeGenerateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BFC21CBA81A00D52A1F /* SGQRCodeGenerateManager.m */; };
 		18838C0921CBA81A00D52A1F /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0121CBA81A00D52A1F /* SGQRCodeAlbumManager.m */; };
 		18838C0C21CBA95000D52A1F /* BackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0A21CBA94F00D52A1F /* BackView.m */; };
+		1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */; };
 		18B69FD321CB43E6008B0AFB /* libSafeKeyBoardSDk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */; };
 		18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B69FD121CB43E6008B0AFB /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B69FD521CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B69FD221CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle */; };
@@ -70,13 +70,13 @@
 		18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A1F21C9F95300762870 /* CapitalViewController.m */; };
 		18F71A2321C9F96D00762870 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2221C9F96D00762870 /* MineViewController.m */; };
 		18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2521C9F97C00762870 /* IdentityViewController.m */; };
-		18F71A2921C9F99A00762870 /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2821C9F99A00762870 /* DiscoverViewController.m */; };
 		18F71A2F21CA201B00762870 /* CusNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2D21CA201A00762870 /* CusNavigationController.m */; };
 		18F71A3021CA201B00762870 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2E21CA201B00762870 /* MainViewController.m */; };
 		18F71A3321CA2FC900762870 /* CreateWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3221CA2FC900762870 /* CreateWalletViewController.m */; };
 		18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3821CA3F2A00762870 /* UITextField+LKLUITextField.m */; };
 		18F71A3D21CA471400762870 /* BrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3B21CA471300762870 /* BrowserView.m */; };
 		18F71A4421CA493000762870 /* js in Resources */ = {isa = PBXBuildFile; fileRef = 18F71A4321CA493000762870 /* js */; };
+		E8887C2A94D5C50DEFD8AE33 /* libPods-cyano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BA40EABDC9EA366B40A0F8 /* libPods-cyano.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -97,11 +97,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		0D045D3AB1E8B9B733FC904E /* Pods-cyano.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyano.release.xcconfig"; path = "Pods/Target Support Files/Pods-cyano/Pods-cyano.release.xcconfig"; sourceTree = "<group>"; };
 		18259BB721CB8DBA00DB863E /* DAppCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAppCell.h; sourceTree = "<group>"; };
 		18259BB821CB8DBA00DB863E /* DAppCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DAppCell.m; sourceTree = "<group>"; };
 		1875262521C77FAE00AADDB7 /* cyano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cyano.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1875262821C77FAE00AADDB7 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1875262821C77FAE00AADDB7 /* AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = AppDelegate.h; sourceTree = "<group>"; };
 		1875262921C77FAE00AADDB7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1875262F21C77FAE00AADDB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875263121C77FAF00AADDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -130,6 +129,8 @@
 		18838C0221CBA81A00D52A1F /* SGQRCodeGenerateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeGenerateManager.h; sourceTree = "<group>"; };
 		18838C0A21CBA94F00D52A1F /* BackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackView.m; sourceTree = "<group>"; };
 		18838C0B21CBA95000D52A1F /* BackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackView.h; sourceTree = "<group>"; };
+		1886F5EC21CCF7B900F3055A /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
+		1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSafeKeyBoardSDk.a; sourceTree = "<group>"; };
 		18B69FCE21CB43E6008B0AFB /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		18B69FCF21CB43E6008B0AFB /* HYKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYKeyboard.h; sourceTree = "<group>"; };
@@ -139,9 +140,9 @@
 		18B69FDC21CB82B5008B0AFB /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		18B69FDD21CB82B5008B0AFB /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		18C2588321CA89C70095B77D /* DAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAppViewController.m; sourceTree = "<group>"; };
-		18C2588421CA89C70095B77D /* InfoAlert.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InfoAlert.h; sourceTree = "<group>"; };
+		18C2588421CA89C70095B77D /* InfoAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = InfoAlert.h; sourceTree = "<group>"; };
 		18C2588521CA89C70095B77D /* InfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoAlert.m; sourceTree = "<group>"; };
-		18C2588621CA89C80095B77D /* DAppViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DAppViewController.h; sourceTree = "<group>"; };
+		18C2588621CA89C80095B77D /* DAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DAppViewController.h; sourceTree = "<group>"; };
 		18C2588921CA8A250095B77D /* SendConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendConfirmView.m; sourceTree = "<group>"; };
 		18C2588A21CA8A250095B77D /* SendConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendConfirmView.h; sourceTree = "<group>"; };
 		18C2588D21CA8AA30095B77D /* PwdEnterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PwdEnterView.h; sourceTree = "<group>"; };
@@ -225,8 +226,6 @@
 		18F71A2221C9F96D00762870 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
 		18F71A2421C9F97C00762870 /* IdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdentityViewController.h; sourceTree = "<group>"; };
 		18F71A2521C9F97C00762870 /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
-		18F71A2721C9F99A00762870 /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
-		18F71A2821C9F99A00762870 /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		18F71A2A21CA12DC00762870 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		18F71A2B21CA201A00762870 /* CusNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CusNavigationController.h; sourceTree = "<group>"; };
 		18F71A2C21CA201A00762870 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -239,8 +238,9 @@
 		18F71A3B21CA471300762870 /* BrowserView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BrowserView.m; sourceTree = "<group>"; };
 		18F71A3C21CA471300762870 /* BrowserView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BrowserView.h; sourceTree = "<group>"; };
 		18F71A4321CA493000762870 /* js */ = {isa = PBXFileReference; lastKnownFileType = folder; path = js; sourceTree = "<group>"; };
-		774F0F942DE00E8BD36CD373 /* Pods-cyano.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyano.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cyano/Pods-cyano.debug.xcconfig"; sourceTree = "<group>"; };
-		E0B04AC0A2B02D1C642E3B8A /* libPods-cyano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cyano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		28BA40EABDC9EA366B40A0F8 /* libPods-cyano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-cyano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		7CE76B0A7A8AB60CFA8E4D82 /* Pods-cyano.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyano.release.xcconfig"; path = "Pods/Target Support Files/Pods-cyano/Pods-cyano.release.xcconfig"; sourceTree = "<group>"; };
+		FF56A7C823F85DA1F75AA8D7 /* Pods-cyano.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-cyano.debug.xcconfig"; path = "Pods/Target Support Files/Pods-cyano/Pods-cyano.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -249,7 +249,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18B69FD321CB43E6008B0AFB /* libSafeKeyBoardSDk.a in Frameworks */,
-				09C13B6AECC9564F7EA706E5 /* libPods-cyano.a in Frameworks */,
+				E8887C2A94D5C50DEFD8AE33 /* libPods-cyano.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -278,8 +278,8 @@
 				1875264021C77FB000AADDB7 /* cyanoTests */,
 				1875264B21C77FB000AADDB7 /* cyanoUITests */,
 				1875262621C77FAE00AADDB7 /* Products */,
-				B30DA64B99CEDC21DA4FC246 /* Pods */,
-				1BC0AA047E27CD5979D2C62B /* Frameworks */,
+				513F44F3756DC0656F505827 /* Pods */,
+				23FC253286DFC839B5725FB8 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -341,14 +341,14 @@
 		1875265F21C7874F00AADDB7 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
-				18F71A2721C9F99A00762870 /* DiscoverViewController.h */,
-				18F71A2821C9F99A00762870 /* DiscoverViewController.m */,
 				18C2588621CA89C80095B77D /* DAppViewController.h */,
 				18C2588321CA89C70095B77D /* DAppViewController.m */,
 				18259BB721CB8DBA00DB863E /* DAppCell.h */,
 				18259BB821CB8DBA00DB863E /* DAppCell.m */,
 				18C2588421CA89C70095B77D /* InfoAlert.h */,
 				18C2588521CA89C70095B77D /* InfoAlert.m */,
+				1886F5EC21CCF7B900F3055A /* DiscoverViewController.h */,
+				1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -612,19 +612,19 @@
 			path = Custom;
 			sourceTree = "<group>";
 		};
-		1BC0AA047E27CD5979D2C62B /* Frameworks */ = {
+		23FC253286DFC839B5725FB8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				E0B04AC0A2B02D1C642E3B8A /* libPods-cyano.a */,
+				28BA40EABDC9EA366B40A0F8 /* libPods-cyano.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
-		B30DA64B99CEDC21DA4FC246 /* Pods */ = {
+		513F44F3756DC0656F505827 /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				774F0F942DE00E8BD36CD373 /* Pods-cyano.debug.xcconfig */,
-				0D045D3AB1E8B9B733FC904E /* Pods-cyano.release.xcconfig */,
+				FF56A7C823F85DA1F75AA8D7 /* Pods-cyano.debug.xcconfig */,
+				7CE76B0A7A8AB60CFA8E4D82 /* Pods-cyano.release.xcconfig */,
 			);
 			name = Pods;
 			sourceTree = "<group>";
@@ -636,11 +636,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1875265121C77FB000AADDB7 /* Build configuration list for PBXNativeTarget "cyano" */;
 			buildPhases = (
-				35335A4807D8CB745615916B /* [CP] Check Pods Manifest.lock */,
+				C30DE77FFC969C1564DE8518 /* [CP] Check Pods Manifest.lock */,
 				1875262121C77FAE00AADDB7 /* Sources */,
 				1875262221C77FAE00AADDB7 /* Frameworks */,
 				1875262321C77FAE00AADDB7 /* Resources */,
-				B869E4273C2A067ADBCB6424 /* [CP] Copy Pods Resources */,
+				D28560574CF281721F6DBC8B /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -760,7 +760,7 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		35335A4807D8CB745615916B /* [CP] Check Pods Manifest.lock */ = {
+		C30DE77FFC969C1564DE8518 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -778,7 +778,7 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
-		B869E4273C2A067ADBCB6424 /* [CP] Copy Pods Resources */ = {
+		D28560574CF281721F6DBC8B /* [CP] Copy Pods Resources */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -821,7 +821,6 @@
 				18F71A3D21CA471400762870 /* BrowserView.m in Sources */,
 				18C2588B21CA8A250095B77D /* SendConfirmView.m in Sources */,
 				18F71A0221C9EBC500762870 /* EasyEmptyPart.m in Sources */,
-				18F71A2921C9F99A00762870 /* DiscoverViewController.m in Sources */,
 				18F71A1C21C9F30700762870 /* UIImage+MJ.m in Sources */,
 				18F719FB21C9EBC500762870 /* EasyShowUtils.m in Sources */,
 				18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */,
@@ -835,6 +834,7 @@
 				18F719B521C9E9B200762870 /* UIButton+Block.m in Sources */,
 				18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */,
 				18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */,
+				1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */,
 				18F71A0321C9EBC500762870 /* UIView+EasyShowExt.m in Sources */,
 				18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */,
 				18C2588721CA89C80095B77D /* DAppViewController.m in Sources */,
@@ -853,6 +853,7 @@
 				18F719BB21C9EA2200762870 /* UILabel+changeSpace.m in Sources */,
 				18F719F821C9EBC500762870 /* EasyTextView.m in Sources */,
 				18838C0821CBA81A00D52A1F /* SGQRCodeGenerateManager.m in Sources */,
+				1883881921CCE915000CADFB /* AppDelegate.m in Sources */,
 				18838C0921CBA81A00D52A1F /* SGQRCodeAlbumManager.m in Sources */,
 				18F71A0721C9EBC500762870 /* EasyAlertConfig.m in Sources */,
 				18F71A0A21C9EBC500762870 /* EasyEmptyTypes.m in Sources */,
@@ -862,7 +863,6 @@
 				18F719F921C9EBC500762870 /* EasyEmptyConfig.m in Sources */,
 				18B69FDE21CB82B5008B0AFB /* ScanViewController.m in Sources */,
 				18F71A0821C9EBC500762870 /* EasyEmptyGlobalConfig.m in Sources */,
-				1875262A21C77FAE00AADDB7 /* AppDelegate.m in Sources */,
 				18C2588821CA89C80095B77D /* InfoAlert.m in Sources */,
 				18F71A0521C9EBC500762870 /* EasyTextBgView.m in Sources */,
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,
@@ -1037,11 +1037,12 @@
 		};
 		1875265221C77FB000AADDB7 /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 774F0F942DE00E8BD36CD373 /* Pods-cyano.debug.xcconfig */;
+			baseConfigurationReference = FF56A7C823F85DA1F75AA8D7 /* Pods-cyano.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6B83RQ97AA;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cyano/Classes/View/Main/PrefixHeader.pch;
 				INFOPLIST_FILE = cyano/Info.plist;
@@ -1052,7 +1053,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cyano\\ Wallet/Classes/Tools/SDK",
+					"$(PROJECT_DIR)/cyano/Classes/Tools/SDK",
 					"$(PROJECT_DIR)/cyano/Classes/Tools/SDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LR.Cyano-Wallet";
@@ -1063,11 +1064,12 @@
 		};
 		1875265321C77FB000AADDB7 /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 0D045D3AB1E8B9B733FC904E /* Pods-cyano.release.xcconfig */;
+			baseConfigurationReference = 7CE76B0A7A8AB60CFA8E4D82 /* Pods-cyano.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6B83RQ97AA;
+				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cyano/Classes/View/Main/PrefixHeader.pch;
 				INFOPLIST_FILE = cyano/Info.plist;
@@ -1078,7 +1080,7 @@
 				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"$(PROJECT_DIR)/Cyano\\ Wallet/Classes/Tools/SDK",
+					"$(PROJECT_DIR)/cyano/Classes/Tools/SDK",
 					"$(PROJECT_DIR)/cyano/Classes/Tools/SDK",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LR.Cyano-Wallet";
