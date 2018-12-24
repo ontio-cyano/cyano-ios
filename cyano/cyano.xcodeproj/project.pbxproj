@@ -8,6 +8,14 @@
 
 /* Begin PBXBuildFile section */
 		18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259BB821CB8DBA00DB863E /* DAppCell.m */; };
+		18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18402BE021CF20580093BF2A /* ReceiveViewController.m */; };
+		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
+		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
+		1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39221D0817400B2373F /* SGQRCodeHelperTool.m */; };
+		1873B39F21D0817400B2373F /* SGQRCodeScanningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39321D0817400B2373F /* SGQRCodeScanningView.m */; };
+		1873B3A021D0817400B2373F /* SGQRCodeScanManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39421D0817400B2373F /* SGQRCodeScanManager.m */; };
+		1873B3A121D0817400B2373F /* SGQRCodeGenerateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39521D0817400B2373F /* SGQRCodeGenerateManager.m */; };
+		1873B3A221D0817400B2373F /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39A21D0817400B2373F /* SGQRCodeAlbumManager.m */; };
 		1875263021C77FAE00AADDB7 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1875262E21C77FAE00AADDB7 /* Main.storyboard */; };
 		1875263221C77FAF00AADDB7 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1875263121C77FAF00AADDB7 /* Assets.xcassets */; };
 		1875263521C77FAF00AADDB7 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1875263321C77FAF00AADDB7 /* LaunchScreen.storyboard */; };
@@ -15,15 +23,10 @@
 		1875264221C77FB000AADDB7 /* cyanoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264121C77FB000AADDB7 /* cyanoTests.m */; };
 		1875264D21C77FB000AADDB7 /* cyanoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264C21C77FB000AADDB7 /* cyanoUITests.m */; };
 		1883881921CCE915000CADFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875262921C77FAE00AADDB7 /* AppDelegate.m */; };
-		18838C0321CBA81A00D52A1F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18838BF521CBA81A00D52A1F /* SGQRCode.bundle */; };
-		18838C0421CBA81A00D52A1F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BF721CBA81A00D52A1F /* UIImage+SGImageSize.m */; };
-		18838C0521CBA81A00D52A1F /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BF921CBA81A00D52A1F /* SGQRCodeHelperTool.m */; };
-		18838C0621CBA81A00D52A1F /* SGQRCodeScanningView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BFA21CBA81A00D52A1F /* SGQRCodeScanningView.m */; };
-		18838C0721CBA81A00D52A1F /* SGQRCodeScanManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BFB21CBA81A00D52A1F /* SGQRCodeScanManager.m */; };
-		18838C0821CBA81A00D52A1F /* SGQRCodeGenerateManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838BFC21CBA81A00D52A1F /* SGQRCodeGenerateManager.m */; };
-		18838C0921CBA81A00D52A1F /* SGQRCodeAlbumManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0121CBA81A00D52A1F /* SGQRCodeAlbumManager.m */; };
 		18838C0C21CBA95000D52A1F /* BackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0A21CBA94F00D52A1F /* BackView.m */; };
+		1885540121CD098B009356EE /* CeshiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885540021CD098B009356EE /* CeshiViewController.m */; };
 		1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */; };
+		1895C0DF21CFCE3200F884BD /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895C0DE21CFCE3200F884BD /* SendViewController.m */; };
 		18B69FD321CB43E6008B0AFB /* libSafeKeyBoardSDk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */; };
 		18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B69FD121CB43E6008B0AFB /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B69FD521CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B69FD221CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle */; };
@@ -97,11 +100,27 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		18259BB721CB8DBA00DB863E /* DAppCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAppCell.h; sourceTree = "<group>"; };
+		18259BB721CB8DBA00DB863E /* DAppCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = DAppCell.h; sourceTree = "<group>"; };
 		18259BB821CB8DBA00DB863E /* DAppCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DAppCell.m; sourceTree = "<group>"; };
+		18402BDF21CF20580093BF2A /* ReceiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveViewController.h; sourceTree = "<group>"; };
+		18402BE021CF20580093BF2A /* ReceiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveViewController.m; sourceTree = "<group>"; };
+		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
+		1873B38E21D0817400B2373F /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
+		1873B39021D0817400B2373F /* UIImage+SGImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SGImageSize.m"; sourceTree = "<group>"; };
+		1873B39121D0817400B2373F /* UIImage+SGImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SGImageSize.h"; sourceTree = "<group>"; };
+		1873B39221D0817400B2373F /* SGQRCodeHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeHelperTool.m; sourceTree = "<group>"; };
+		1873B39321D0817400B2373F /* SGQRCodeScanningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningView.m; sourceTree = "<group>"; };
+		1873B39421D0817400B2373F /* SGQRCodeScanManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanManager.m; sourceTree = "<group>"; };
+		1873B39521D0817400B2373F /* SGQRCodeGenerateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeGenerateManager.m; sourceTree = "<group>"; };
+		1873B39621D0817400B2373F /* SGQRCodeAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeAlbumManager.h; sourceTree = "<group>"; };
+		1873B39721D0817400B2373F /* SGQRCodeHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeHelperTool.h; sourceTree = "<group>"; };
+		1873B39821D0817400B2373F /* SGQRCodeScanningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningView.h; sourceTree = "<group>"; };
+		1873B39921D0817400B2373F /* SGQRCodeScanManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanManager.h; sourceTree = "<group>"; };
+		1873B39A21D0817400B2373F /* SGQRCodeAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeAlbumManager.m; sourceTree = "<group>"; };
+		1873B39B21D0817400B2373F /* SGQRCodeGenerateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeGenerateManager.h; sourceTree = "<group>"; };
 		1875262521C77FAE00AADDB7 /* cyano.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = cyano.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		1875262821C77FAE00AADDB7 /* AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; path = AppDelegate.h; sourceTree = "<group>"; };
-		1875262921C77FAE00AADDB7 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
+		1875262821C77FAE00AADDB7 /* AppDelegate.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
+		1875262921C77FAE00AADDB7 /* AppDelegate.m */ = {isa = PBXFileReference; explicitFileType = sourcecode.cpp.objcpp; path = AppDelegate.m; sourceTree = "<group>"; };
 		1875262F21C77FAE00AADDB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		1875263121C77FAF00AADDB7 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1875263421C77FAF00AADDB7 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -113,24 +132,14 @@
 		1875264821C77FB000AADDB7 /* cyanoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cyanoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1875264C21C77FB000AADDB7 /* cyanoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cyanoUITests.m; sourceTree = "<group>"; };
 		1875264E21C77FB000AADDB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		18838BF421CBA81A00D52A1F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
-		18838BF521CBA81A00D52A1F /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
-		18838BF721CBA81A00D52A1F /* UIImage+SGImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SGImageSize.m"; sourceTree = "<group>"; };
-		18838BF821CBA81A00D52A1F /* UIImage+SGImageSize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+SGImageSize.h"; sourceTree = "<group>"; };
-		18838BF921CBA81A00D52A1F /* SGQRCodeHelperTool.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeHelperTool.m; sourceTree = "<group>"; };
-		18838BFA21CBA81A00D52A1F /* SGQRCodeScanningView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanningView.m; sourceTree = "<group>"; };
-		18838BFB21CBA81A00D52A1F /* SGQRCodeScanManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeScanManager.m; sourceTree = "<group>"; };
-		18838BFC21CBA81A00D52A1F /* SGQRCodeGenerateManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeGenerateManager.m; sourceTree = "<group>"; };
-		18838BFD21CBA81A00D52A1F /* SGQRCodeAlbumManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeAlbumManager.h; sourceTree = "<group>"; };
-		18838BFE21CBA81A00D52A1F /* SGQRCodeHelperTool.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeHelperTool.h; sourceTree = "<group>"; };
-		18838BFF21CBA81A00D52A1F /* SGQRCodeScanningView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanningView.h; sourceTree = "<group>"; };
-		18838C0021CBA81A00D52A1F /* SGQRCodeScanManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeScanManager.h; sourceTree = "<group>"; };
-		18838C0121CBA81A00D52A1F /* SGQRCodeAlbumManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SGQRCodeAlbumManager.m; sourceTree = "<group>"; };
-		18838C0221CBA81A00D52A1F /* SGQRCodeGenerateManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCodeGenerateManager.h; sourceTree = "<group>"; };
 		18838C0A21CBA94F00D52A1F /* BackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackView.m; sourceTree = "<group>"; };
 		18838C0B21CBA95000D52A1F /* BackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackView.h; sourceTree = "<group>"; };
+		188553FF21CD098B009356EE /* CeshiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CeshiViewController.h; sourceTree = "<group>"; };
+		1885540021CD098B009356EE /* CeshiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CeshiViewController.m; sourceTree = "<group>"; };
 		1886F5EC21CCF7B900F3055A /* DiscoverViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DiscoverViewController.h; sourceTree = "<group>"; };
 		1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
+		1895C0DD21CFCE3200F884BD /* SendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
+		1895C0DE21CFCE3200F884BD /* SendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
 		18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSafeKeyBoardSDk.a; sourceTree = "<group>"; };
 		18B69FCE21CB43E6008B0AFB /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		18B69FCF21CB43E6008B0AFB /* HYKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYKeyboard.h; sourceTree = "<group>"; };
@@ -140,9 +149,9 @@
 		18B69FDC21CB82B5008B0AFB /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		18B69FDD21CB82B5008B0AFB /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
 		18C2588321CA89C70095B77D /* DAppViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DAppViewController.m; sourceTree = "<group>"; };
-		18C2588421CA89C70095B77D /* InfoAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = InfoAlert.h; sourceTree = "<group>"; };
+		18C2588421CA89C70095B77D /* InfoAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = InfoAlert.h; sourceTree = "<group>"; };
 		18C2588521CA89C70095B77D /* InfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoAlert.m; sourceTree = "<group>"; };
-		18C2588621CA89C80095B77D /* DAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.objc; fileEncoding = 4; path = DAppViewController.h; sourceTree = "<group>"; };
+		18C2588621CA89C80095B77D /* DAppViewController.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = DAppViewController.h; sourceTree = "<group>"; };
 		18C2588921CA8A250095B77D /* SendConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendConfirmView.m; sourceTree = "<group>"; };
 		18C2588A21CA8A250095B77D /* SendConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendConfirmView.h; sourceTree = "<group>"; };
 		18C2588D21CA8AA30095B77D /* PwdEnterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PwdEnterView.h; sourceTree = "<group>"; };
@@ -270,6 +279,35 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1873B38C21D0817400B2373F /* SGQRCode */ = {
+			isa = PBXGroup;
+			children = (
+				1873B38D21D0817400B2373F /* SGQRCode.h */,
+				1873B38E21D0817400B2373F /* SGQRCode.bundle */,
+				1873B38F21D0817400B2373F /* Category */,
+				1873B39221D0817400B2373F /* SGQRCodeHelperTool.m */,
+				1873B39321D0817400B2373F /* SGQRCodeScanningView.m */,
+				1873B39421D0817400B2373F /* SGQRCodeScanManager.m */,
+				1873B39521D0817400B2373F /* SGQRCodeGenerateManager.m */,
+				1873B39621D0817400B2373F /* SGQRCodeAlbumManager.h */,
+				1873B39721D0817400B2373F /* SGQRCodeHelperTool.h */,
+				1873B39821D0817400B2373F /* SGQRCodeScanningView.h */,
+				1873B39921D0817400B2373F /* SGQRCodeScanManager.h */,
+				1873B39A21D0817400B2373F /* SGQRCodeAlbumManager.m */,
+				1873B39B21D0817400B2373F /* SGQRCodeGenerateManager.h */,
+			);
+			path = SGQRCode;
+			sourceTree = "<group>";
+		};
+		1873B38F21D0817400B2373F /* Category */ = {
+			isa = PBXGroup;
+			children = (
+				1873B39021D0817400B2373F /* UIImage+SGImageSize.m */,
+				1873B39121D0817400B2373F /* UIImage+SGImageSize.h */,
+			);
+			path = Category;
+			sourceTree = "<group>";
+		};
 		1875261C21C77FAE00AADDB7 = {
 			isa = PBXGroup;
 			children = (
@@ -341,14 +379,16 @@
 		1875265F21C7874F00AADDB7 /* Discover */ = {
 			isa = PBXGroup;
 			children = (
+				1886F5EC21CCF7B900F3055A /* DiscoverViewController.h */,
+				1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */,
 				18C2588621CA89C80095B77D /* DAppViewController.h */,
 				18C2588321CA89C70095B77D /* DAppViewController.m */,
+				188553FF21CD098B009356EE /* CeshiViewController.h */,
+				1885540021CD098B009356EE /* CeshiViewController.m */,
 				18259BB721CB8DBA00DB863E /* DAppCell.h */,
 				18259BB821CB8DBA00DB863E /* DAppCell.m */,
 				18C2588421CA89C70095B77D /* InfoAlert.h */,
 				18C2588521CA89C70095B77D /* InfoAlert.m */,
-				1886F5EC21CCF7B900F3055A /* DiscoverViewController.h */,
-				1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */,
 			);
 			path = Discover;
 			sourceTree = "<group>";
@@ -371,6 +411,10 @@
 				18F71A3221CA2FC900762870 /* CreateWalletViewController.m */,
 				18B69FDC21CB82B5008B0AFB /* ScanViewController.h */,
 				18B69FDD21CB82B5008B0AFB /* ScanViewController.m */,
+				18402BDF21CF20580093BF2A /* ReceiveViewController.h */,
+				18402BE021CF20580093BF2A /* ReceiveViewController.m */,
+				1895C0DD21CFCE3200F884BD /* SendViewController.h */,
+				1895C0DE21CFCE3200F884BD /* SendViewController.m */,
 			);
 			path = Capital;
 			sourceTree = "<group>";
@@ -382,36 +426,6 @@
 				18F71A2221C9F96D00762870 /* MineViewController.m */,
 			);
 			path = Mine;
-			sourceTree = "<group>";
-		};
-		18838BF321CBA81A00D52A1F /* SGQRCode */ = {
-			isa = PBXGroup;
-			children = (
-				18838BF421CBA81A00D52A1F /* SGQRCode.h */,
-				18838BF521CBA81A00D52A1F /* SGQRCode.bundle */,
-				18838BF621CBA81A00D52A1F /* Category */,
-				18838BF921CBA81A00D52A1F /* SGQRCodeHelperTool.m */,
-				18838BFA21CBA81A00D52A1F /* SGQRCodeScanningView.m */,
-				18838BFB21CBA81A00D52A1F /* SGQRCodeScanManager.m */,
-				18838BFC21CBA81A00D52A1F /* SGQRCodeGenerateManager.m */,
-				18838BFD21CBA81A00D52A1F /* SGQRCodeAlbumManager.h */,
-				18838BFE21CBA81A00D52A1F /* SGQRCodeHelperTool.h */,
-				18838BFF21CBA81A00D52A1F /* SGQRCodeScanningView.h */,
-				18838C0021CBA81A00D52A1F /* SGQRCodeScanManager.h */,
-				18838C0121CBA81A00D52A1F /* SGQRCodeAlbumManager.m */,
-				18838C0221CBA81A00D52A1F /* SGQRCodeGenerateManager.h */,
-			);
-			name = SGQRCode;
-			path = "../../../../../分布科技/ONTO/ONTO/3rd/SGQRCode";
-			sourceTree = "<group>";
-		};
-		18838BF621CBA81A00D52A1F /* Category */ = {
-			isa = PBXGroup;
-			children = (
-				18838BF721CBA81A00D52A1F /* UIImage+SGImageSize.m */,
-				18838BF821CBA81A00D52A1F /* UIImage+SGImageSize.h */,
-			);
-			path = Category;
 			sourceTree = "<group>";
 		};
 		18B69FCA21CB43E6008B0AFB /* SDK */ = {
@@ -481,7 +495,7 @@
 		18F7199D21C9DFC100762870 /* Tools */ = {
 			isa = PBXGroup;
 			children = (
-				18838BF321CBA81A00D52A1F /* SGQRCode */,
+				1873B38C21D0817400B2373F /* SGQRCode */,
 				18B69FCA21CB43E6008B0AFB /* SDK */,
 				18C2588C21CA8AA30095B77D /* PWDEnter */,
 				18F719C521C9EBC500762870 /* EasyShowView */,
@@ -737,7 +751,7 @@
 				18B69FD521CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle in Resources */,
 				1875263521C77FAF00AADDB7 /* LaunchScreen.storyboard in Resources */,
 				1875263221C77FAF00AADDB7 /* Assets.xcassets in Resources */,
-				18838C0321CBA81A00D52A1F /* SGQRCode.bundle in Resources */,
+				1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */,
 				1875263021C77FAE00AADDB7 /* Main.storyboard in Resources */,
 				18F71A4421CA493000762870 /* js in Resources */,
 			);
@@ -823,9 +837,9 @@
 				18F71A0221C9EBC500762870 /* EasyEmptyPart.m in Sources */,
 				18F71A1C21C9F30700762870 /* UIImage+MJ.m in Sources */,
 				18F719FB21C9EBC500762870 /* EasyShowUtils.m in Sources */,
+				1873B3A121D0817400B2373F /* SGQRCodeGenerateManager.m in Sources */,
 				18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */,
 				18F71A2321C9F96D00762870 /* MineViewController.m in Sources */,
-				18838C0521CBA81A00D52A1F /* SGQRCodeHelperTool.m in Sources */,
 				18F71A0021C9EBC500762870 /* EasyTextGlobalConfig.m in Sources */,
 				18F71A2F21CA201B00762870 /* CusNavigationController.m in Sources */,
 				1875263821C77FAF00AADDB7 /* main.m in Sources */,
@@ -835,26 +849,26 @@
 				18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */,
 				18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */,
 				1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */,
+				1873B39F21D0817400B2373F /* SGQRCodeScanningView.m in Sources */,
 				18F71A0321C9EBC500762870 /* UIView+EasyShowExt.m in Sources */,
 				18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */,
 				18C2588721CA89C80095B77D /* DAppViewController.m in Sources */,
-				18838C0621CBA81A00D52A1F /* SGQRCodeScanningView.m in Sources */,
+				1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */,
 				18F719FF21C9EBC500762870 /* EasyAlertView.m in Sources */,
 				18F719FC21C9EBC500762870 /* EasyShowLabel.m in Sources */,
 				18F71A3021CA201B00762870 /* MainViewController.m in Sources */,
 				18838C0C21CBA95000D52A1F /* BackView.m in Sources */,
 				18F719A521C9E85900762870 /* BaseViewController.m in Sources */,
-				18838C0721CBA81A00D52A1F /* SGQRCodeScanManager.m in Sources */,
-				18838C0421CBA81A00D52A1F /* UIImage+SGImageSize.m in Sources */,
 				18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */,
 				18F71A0921C9EBC500762870 /* EasyAlertGlobalConfig.m in Sources */,
 				18F719F621C9EBC500762870 /* EasyTextConfig.m in Sources */,
 				18F719FD21C9EBC500762870 /* EasyLoadingConfig.m in Sources */,
 				18F719BB21C9EA2200762870 /* UILabel+changeSpace.m in Sources */,
+				1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */,
 				18F719F821C9EBC500762870 /* EasyTextView.m in Sources */,
-				18838C0821CBA81A00D52A1F /* SGQRCodeGenerateManager.m in Sources */,
+				1873B3A021D0817400B2373F /* SGQRCodeScanManager.m in Sources */,
+				18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */,
 				1883881921CCE915000CADFB /* AppDelegate.m in Sources */,
-				18838C0921CBA81A00D52A1F /* SGQRCodeAlbumManager.m in Sources */,
 				18F71A0721C9EBC500762870 /* EasyAlertConfig.m in Sources */,
 				18F71A0A21C9EBC500762870 /* EasyEmptyTypes.m in Sources */,
 				18F719C021C9EA3300762870 /* UIButton+EnlargeTouchArea.m in Sources */,
@@ -863,12 +877,15 @@
 				18F719F921C9EBC500762870 /* EasyEmptyConfig.m in Sources */,
 				18B69FDE21CB82B5008B0AFB /* ScanViewController.m in Sources */,
 				18F71A0821C9EBC500762870 /* EasyEmptyGlobalConfig.m in Sources */,
+				1895C0DF21CFCE3200F884BD /* SendViewController.m in Sources */,
 				18C2588821CA89C80095B77D /* InfoAlert.m in Sources */,
 				18F71A0521C9EBC500762870 /* EasyTextBgView.m in Sources */,
+				1873B3A221D0817400B2373F /* SGQRCodeAlbumManager.m in Sources */,
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,
 				18F719B821C9E9CE00762870 /* AppHelper.m in Sources */,
 				18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */,
 				18F719FE21C9EBC500762870 /* EasyAlertItem.m in Sources */,
+				1885540121CD098B009356EE /* CeshiViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

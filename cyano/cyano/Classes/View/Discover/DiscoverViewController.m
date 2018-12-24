@@ -9,6 +9,7 @@
 #import "DiscoverViewController.h"
 #import "DAppViewController.h"
 #import "DAppCell.h"
+#import "CeshiViewController.h"
 @interface DiscoverViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)UICollectionView  * collectionView;
@@ -60,7 +61,7 @@
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
-    NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     if (dict.count == 0) {
         [Common showToast:@"No Wallet"];
@@ -74,7 +75,6 @@
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat W = (SYSWidth - 2*20*SCALE_W - 3*10*SCALE_W)/4;
-    NSLog(@"W=%f",W);
     //    CGFloat H =
     return CGSizeMake(W, W + 20*SCALE_W);
 }

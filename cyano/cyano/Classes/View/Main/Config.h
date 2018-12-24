@@ -25,21 +25,15 @@
 #import <AFNetworking.h>
 #import "AppDelegate.h"
 #import "SVProgressHUD.h"
-//#import "BaseNavigationViewController.h"
 #import <Masonry.h>
 #import <UIImageView+WebCache.h>
 #import "Common.h"
-//#import "UIViewController+HUD.h"
-//#import "UIImage+LXQRCode.h"
-//#import "OTAlertView.h"
-//#import "SGQRCode.h"
+#import "SGQRCode.h"
 #import "CCRequest.h"
 #import "ToastUtil.h"
 #import "UIButton+Block.h"
-//#import "MGPopController.h"
 #import "AppHelper.h"
 #import "UIImage+GradientColor.h"
-//#import "UserModel.h"
 #import "UIButton+EnlargeTouchArea.h"
 #import "UILabel+changeSpace.h"
 
@@ -68,31 +62,6 @@
 
 #define ENORCNDAXIE [[[NSUserDefaults standardUserDefaults] valueForKey:HomeLanguage] isEqualToString:@"en"]?@"EN":@"CN"
 
-//Tabbar图片
-/** tab one **/
-#define TABONEIMAGE [UIImage imageNamed:@"Me_ID"]
-#define TABONEIMAGESELECTED [UIImage imageNamed:@"Me_ID-B"]
-//#define TABONETITLE Localized(@"IDTitle")
-#define TABONETITLE Localized(@"")
-
-#define TABONECOLOR [UIColor colorWithHexString:@"#3e3e3e"]
-#define TABONECOLORSELECTED [UIColor colorWithHexString:@"#2a9ad5"]
-/** tab two **/
-#define TABTWOIMAGE [UIImage imageNamed:@"Me_A"]
-#define TABTWOIMAGESELECTED [UIImage imageNamed:@"Me_A-b"]
-//#define TABTWOTITLE Localized(@"AssetTitle")
-#define TABTWOTITLE Localized(@"")
-
-#define TABTWOCOLOR [UIColor colorWithHexString:@"#3e3e3e"]
-#define TABTWOCOLORSELECTED [UIColor colorWithHexString:@"#2a9ad5"]
-
-/** tab three **/
-#define TABTHREEIMAGE [UIImage imageNamed:@"more_unselected"]
-#define TABTHREEIMAGENOTIFICAION [UIImage imageNamed:@"Me_More_h"]
-
-#define TABTHREEIMAGESELECTED [UIImage imageNamed:@"more_selected"]
-//#define TABTHREETITLE Localized(@"More")
-#define TABTHREETITLE Localized(@"")
 
 #define TABTHREECOLOR [UIColor colorWithHexString:@"#3e3e3e"]
 #define TABTHREECOLORSELECTED [UIColor colorWithHexString:@"#2a9ad5"]

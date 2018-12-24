@@ -9,6 +9,8 @@
 #import "CapitalViewController.h"
 #import "CreateWalletViewController.h"
 #import "ScanViewController.h"
+#import "ReceiveViewController.h"
+#import "SendViewController.h"
 @interface CapitalViewController ()
 @property(nonatomic,strong)UIView  * bgView;
 @property(nonatomic,strong)UIView  * walletView;
@@ -52,7 +54,9 @@
     [self createWalletView];
 }
 - (void)getData{
-    NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+//    NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+//    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     self.walletDict = dict;
     if (dict.count == 0) {
@@ -167,6 +171,20 @@
     receiveButton.backgroundColor = BUTTONBACKCOLOR;
     receiveButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [_walletView addSubview:receiveButton];
+    
+    [sendButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        SendViewController * vc = [[SendViewController alloc]init];
+        vc.ongNum = self.ongNumLB.text;
+        vc.ontNum = self.ontNumLB.text;
+        vc.walletDict = self.walletDict;
+        vc.isONT = YES;
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
+    
+    [receiveButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        ReceiveViewController * vc = [[ReceiveViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }];
     
     [_walletView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
