@@ -351,7 +351,7 @@
 - (void)createNav{
 //    [self setNavTitle:@"资产"];
     [self setNavLeftImageIcon:[UIImage imageNamed:@"smallLogo"] Title:@"返回"];
-    [self setNavRightImageIcon:[UIImage imageNamed:@"setting"] Title:@""];
+    [self setNavRightImageIcon:[UIImage imageNamed:@"coticon-none"] Title:@""];
 }
 /*
 #pragma mark - Navigation

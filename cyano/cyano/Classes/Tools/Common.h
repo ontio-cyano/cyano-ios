@@ -220,6 +220,7 @@
 //除以10^9以后，数字后面保留九位小数
 + (NSString *)divideAndReturnPrecision9Str:(NSString *)ongStr;
 
++ (NSString *)getPayMoney:(NSString*)payMoney;
 //把字符串转成Base64编码
 
 + (NSString *)base64EncodeString:(NSString *)string;

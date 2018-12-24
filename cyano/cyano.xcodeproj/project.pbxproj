@@ -8,6 +8,10 @@
 
 /* Begin PBXBuildFile section */
 		18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259BB821CB8DBA00DB863E /* DAppCell.m */; };
+		183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183470D721D0CC6F00587980 /* OntoPayViewController.m */; };
+		183A527121D119410066DDFC /* PaySureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A526F21D119400066DDFC /* PaySureViewController.m */; };
+		183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527321D11C2D0066DDFC /* WebIdentityViewController.m */; };
+		183A527721D11E2A0066DDFC /* OntoPaySendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */; };
 		18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18402BE021CF20580093BF2A /* ReceiveViewController.m */; };
 		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
 		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
@@ -102,6 +106,14 @@
 /* Begin PBXFileReference section */
 		18259BB721CB8DBA00DB863E /* DAppCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = DAppCell.h; sourceTree = "<group>"; };
 		18259BB821CB8DBA00DB863E /* DAppCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DAppCell.m; sourceTree = "<group>"; };
+		183470D621D0CC6F00587980 /* OntoPayLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntoPayLoginViewController.h; sourceTree = "<group>"; };
+		183470D721D0CC6F00587980 /* OntoPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPayViewController.m; sourceTree = "<group>"; };
+		183A526F21D119400066DDFC /* PaySureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySureViewController.m; sourceTree = "<group>"; };
+		183A527021D119410066DDFC /* PaySureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySureViewController.h; sourceTree = "<group>"; };
+		183A527221D11C2D0066DDFC /* WebIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebIdentityViewController.h; sourceTree = "<group>"; };
+		183A527321D11C2D0066DDFC /* WebIdentityViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebIdentityViewController.m; sourceTree = "<group>"; };
+		183A527521D11E2A0066DDFC /* OntoPaySendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntoPaySendViewController.h; sourceTree = "<group>"; };
+		183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPaySendViewController.m; sourceTree = "<group>"; };
 		18402BDF21CF20580093BF2A /* ReceiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveViewController.h; sourceTree = "<group>"; };
 		18402BE021CF20580093BF2A /* ReceiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveViewController.m; sourceTree = "<group>"; };
 		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
@@ -415,6 +427,12 @@
 				18402BE021CF20580093BF2A /* ReceiveViewController.m */,
 				1895C0DD21CFCE3200F884BD /* SendViewController.h */,
 				1895C0DE21CFCE3200F884BD /* SendViewController.m */,
+				183470D621D0CC6F00587980 /* OntoPayLoginViewController.h */,
+				183470D721D0CC6F00587980 /* OntoPayViewController.m */,
+				183A527021D119410066DDFC /* PaySureViewController.h */,
+				183A526F21D119400066DDFC /* PaySureViewController.m */,
+				183A527521D11E2A0066DDFC /* OntoPaySendViewController.h */,
+				183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */,
 			);
 			path = Capital;
 			sourceTree = "<group>";
@@ -622,6 +640,8 @@
 				18C2588921CA8A250095B77D /* SendConfirmView.m */,
 				18F71A3C21CA471300762870 /* BrowserView.h */,
 				18F71A3B21CA471300762870 /* BrowserView.m */,
+				183A527221D11C2D0066DDFC /* WebIdentityViewController.h */,
+				183A527321D11C2D0066DDFC /* WebIdentityViewController.m */,
 			);
 			path = Custom;
 			sourceTree = "<group>";
@@ -826,7 +846,9 @@
 				18F719C121C9EA3300762870 /* UIImage+GradientColor.m in Sources */,
 				18F719A921C9E88E00762870 /* Common.m in Sources */,
 				18F719C421C9EAD100762870 /* SFHFKeychainUtils.m in Sources */,
+				183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */,
 				18F71A3321CA2FC900762870 /* CreateWalletViewController.m in Sources */,
+				183A527721D11E2A0066DDFC /* OntoPaySendViewController.m in Sources */,
 				18F71A0421C9EBC500762870 /* EasyLoadingGlobalConfig.m in Sources */,
 				18F719B221C9E97800762870 /* ToastUtil.m in Sources */,
 				18F719AE21C9E92800762870 /* CCRequest.m in Sources */,
@@ -881,7 +903,9 @@
 				18C2588821CA89C80095B77D /* InfoAlert.m in Sources */,
 				18F71A0521C9EBC500762870 /* EasyTextBgView.m in Sources */,
 				1873B3A221D0817400B2373F /* SGQRCodeAlbumManager.m in Sources */,
+				183A527121D119410066DDFC /* PaySureViewController.m in Sources */,
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,
+				183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */,
 				18F719B821C9E9CE00762870 /* AppHelper.m in Sources */,
 				18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */,
 				18F719FE21C9EBC500762870 /* EasyAlertItem.m in Sources */,

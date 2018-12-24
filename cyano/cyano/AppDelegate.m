@@ -25,6 +25,9 @@
     // 监测网络情况
     [self monitorNetWorkStatus];
     
+    //获取参数配置
+    [self getConfig];
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    self.window.backgroundColor = [UIColor whiteColor];
     MainViewController* vc = [[MainViewController alloc]init];
@@ -63,7 +66,60 @@
     }];
     
 }
-
+- (void)getConfig {
+    
+    NSString *urlStr = Ongamount_query;
+    [[CCRequest shareInstance]
+     requestWithURLStringNoLoading:urlStr MethodType:MethodTypeGET Params:nil Success:^(id responseObject,
+                                                                                        id responseOriginal) {
+         [MBProgressHUD hideHUDForView:self.window animated:YES];
+         [[NSUserDefaults standardUserDefaults] setValue:[NSString stringWithFormat:@"%lf",
+                                                          [[responseObject valueForKey:@"Fee"]
+                                                           doubleValue]
+                                                          / 1000000000] forKey:FEE];
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"LoginTimeout"]] forKey:LOGOUTTIME];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"TestnetAddr"] forKey:TESTNETADDR];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"OntPassAddr"] forKey:ONTPASSADDRSS];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"NetName"] forKey:NETNAME];
+         
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"DragonCodeHash"] forKey:DRAGONCODEHASH];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"GetDragonListUrl"] forKey:DRAGONLISTURL];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"PreActionNetAddr"] forKey:PRENODE];
+         
+         
+         [[NSUserDefaults standardUserDefaults] setValue:@"0" forKey:@"mobile"];
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[[responseObject valueForKey:@"OntIdContract"] valueForKey:@"gas_price"] forKey:ONTIDGASPRICE];
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[[responseObject valueForKey:@"OntIdContract"] valueForKey:@"gas_limit"] forKey:ONTIDGASLIMIT];
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[[responseObject valueForKey:@"OntIdContract"] valueForKey:@"gas_price"] forKey:ASSETGASPRICE];
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[[responseObject valueForKey:@"OntIdContract"] valueForKey:@"gas_limit"] forKey:ASSETGASLIMIT];
+         
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"GasPriceMax"] forKey:GASPRICEMAX];
+         [[NSUserDefaults standardUserDefaults]
+          setBool:[responseObject valueForKey:@"IsClaimOngSelfPay"] ? YES : NO forKey:ISONGSELFPAY];
+         
+         [[NSUserDefaults standardUserDefaults]
+          setValue:[responseObject valueForKey:@"MinClaimableOng"] forKey:MINCLAIMABLEONG];
+         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"MinUnboundOng"] forKey:MINUNBOUNDONG];
+     }Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
+         [MBProgressHUD hideHUDForView:self.window animated:YES];
+//         [_netnoticepop dismiss];
+//
+//         __weak __typeof(self)weakSelf = self;
+//         _netnoticepop = [[MGPopController alloc] initWithTitle:@"" message:Localized(@"Netdisconnected") image:nil];
+//         MGPopAction *action = [MGPopAction actionWithTitle:Localized(@"TryAgain") action:^{
+//             [weakSelf getConfig];
+//         }];
+//         action.titleColor = MainColor;
+//         [_netnoticepop addAction:action];
+//         [_netnoticepop show];
+//         _netnoticepop.showCloseButton = NO;
+     }];
+}
 - (void)applicationWillResignActive:(UIApplication *)application {
     // Sent when the application is about to move from active to inactive state. This can occur for certain types of temporary interruptions (such as an incoming phone call or SMS message) or when the user quits the application and it begins the transition to the background state.
     // Use this method to pause ongoing tasks, disable timers, and invalidate graphics rendering callbacks. Games should use this method to pause the game.

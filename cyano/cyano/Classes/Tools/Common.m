@@ -801,6 +801,18 @@
   NSDecimalNumber *decimalONGDivide = [decimalONG decimalNumberByDividingBy:decimalMultiplicand withBehavior:roundDown];
   return decimalONGDivide.stringValue;
 }
++ (NSString *)getPayMoney:(NSString*)payMoney {
+    
+    if ([Common isStringEmpty:payMoney]) {
+        return @"";
+    }
+    
+    NSDecimalNumber *decimalpayMoney = [[NSDecimalNumber alloc] initWithString:payMoney];
+    NSDecimalNumber *decimalMultiplicand = [NSDecimalNumber decimalNumberWithString:ONG_PRECISION_STR];
+    NSDecimalNumber *decimalFeeDivide = [decimalpayMoney decimalNumberByDividingBy:decimalMultiplicand];
+    return decimalFeeDivide.stringValue;
+    
+}
 // 固定到9位精度，也可以去掉末尾多余的0
 + (NSString *)getPrecision9Str:(NSString *)ongStr {
   if ([Common isStringEmpty:ongStr]) {

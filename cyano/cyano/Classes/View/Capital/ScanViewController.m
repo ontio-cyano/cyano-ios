@@ -10,6 +10,8 @@
 #import "SGQRCode.h"
 #import "BackView.h"
 #import <Photos/Photos.h>
+#import "OntoPayLoginViewController.h"
+#import "PaySureViewController.h"
 @interface ScanViewController ()
 <SGQRCodeScanManagerDelegate, SGQRCodeAlbumManagerDelegate>
 @property (nonatomic, strong) SGQRCodeScanManager *manager;
@@ -171,66 +173,28 @@
             }
         }
         if ([dic[@"action"] isEqualToString:@"login"]) {
-//            OntoPayViewController * vc =[[OntoPayViewController alloc]init];
-//            vc.walletArr = self.walletArray;
-//            vc.payInfo = dic;
-//            [self.navigationController pushViewController:vc animated:YES];
+            OntoPayLoginViewController * vc =[[OntoPayLoginViewController alloc]init];
+            vc.walletArr = self.walletArray;
+            vc.payInfo = dic;
+            [self.navigationController pushViewController:vc animated:YES];
             [_manager stopRunning];
             return;
         }else if ([dic[@"action"] isEqualToString:@"invoke"]) {
-            NSDictionary * pDic = dic[@"params"];
             [_manager stopRunning];
-            self.hub=[ToastUtil showMessage:@"" toView:nil];
-            [self getInvokeMessage:pDic[@"qrcodeUrl"]];
+            NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+            
+            PaySureViewController * payVc = [[PaySureViewController alloc]init];
+            payVc.payinfoDic = dic;
+            payVc.defaultDic = dict;
+            payVc.dataArray = self.walletArray;
+            [self.navigationController pushViewController:payVc animated:YES];
+            return;
             return;
         }
     }
 }
-- (void)getInvokeMessage:(NSString*)urlString{
-    
-    [[CCRequest shareInstance] requestWithURLStringNoLoading:urlString MethodType:MethodTypeGET Params:nil Success:^(id responseObject, id responseOriginal) {
-        [self.hub hideAnimated:YES];
-        if ([[responseOriginal valueForKey:@"error"] integerValue] > 0) {
-            [Common showToast:[NSString stringWithFormat:@"%@:%@",Localized(@"Systemerror"),[responseOriginal valueForKey:@"error"]]];
-            return;
-        }
-        
-        NSLog(@"111=%@",responseObject);
-        NSDictionary * paramsDic = responseObject[@"params"];
-        NSDictionary * invokeConfigDic = paramsDic[@"invokeConfig"];
-        self.payAddress = invokeConfigDic[@"payer"];
-        
-        NSArray * arr = [[NSUserDefaults standardUserDefaults] valueForKey:ALLASSET_ACCOUNT];
-        BOOL isHavePayer = NO;
-        for (NSDictionary * walletDic in arr) {
-            if (walletDic[@"label"] != nil) {
-                if ([walletDic[@"address"] isEqualToString:self.payAddress]) {
-                    self.defaultDic = walletDic;
-                    isHavePayer = YES;
-                }
-            }
-        }
-        if (!isHavePayer) {
-            [self.hub hideAnimated:YES];
-            [Common showToast:Localized(@"noPayerWallet")];
-            [self.navigationController popViewControllerAnimated:YES];
-            return;
-        }
-        
-//        OntoPayDetailViewController *vc = [[OntoPayDetailViewController alloc]init];
-//        vc.dataArray = self.walletArray;
-//        vc.toAddress = @"";
-//        vc.hashString = self.hashString;
-//        vc.payerAddress = self.payAddress;
-//        vc.defaultDic = self.defaultDic;
-//        vc.payInfo = responseObject;
-//        [self.navigationController pushViewController:vc animated:YES];
-        
-    } Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
-        NSLog(@"222=%@",responseOriginal);
-        [self.hub hideAnimated:YES];
-    }];
-}
+
 - (void)removeScanningView {
     [self.scanningView removeTimer];
     [self.scanningView removeFromSuperview];

@@ -77878,9 +77878,7 @@ class SDK {
            error: 0,
            result: ss,
            txHash: txHash,
-           tx:txs[0],
-           from:fromkey,
-           signContent:signContent
+           tx:txs[0]
        };
         if (callback) {
                 Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);

@@ -75,6 +75,8 @@
 
 //节点
 #define SERVERNODE  [NSString stringWithFormat:@"Ont.SDK.setServerNode('%@')",[[NSUserDefaults standardUserDefaults]valueForKey:TESTNETADDR]]
+//预执行节点
+#define PRESERVERNODE  [NSString stringWithFormat:@"Ont.SDK.setServerNode('%@')",[[NSUserDefaults standardUserDefaults]valueForKey:PRENODE]]
 
 //iPhone X
 #define KIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
@@ -105,7 +107,7 @@
 //节点方法
 //#define LOADJS1 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('polaris1.ont.io')" completionHandler:nil]
 #define LOADJS1 [self.browserView.wkWebView evaluateJavaScript:SERVERNODE completionHandler:nil]
-
+#define LOADJSPRE  [self.browserView.wkWebView evaluateJavaScript:PRESERVERNODE completionHandler:nil]
 #define LOADJS2 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setSocketPort('20335')" completionHandler:nil]
 #define LOADJS3 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setRestPort('20334')" completionHandler:nil]
 
@@ -133,7 +135,9 @@
 #define ISTOUCHIDON @"ISTOUCHIDON"
 
 
-
+#define DRAGONCODEHASH @"DRAGONCODEHASH"
+#define DRAGONLISTURL  @"DRAGONLISTURL"
+#define PRENODE        @"PRENODE"
 
 #define START @"START"
 #define SELECTINDEX @"selectIndex"
