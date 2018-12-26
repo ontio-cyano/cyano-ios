@@ -8,10 +8,16 @@
 
 #import "BaseViewController.h"
 
-NS_ASSUME_NONNULL_BEGIN
 
 @interface OntoPaySendViewController : BaseViewController
-
+@property(nonatomic,copy)  NSString * toAddress;
+@property(nonatomic,copy)  NSString * payerAddress;
+@property(nonatomic,copy)  NSString * payMoney;
+@property(nonatomic,copy)  NSString * callback;
+@property(nonatomic,copy)  NSString * passwordString;
+@property(nonatomic,copy)  NSString * hashString;
+@property(nonatomic,strong)NSDictionary * payInfo;
+@property(nonatomic,strong)NSDictionary * defaultDic;
+@property(nonatomic,assign)BOOL isONT;
 @end
 
-NS_ASSUME_NONNULL_END

@@ -107,17 +107,6 @@
          [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"MinUnboundOng"] forKey:MINUNBOUNDONG];
      }Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
          [MBProgressHUD hideHUDForView:self.window animated:YES];
-//         [_netnoticepop dismiss];
-//
-//         __weak __typeof(self)weakSelf = self;
-//         _netnoticepop = [[MGPopController alloc] initWithTitle:@"" message:Localized(@"Netdisconnected") image:nil];
-//         MGPopAction *action = [MGPopAction actionWithTitle:Localized(@"TryAgain") action:^{
-//             [weakSelf getConfig];
-//         }];
-//         action.titleColor = MainColor;
-//         [_netnoticepop addAction:action];
-//         [_netnoticepop show];
-//         _netnoticepop.showCloseButton = NO;
      }];
 }
 - (void)applicationWillResignActive:(UIApplication *)application {

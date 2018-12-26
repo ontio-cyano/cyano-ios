@@ -11,6 +11,7 @@
 #import "ScanViewController.h"
 #import "ReceiveViewController.h"
 #import "SendViewController.h"
+#import "ImportWalletViewController.h"
 @interface CapitalViewController ()
 @property(nonatomic,strong)UIView  * bgView;
 @property(nonatomic,strong)UIView  * walletView;
@@ -295,7 +296,9 @@
     }];
     
     [importButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        
+        ImportWalletViewController * vc = [[ImportWalletViewController alloc]init];
+        vc.isWIF = YES;
+        [self.navigationController pushViewController: vc animated:YES];
     }];
     
     [logoImage mas_makeConstraints:^(MASConstraintMaker *make) {

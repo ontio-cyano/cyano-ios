@@ -62,11 +62,12 @@
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
-    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
-    if (dict.count == 0) {
+    if (!jsonStr) {
         [Common showToast:@"No Wallet"];
         return;
     }
+    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+    
     DAppViewController * vc = [[DAppViewController alloc]init];
     vc.defaultWalletDic = dict;
     vc.dAppDic = _dataArray[indexPath.row];

@@ -9,6 +9,7 @@
 #import "PaySureViewController.h"
 #import "SendConfirmView.h"
 #import "WebIdentityViewController.h"
+#import "OntoPaySendViewController.h"
 @interface PaySureViewController ()
 @property(nonatomic, strong) SendConfirmView *sendConfirmV;
 @property(nonatomic, copy)   NSString *confirmPwd;
@@ -54,7 +55,7 @@
     return _sendConfirmV;
 }
 - (void)loadPswJS{
-    NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     if (dict.count == 0) {
         return;
@@ -135,21 +136,21 @@
         if ([prompt hasPrefix:@"checkTrade"]) {
             [self.hub hideAnimated:YES];
             NSLog(@"checkTrade=%@",prompt);
-            NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+            NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];;
             NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
             self.defaultDic = dict;
             
             if ([Common isBlankString:obj[@"result"]]) {
-                [Common showToast:Localized(@"Networkerrors")];
+                [Common showToast:@"Network error"];
                 return;
             }
             NSDictionary * resultDic = obj[@"result"];
             if (resultDic[@"Error"]) {
                 if ([resultDic[@"Error"] integerValue] >0) {
                     if ([resultDic[@"Error"] integerValue] == 47001) {
-                        [Common showToast:Localized(@"payNot")];
+                        [Common showToast:@"Lack of balance"];
                     }else{
-                        NSString * errorStr = [NSString stringWithFormat:@"%@:%@",Localized(@"Systemerror"),resultDic[@"Error"]];
+                        NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",resultDic[@"Error"]];
                         [Common showToast:errorStr];
                     }
                     
@@ -180,18 +181,44 @@
                     }
                 }
             }
-//            OntoPayDetailViewController *vc = [[OntoPayDetailViewController alloc]init];
-//            vc.dataArray = self.dataArray;
-//            vc.toAddress = self.toAddress    ;
-//            vc.hashString = self.hashString;
-//            vc.payerAddress = self.payerAddress;
-//            vc.defaultDic = self.defaultDic;
-//            vc.payInfo = self.payinfoDic;
-//            vc.callback = self.callback  ;
-//            vc.isONT = self.isONT;
-//            vc.payMoney = self.payMoney;
-//            [self.navigationController pushViewController:vc animated:YES];
+            
+            if ([Common isBlankString:self.payMoney] || [Common isBlankString:self.toAddress]) {
+
+                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
+                LOADJS1;
+                LOADJS2;
+                LOADJS3;
+                __weak typeof(self) weakSelf = self;
+                [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+                [self.browserView setCallbackPrompt:^(NSString * prompt) {
+                    [weakSelf handlePrompt:prompt];
+                }];
+                return;
+            }
+            OntoPaySendViewController *vc = [[OntoPaySendViewController alloc]init];
+            vc.toAddress = self.toAddress    ;
+            vc.hashString = self.hashString;
+            vc.payerAddress = self.payerAddress;
+            vc.defaultDic = self.defaultDic;
+            vc.payInfo = self.payinfoDic;
+            vc.callback = self.callback  ;
+            vc.isONT = self.isONT;
+            vc.payMoney = self.payMoney;
+            [self.navigationController pushViewController:vc animated:YES];
         }
+    }else if ([prompt hasPrefix:@"sendTransaction"]){
+        [_hub hideAnimated:YES];
+        if (!obj[@"error"]) {
+            return;
+        }
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            [Common showToast:errorStr];
+        }else{
+            [Common showToast:@"The transaction has been issued."];
+        }
+        
+        [self.navigationController popToRootViewControllerAnimated:YES];
     }
     
 }
@@ -206,7 +233,7 @@
     [[CCRequest shareInstance] requestWithURLStringNoLoading:urlString MethodType:MethodTypeGET Params:nil Success:^(id responseObject, id responseOriginal) {
         [self.hub hideAnimated:YES];
         if ([[responseOriginal valueForKey:@"error"] integerValue] > 0) {
-            [Common showToast:[NSString stringWithFormat:@"%@:%@",Localized(@"Systemerror"),[responseOriginal valueForKey:@"error"]]];
+            [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[responseOriginal valueForKey:@"error"]]];
             return;
         }
         
@@ -214,11 +241,11 @@
             NSDictionary * paramsD = responseOriginal[@"params"];
             NSDictionary * invokeConfig = paramsD[@"invokeConfig"];
             if (!invokeConfig[@"payer"]) {
-                [Common showToast:Localized(@"noPayerWallet")];
+                [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
                 return;
             }
             if (![self.defaultDic[@"address"] isEqualToString:invokeConfig[@"payer"]]) {
-                [Common showToast:Localized(@"noPayerWallet")];
+                [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
                 return;
             }
         }
@@ -289,9 +316,9 @@
     [self.view addSubview:FromLB];
     
     UIButton * btn = [[UIButton alloc]init];
-    btn.backgroundColor = [UIColor blackColor];
+    btn.backgroundColor = BUTTONBACKCOLOR;
     [btn setTitle:@"CONFIRM" forState:UIControlStateNormal];
-    [btn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [btn setTitleColor:BLUELB forState:UIControlStateNormal];
     btn.titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
     [btn.titleLabel changeSpace:0 wordSpace:3*SCALE_W];
     [self.view addSubview:btn];
@@ -299,7 +326,6 @@
     UILabel * nameLB =[[UILabel alloc]init];
     nameLB.text = self.defaultDic[@"label"];
     nameLB.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-//    [nameLB changeSpace:0 wordSpace:1];
     nameLB.textColor = [UIColor colorWithHexString:@"#6E6F70"];
     nameLB.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:nameLB];
@@ -307,7 +333,6 @@
     UILabel * addressLB =[[UILabel alloc]init];
     addressLB.text = self.defaultDic[@"address"];
     addressLB.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-//    [nameLB changeSpace:0 wordSpace:1];
     addressLB.textColor = [UIColor colorWithHexString:@"#000000"];
     addressLB.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:addressLB];
@@ -404,6 +429,8 @@
     }];
     [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         [self getInvokeMessage:@""];
+//        OntoPaySendViewController * vc = [[OntoPaySendViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
     }];
     
     [whatBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -414,7 +441,8 @@
 }
 // 导航栏设置
 - (void)configNav {
-    [self setNavLeftImageIcon:[UIImage imageNamed:@"cotback"] Title:Localized(@"Back")];
+    self.view.backgroundColor = WHITE;
+    [self setNavLeftImageIcon:[UIImage imageNamed:@"BackWhite"] Title:Localized(@"Back")];
     
 }
 

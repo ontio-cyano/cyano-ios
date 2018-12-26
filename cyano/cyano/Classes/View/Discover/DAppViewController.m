@@ -405,13 +405,13 @@
             
         } else {
             if ([[obj valueForKey:@"error"] integerValue] > 0) {
-                [Common showToast:[NSString stringWithFormat:@"%@:%@",Localized(@"Systemerror"),[obj valueForKey:@"error"]]];
+                [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
                 return;
             }
         }
     }else if ([prompt hasPrefix:@"checkTrade"]){
         [_hub hideAnimated:YES];
-        InfoAlert * v = [[InfoAlert alloc]initWithTitle:Localized(@"preSend") msgString:[self convertToJsonData:obj] buttonString:Localized(@"paySend") leftString:Localized(@"Cancel")];
+        InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:Localized(@"Cancel")];
         v.callback = ^(NSString *string) {
             self.hub=[ToastUtil showMessage:@"" toView:nil];
             NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];

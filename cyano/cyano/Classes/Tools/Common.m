@@ -220,21 +220,22 @@
 }
 
 + (BOOL)isBlankString:(NSString *)aStr {
-  if (!aStr) {
-    return YES;
-  }
-  if ([aStr isKindOfClass:[NSNull class]]) {
-    return YES;
-  }
-  if (!aStr.length) {
-    return YES;
-  }
-  NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
-  NSString *trimmedStr = [aStr stringByTrimmingCharactersInSet:set];
-  if (!trimmedStr.length) {
-    return YES;
-  }
-  return NO;
+    if (!aStr) {
+        return YES;
+    }
+    if ([aStr isKindOfClass:[NSNull class]]) {
+        return YES;
+    }
+    NSString * str = [NSString stringWithFormat:@"%@",aStr];
+    if (!str.length) {
+        return YES;
+    }
+    NSCharacterSet *set = [NSCharacterSet whitespaceAndNewlineCharacterSet];
+    NSString *trimmedStr = [str stringByTrimmingCharactersInSet:set];
+    if (!trimmedStr.length) {
+        return YES;
+    }
+    return NO;
 }
 
 + (BOOL)dx_isNullOrNilWithObject:(id)object; {

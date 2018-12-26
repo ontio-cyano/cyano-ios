@@ -181,7 +181,7 @@
             return;
         }else if ([dic[@"action"] isEqualToString:@"invoke"]) {
             [_manager stopRunning];
-            NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
+            NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];;
             NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
             
             PaySureViewController * payVc = [[PaySureViewController alloc]init];
