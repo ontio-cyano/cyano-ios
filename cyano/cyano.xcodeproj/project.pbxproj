@@ -10,6 +10,7 @@
 		1804C62921D21A540059C905 /* ExportWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804C62821D21A540059C905 /* ExportWalletViewController.m */; };
 		1804C62C21D22C490059C905 /* ImportWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804C62B21D22C490059C905 /* ImportWalletViewController.m */; };
 		18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259BB821CB8DBA00DB863E /* DAppCell.m */; };
+		1828E47F21D471E6001E506E /* ChangeNodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828E47E21D471E6001E506E /* ChangeNodeViewController.m */; };
 		183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183470D721D0CC6F00587980 /* OntoPayViewController.m */; };
 		183A527121D119410066DDFC /* PaySureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A526F21D119400066DDFC /* PaySureViewController.m */; };
 		183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527321D11C2D0066DDFC /* WebIdentityViewController.m */; };
@@ -111,6 +112,8 @@
 		1804C62B21D22C490059C905 /* ImportWalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImportWalletViewController.m; sourceTree = "<group>"; };
 		18259BB721CB8DBA00DB863E /* DAppCell.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; path = DAppCell.h; sourceTree = "<group>"; };
 		18259BB821CB8DBA00DB863E /* DAppCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DAppCell.m; sourceTree = "<group>"; };
+		1828E47D21D471E6001E506E /* ChangeNodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeNodeViewController.h; sourceTree = "<group>"; };
+		1828E47E21D471E6001E506E /* ChangeNodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeNodeViewController.m; sourceTree = "<group>"; };
 		183470D621D0CC6F00587980 /* OntoPayLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntoPayLoginViewController.h; sourceTree = "<group>"; };
 		183470D721D0CC6F00587980 /* OntoPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPayViewController.m; sourceTree = "<group>"; };
 		183A526F21D119400066DDFC /* PaySureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySureViewController.m; sourceTree = "<group>"; };
@@ -447,6 +450,8 @@
 				18F71A2221C9F96D00762870 /* MineViewController.m */,
 				1804C62721D21A540059C905 /* ExportWalletViewController.h */,
 				1804C62821D21A540059C905 /* ExportWalletViewController.m */,
+				1828E47D21D471E6001E506E /* ChangeNodeViewController.h */,
+				1828E47E21D471E6001E506E /* ChangeNodeViewController.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -913,6 +918,7 @@
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,
 				183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */,
 				18F719B821C9E9CE00762870 /* AppHelper.m in Sources */,
+				1828E47F21D471E6001E506E /* ChangeNodeViewController.m in Sources */,
 				18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */,
 				18F719FE21C9EBC500762870 /* EasyAlertItem.m in Sources */,
 				1885540121CD098B009356EE /* DAppViewController.m in Sources */,

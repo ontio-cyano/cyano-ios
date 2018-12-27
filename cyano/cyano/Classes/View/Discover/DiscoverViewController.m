@@ -13,6 +13,7 @@
 <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout>
 @property(nonatomic,strong)UICollectionView  * collectionView;
 @property(nonatomic,strong)NSMutableArray           * dataArray;
+@property(nonatomic,strong)NSMutableArray           * viewpagerDataArray;
 @end
 
 @implementation DiscoverViewController
@@ -20,6 +21,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     self.dataArray = [NSMutableArray array];
+    self.viewpagerDataArray = [NSMutableArray array];
     [self createUI];
     [self getData];
 }
@@ -49,14 +51,24 @@
     return _collectionView;
 }
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView{
-    return 1;
+    return 2;
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section{
+    if (section == 0) {
+        return 1;
+    }
     return self.dataArray.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath{
+    
+    
     DAppCell* cell =[collectionView dequeueReusableCellWithReuseIdentifier:@"_collectionView" forIndexPath:indexPath];
-    [cell reloadCellByDic:_dataArray[indexPath.row]];
+    if (indexPath.section == 0) {
+        
+    }else{
+        [cell reloadCellByDic:_dataArray[indexPath.row]];
+    }
+    
     return cell;
 }
 -(void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath{
@@ -75,12 +87,15 @@
 //item大小
 - (CGSize)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout sizeForItemAtIndexPath:(NSIndexPath *)indexPath{
     CGFloat W = (SYSWidth - 2*20*SCALE_W - 3*10*SCALE_W)/4;
+    if (indexPath.section == 0) {
+        return CGSizeMake(SYSWidth - 40*SCALE_W, W + 30*SCALE_W);
+    }
     //    CGFloat H =
-    return CGSizeMake(W, W + 20*SCALE_W);
+    return CGSizeMake(W, W + 30*SCALE_W);
 }
 //调节item边距
 - (UIEdgeInsets)collectionView:(UICollectionView *)collectionView layout:(UICollectionViewLayout *)collectionViewLayout insetForSectionAtIndex:(NSInteger)section{
-    return UIEdgeInsetsMake(10*SCALE_W, 10*SCALE_W, 10*SCALE_W, 10*SCALE_W);
+    return UIEdgeInsetsMake(10*SCALE_W, 10*SCALE_W, 40*SCALE_W, 10*SCALE_W);
 }
 /**
  分区内cell之间的最小行间距
@@ -102,6 +117,7 @@
          
          //        self.dataArray = result[@"apps"];
          [self.dataArray addObjectsFromArray:result[@"apps"]];
+         [self.viewpagerDataArray addObjectsFromArray:result[@"banner"]];
          [self.collectionView reloadData];
          NSLog(@"222=%@",self.dataArray);
          

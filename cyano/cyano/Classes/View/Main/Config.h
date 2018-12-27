@@ -105,7 +105,7 @@
 
 #define APP_DELEGATE ((AppDelegate *)[[UIApplication sharedApplication] delegate])
 //节点方法
-//#define LOADJS1 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('polaris1.ont.io')" completionHandler:nil]
+//#define LOADJS1 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('dappnode4.ont.io')" completionHandler:nil]
 #define LOADJS1 [self.browserView.wkWebView evaluateJavaScript:SERVERNODE completionHandler:nil]
 #define LOADJSPRE  [self.browserView.wkWebView evaluateJavaScript:PRESERVERNODE completionHandler:nil]
 #define LOADJS2 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setSocketPort('20335')" completionHandler:nil]
@@ -183,7 +183,8 @@
 #define MINUNBOUNDONG @"MINUNBOUNDONG"
 
 
-
+#define CAPITALURI @"CAPITALURI"
+#define RECORDURI @"RECORDURI"
 
 #define IDAUTHARR @"IDAUTHARR"
 #define SOCIALAUCHARR @"SOCIALAUCHARR"

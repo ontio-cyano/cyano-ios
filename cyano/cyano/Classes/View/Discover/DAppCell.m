@@ -21,6 +21,9 @@
     [self.contentView addSubview:_icon];
     
     _name = [[UILabel alloc]init];
+    _name.textAlignment = NSTextAlignmentCenter;
+    _name.numberOfLines = 0;
+    _name.font = [UIFont systemFontOfSize:14 weight:UIFontWeightRegular];
     [self.contentView addSubview:_name];
     
     [_icon mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -29,8 +32,10 @@
         make.width.height.mas_offset(self.contentView.width-20*SCALE_W);
     }];
     
+     CGFloat W = (SYSWidth - 2*20*SCALE_W - 3*10*SCALE_W)/4;
     [_name mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.contentView);
+        make.width.mas_offset(W);
         make.top.equalTo(self.icon.mas_bottom).offset(10*SCALE_W);
     }];
 }

@@ -204,7 +204,7 @@
 
 // GasLimit * gasPrice / 10^9
 + (NSString *)getRealFee:(NSString *)gasPrice GasLimit:(NSString *)gasLimit;
-
++ (BOOL)isEnoughOng:(NSString *)ong fee:(NSString *)fee;
 // 判断未解绑ONG是否足够提取
 + (bool)isEnoughUnboundONG:(NSString *)unboundOng;
 

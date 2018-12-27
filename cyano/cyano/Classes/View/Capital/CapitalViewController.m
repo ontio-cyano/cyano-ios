@@ -12,6 +12,8 @@
 #import "ReceiveViewController.h"
 #import "SendViewController.h"
 #import "ImportWalletViewController.h"
+#import "WebIdentityViewController.h"
+#import "SendConfirmView.h"
 @interface CapitalViewController ()
 @property(nonatomic,strong)UIView  * bgView;
 @property(nonatomic,strong)UIView  * walletView;
@@ -21,6 +23,12 @@
 @property(nonatomic,strong)UILabel * claimNumLB;
 @property(nonatomic,strong)NSDictionary * walletDict;
 @property(nonatomic,weak)NSTimer   * refreshWalletTimer;
+@property(nonatomic,copy)NSString  *claimOngAmount;
+@property(nonatomic,copy)NSString  *ongAmount;
+@property(nonatomic,copy)NSString  *password;
+@property(nonatomic,strong)BrowserView   *browserView;
+@property(nonatomic,strong)SendConfirmView *sendConfirmV;
+@property(nonatomic,strong)MBProgressHUD   *hub;
 @end
 
 @implementation CapitalViewController
@@ -28,7 +36,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     [self createUI];
-    
+    [self.view addSubview:self.browserView];
     [self createNav];
 }
 - (void)viewWillAppear:(BOOL)animated{
@@ -55,8 +63,6 @@
     [self createWalletView];
 }
 - (void)getData{
-//    NSString *jsonStr = [Common getEncryptedContent:ASSET_ACCOUNT];
-//    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     self.walletDict = dict;
@@ -87,12 +93,16 @@
             }
             if ([dic[@"AssetName"] isEqualToString:@"unboundong"]) {
                 self.claimNumLB.text = [NSString stringWithFormat:@"%@(Claim)",dic[@"Balance"]];
+                self.claimOngAmount = dic[@"Balance"];
             }
         }
         
     };
     CCFailure failureCallback = ^(NSError *error, NSString *errorDesc, id responseOriginal) {
         [Common showToast:@"Network error"];
+        self.ontNumLB.text = @"0";
+        self.ongNumLB.text = @"0";
+        self.claimNumLB.text = @"0(Claim)";
     };
     
     [[CCRequest shareInstance] requestWithURLString1:urlStr
@@ -102,7 +112,6 @@
                                              Failure:failureCallback];
 }
 -(void)navRightAction{
-    NSLog(@"222");
     ScanViewController * vc = [[ScanViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
@@ -155,9 +164,14 @@
     _claimNumLB = [[UILabel alloc]init];
     _claimNumLB.textColor = WHITE;
     _claimNumLB.numberOfLines = 0;
+    _claimNumLB.userInteractionEnabled = YES;
     _claimNumLB.font = [UIFont systemFontOfSize:14];
     _claimNumLB.textAlignment = NSTextAlignmentCenter;
     [_walletView addSubview:_claimNumLB];
+    
+    UITapGestureRecognizer
+    *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(claimOng)];
+    [_claimNumLB addGestureRecognizer:tapGesture];
     
     UIButton * sendButton = [[UIButton alloc]init];
     [sendButton setTitle:@"SEND" forState:UIControlStateNormal];
@@ -173,6 +187,13 @@
     receiveButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [_walletView addSubview:receiveButton];
     
+    UIButton * recordButton = [[UIButton alloc]init];
+    [recordButton setTitle:@"RECORD" forState:UIControlStateNormal];
+    [recordButton setTitleColor:BLUELB forState:UIControlStateNormal];
+    recordButton.backgroundColor = BUTTONBACKCOLOR;
+    recordButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
+    [_walletView addSubview:recordButton];
+    
     [sendButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         SendViewController * vc = [[SendViewController alloc]init];
         vc.ongNum = self.ongNumLB.text;
@@ -185,6 +206,14 @@
     [receiveButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         ReceiveViewController * vc = [[ReceiveViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+    }];
+    
+    [recordButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        NSString * baseUrl = [[NSUserDefaults standardUserDefaults] valueForKey:RECORDURI];
+        NSString * urlString = [NSString stringWithFormat:baseUrl,self.walletDict[@"address"]];
+        WebIdentityViewController *VC= [[WebIdentityViewController alloc]init];
+        VC.introduce = urlString;
+        [self.navigationController pushViewController:VC animated:YES];
     }];
     
     [_walletView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -232,15 +261,22 @@
     }];
     
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.walletView).offset(40*SCALE_W);
-        make.width.mas_offset(120*SCALE_W);
+        make.left.equalTo(self.walletView).offset(20*SCALE_W);
+        make.width.mas_offset(100*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
         make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
     }];
     
     [receiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sendButton.mas_right).offset(5*SCALE_W);
-        make.width.mas_offset(120*SCALE_W);
+        make.width.mas_offset(100*SCALE_W);
+        make.height.mas_offset(50*SCALE_W);
+        make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
+    }];
+    
+    [recordButton mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(receiveButton.mas_right).offset(5*SCALE_W);
+        make.width.mas_offset(100*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
         make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
     }];
@@ -350,6 +386,118 @@
         [self toRefreshWallet];
     }
     
+}
+- (BrowserView *)browserView {
+    if (!_browserView) {
+        _browserView = [[BrowserView alloc] initWithFrame:CGRectZero];
+        __weak typeof(self) weakSelf = self;
+        [_browserView setCallbackPrompt:^(NSString *prompt) {
+            [weakSelf handlePrompt:prompt];
+        }];
+        [_browserView setCallbackJSFinish:^{
+        }];
+    }
+    return _browserView;
+}
+- (SendConfirmView *)sendConfirmV {
+    
+    if (!_sendConfirmV) {
+        
+        _sendConfirmV = [[SendConfirmView alloc] initWithFrame:CGRectMake(0, self.view.height, kScreenWidth, kScreenHeight)];
+        __weak typeof(self) weakSelf = self;
+        [_sendConfirmV setCallback:^(NSString *token, NSString *from, NSString *to, NSString *value, NSString *password) {
+            weakSelf.password = password;
+            [weakSelf loadPswJS];
+        }];
+    }
+    return _sendConfirmV;
+}
+- (void)loadPswJS{
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+    if (dict.count == 0) {
+        return;
+    }
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",dict[@"key"],[Common transferredMeaning:self.password],dict[@"address"],dict[@"salt"]];
+    
+    if (self.password.length==0) {
+        return;
+    }
+    _hub=[ToastUtil showMessage:@"" toView:nil];
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+    
+}
+
+-(void)claimOng{
+    self.sendConfirmV.paybyStr = @"";
+    self.sendConfirmV.amountStr = @"";
+    self.sendConfirmV.isWalletBack = YES;
+    [self.sendConfirmV show];
+}
+- (void)handlePrompt:(NSString *)prompt{
+    
+    NSArray *promptArray = [prompt componentsSeparatedByString:@"params="];
+    NSString *resultStr = promptArray[1];
+    id obj = [NSJSONSerialization JSONObjectWithData:[resultStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    if ([prompt hasPrefix:@"decryptEncryptedPrivateKey"]) {
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            self.password  = @"";
+            [Common showToast:@"Password error"];
+        }else{
+            [self.sendConfirmV dismiss];
+            [self toClaimOng];
+        }
+    }else if ([prompt hasPrefix:@"claimOng"]){
+        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",obj[@"tx"]];
+        
+        LOADJS1;
+        LOADJS2;
+        LOADJS3;
+        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    }else if ([prompt hasPrefix:@"sendTransaction"]){
+        [_hub hideAnimated:YES];
+        if ([[obj valueForKey:@"error"] integerValue] == 0) {
+            [Common showToast:@"The transaction has been issued."];
+//            [self.sendConfirmV dismiss];
+        }else{
+            if ([[obj valueForKey:@"error"] integerValue] > 0) {
+                [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+            }
+        }
+    }
+    
+}
+-(void)toClaimOng{
+    NSLog(@"SERVERNODE=%@",SERVERNODE);
+    NSString * fee = [Common getRealFee:@"500" GasLimit:@"20000"];
+    BOOL isEnough = [Common isEnoughOng:self.ongNumLB.text fee:fee];
+    if (isEnough) {
+        // 提取claimable的ONG
+        NSDecimalNumber *decimalONG = [[NSDecimalNumber alloc] initWithString:self.claimOngAmount];
+        NSString * claimONG10_9str = [Common getONGMul10_9Str:decimalONG.stringValue];
+        NSString * claimOngUrlStr =
+        [NSString stringWithFormat:@"Ont.SDK.claimOng('%@','%@','%@','%@','%@','%@','%@','%@','claimOng')",
+         self.walletDict[@"address"],
+         claimONG10_9str,
+         self.walletDict[@"key"],
+         [Common transferredMeaning:self.password],
+         self.walletDict[@"salt"],
+         @"500",
+         @"20000",
+         self.walletDict[@"address"]];
+        [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:claimOngUrlStr completionHandler:nil];
+                __weak typeof(self) weakSelf = self;
+        [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+                [weakSelf handlePrompt:prompt];
+        }];
+    }else{
+        [Common showToast:@"Not enough ONG to make the transaction."];
+    }
 }
 - (void)createNav{
 //    [self setNavTitle:@"资产"];

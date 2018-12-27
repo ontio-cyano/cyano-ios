@@ -29,7 +29,7 @@
 #define BaseURL @"https://app.ont.io"
 #define H5URL @"https://app.ont.io"
 #define SokectURL @"ws://app.ont.io"
-#define CapitalURL @"https://polarisexplorer.ont.io"
+//#define CapitalURL @"https://polarisexplorer.ont.io"
 
 #define DebugLog(...) NSLog(@"%s 第%d行 \n %@\n\n",__func__,__LINE__,[NSString stringWithFormat:__VA_ARGS__])
 #else
@@ -38,12 +38,13 @@
 #define BaseURL @"https://service.onto.app"
 #define H5URL @"https://service.onto.app"
 #define SokectURL @"ws://service.onto.app"
-#define CapitalURL @"https://explorer.ont.io"
+//#define CapitalURL @"https://explorer.ont.io"
+
 
 #define DebugLog(...)
 #endif
 
-
+#define  CapitalURL [[NSUserDefaults standardUserDefaults] valueForKey:CAPITALURI]
 //s1
 #define Devicecode_gain @"/S1/api/v1/ontpass/devicecode/gain"//获取devicecode
 #define Devicecode_regain @"/S1/api/v1/ontpass/devicecode/regain" // 重新获取devicecode

@@ -28,6 +28,21 @@
     //获取参数配置
     [self getConfig];
     
+//    TESTNETADDR
+    
+    NSString * defaultNode = [[NSUserDefaults standardUserDefaults] valueForKey:TESTNETADDR];
+    if (!defaultNode) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"dappnode1.ont.io" forKey:TESTNETADDR];
+    }
+    NSString * CapitalUrl = [[NSUserDefaults standardUserDefaults] valueForKey:CAPITALURI];
+    if (!CapitalUrl) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"https://polarisexplorer.ont.io" forKey:CAPITALURI];
+    }
+    NSString * recordUrl = [[NSUserDefaults standardUserDefaults] valueForKey:RECORDURI];
+    if (!recordUrl) {
+        [[NSUserDefaults standardUserDefaults]setValue:@"https://explorer.ont.io/address/%@/20/1/testnet" forKey:RECORDURI];
+    }
+    
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
 //    self.window.backgroundColor = [UIColor whiteColor];
     MainViewController* vc = [[MainViewController alloc]init];
@@ -79,7 +94,7 @@
                                                           / 1000000000] forKey:FEE];
          [[NSUserDefaults standardUserDefaults]
           setValue:[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"LoginTimeout"]] forKey:LOGOUTTIME];
-         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"TestnetAddr"] forKey:TESTNETADDR];
+//         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"TestnetAddr"] forKey:TESTNETADDR];
          [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"OntPassAddr"] forKey:ONTPASSADDRSS];
          [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"NetName"] forKey:NETNAME];
          

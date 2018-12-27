@@ -845,6 +845,18 @@
   return decimalFeeDivide.stringValue;
 
 }
++(BOOL)isEnoughOng:(NSString*)ong fee:(NSString*)fee
+{
+    NSDecimalNumber *decimalUnboundOng = [[NSDecimalNumber alloc] initWithString:ong];
+    NSDecimalNumber *decimalMinUnboundOng = [[NSDecimalNumber alloc] initWithString:fee];
+    
+    NSComparisonResult result = [decimalUnboundOng compare:decimalMinUnboundOng];
+    if (result == NSOrderedDescending) {
+        return true;
+    } else {
+        return false;
+    }
+}
 + (bool)isEnoughUnboundONG:(NSString *)unboundOng {
   if ([Common isStringEmpty:unboundOng]) {
     return false;

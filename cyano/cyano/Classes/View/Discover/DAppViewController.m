@@ -307,6 +307,8 @@
                 // getAccount
             }else if ([self.promptDic[@"action"] isEqualToString:@"getAccount"]){
                 [self getAccount:self.promptDic];
+            }else if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
+                [self invokeReadRequest:self.promptDic];
             }
         }
     };
@@ -342,6 +344,16 @@
     [self.sendConfirmV show];
 }
 
+// invokeRead
+-(void)invokeReadRequest:(NSDictionary*)resultDic{
+    NSString *str = [self convertToJsonData:self.promptDic];
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappInvokeReadTransaction('%@','makeDappTransaction')",str];
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
 - (SendConfirmView *)sendConfirmV {
     
     if (!_sendConfirmV) {
@@ -370,6 +382,22 @@
     }];
     
 }
+// 错误信息上传
+-(void)errorSend:(NSDictionary*)dic{
+    
+    NSDictionary *nParams = @{@"action":self.promptDic[@"action"],
+                              @"error": dic[@"error"],
+                              @"desc": @"ERROR",
+                              @"result":dic[@"result"]
+                              };
+    
+    
+    NSString *jsonString = [Common dictionaryToJson:nParams];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
 // TS SDK 回调处理
 - (void)handlePrompt:(NSString *)prompt{
     
@@ -383,7 +411,9 @@
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             [_hub hideAnimated:YES];
             self.confirmPwd = @"";
+            [self errorSend:obj];
             [Common showToast:@"Password error"];
+            
         }else{
             if (self.promptDic[@"action"]) {
                 if ([self.promptDic[@"action"] isEqualToString:@"login"]) {
@@ -407,45 +437,61 @@
                     [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
                         [weakSelf handlePrompt:prompt];
                     }];
+                }else if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
+                    
                 }
             }
         }
     }else if ([prompt hasPrefix:@"newsignDataStrHex"]){
-        [_hub hideAnimated:YES];
-        [self.sendConfirmV dismiss];
-        NSDictionary *params = self.promptDic[@"params"];
-        NSDictionary *result =@{@"type": @"account",
-                                @"publicKey":self.defaultWalletDic[@"publicKey"],
-                                @"address": self.defaultWalletDic[@"address"],
-                                @"message":params[@"message"] ,
-                                @"signature":obj[@"result"]
-                                };
-        NSDictionary *nParams = @{@"action":@"login",
-                                  @"version": @"v1.0.0",
-                                  @"error": @0,
-                                  @"desc": @"SUCCESS",
-                                  @"result":result
-                                  };
-        
-        
-        NSString *jsonString = [Common dictionaryToJson:nParams];
-        NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-        NSString *base64String = [Common base64EncodeString:encodedURL];
-        NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
-        [self postMessage:jsStr];
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            [self errorSend:obj];
+             [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+            
+        }else{
+            
+            [_hub hideAnimated:YES];
+            [self.sendConfirmV dismiss];
+            NSDictionary *params = self.promptDic[@"params"];
+            NSDictionary *result =@{@"type": @"account",
+                                    @"publicKey":self.defaultWalletDic[@"publicKey"],
+                                    @"address": self.defaultWalletDic[@"address"],
+                                    @"message":params[@"message"] ,
+                                    @"signature":obj[@"result"]
+                                    };
+            NSDictionary *nParams = @{@"action":@"login",
+                                      @"version": @"v1.0.0",
+                                      @"error": @0,
+                                      @"desc": @"SUCCESS",
+                                      @"result":result
+                                      };
+            
+            
+            NSString *jsonString = [Common dictionaryToJson:nParams];
+            NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            NSString *base64String = [Common base64EncodeString:encodedURL];
+            NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+            [self postMessage:jsStr];
+        }
     }else if ([prompt hasPrefix:@"makeDappTransaction"]){
-        self.hashString = obj[@"result"];
-        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.checkTransaction('%@','checkTrade')",obj[@"result"]];
-        
-        LOADJSPRE;
-        LOADJS2;
-        LOADJS3;
-        __weak typeof(self) weakSelf = self;
-        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-        [self.browserView setCallbackPrompt:^(NSString * prompt) {
-            [weakSelf handlePrompt:prompt];
-        }];
-        
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            [self errorSend:obj];
+            [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+            
+        }else{
+            self.hashString = obj[@"result"];
+            NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.checkTransaction('%@','checkTrade')",obj[@"result"]];
+            
+            LOADJS1;
+            LOADJS2;
+            LOADJS3;
+            __weak typeof(self) weakSelf = self;
+            [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+            [self.browserView setCallbackPrompt:^(NSString * prompt) {
+                [weakSelf handlePrompt:prompt];
+            }];
+        }
     }else if ([prompt hasPrefix:@"sendTransaction"]){
         [_hub hideAnimated:YES];
         if ([[obj valueForKey:@"error"] integerValue] == 0) {
@@ -465,31 +511,58 @@
             
         } else {
             if ([[obj valueForKey:@"error"] integerValue] > 0) {
+                [_hub hideAnimated:YES];
+                [self errorSend:obj];
                 [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
-                return;
+                
             }
+            
         }
     }else if ([prompt hasPrefix:@"checkTrade"]){
-        [_hub hideAnimated:YES];
-        InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
-        v.callback = ^(NSString *string) {
-            self.hub=[ToastUtil showMessage:@"" toView:nil];
-            NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
-            LOADJS1;
-            LOADJS2;
-            LOADJS3;
-            __weak typeof(self) weakSelf = self;
-            [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-            [self.browserView setCallbackPrompt:^(NSString * prompt) {
-                [weakSelf handlePrompt:prompt];
-            }];
-        };
-        v.callleftback = ^(NSString *string) {
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            [self errorSend:obj];
+            [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
             
-            [self.sendConfirmV dismiss];
-        };
-        [v show];
-        
+        }else{
+            [_hub hideAnimated:YES];
+            if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
+                [self.sendConfirmV dismiss];
+                NSDictionary *result = obj[@"result"];
+                NSDictionary *nparams =result[@"Result"];
+                NSDictionary *params = @{@"action":@"invokeRead",
+                                         @"version":@"v1.0.0",
+                                         @"error":@0,
+                                         @"desc":@"SUCCESS",
+                                         @"result":nparams
+                                         };
+                NSString *jsonString = [Common dictionaryToJson:params];
+                NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+                NSString *base64String = [Common base64EncodeString:encodedURL];
+                NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+                [self postMessage:jsStr];
+            }else{
+                
+                InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
+                v.callback = ^(NSString *string) {
+                    self.hub=[ToastUtil showMessage:@"" toView:nil];
+                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
+                    LOADJS1;
+                    LOADJS2;
+                    LOADJS3;
+                    __weak typeof(self) weakSelf = self;
+                    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+                    [self.browserView setCallbackPrompt:^(NSString * prompt) {
+                        [weakSelf handlePrompt:prompt];
+                    }];
+                };
+                v.callleftback = ^(NSString *string) {
+                    
+                    [self.sendConfirmV dismiss];
+                };
+                [v show];
+            }
+        }
         
     }
 }

@@ -19,12 +19,6 @@
  */
 
 #import "BaseViewController.h"
-//#import "UIViewController+DismissKeyboard.h"
-//#import "CapitalViewController.h"
-//#import "MineViewController.h"
-//#import "IdentityViewController.h"
-//#import "IDViewController.h"
-//#import "SecurityViewController.h"
 #define KEYBOARD_NIB_PATH @"BangcleSafeKeyBoard.bundle/resources/HYKeyboard"
 
 @interface BaseViewController () <UIGestureRecognizerDelegate>
@@ -62,7 +56,8 @@
     
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#ffffff"],
+                                                                      NSFontAttributeName : [UIFont systemFontOfSize:18 weight:UIFontWeightMedium]}];
 
 }
 
@@ -90,8 +85,7 @@
 
 - (void)setNavTitle:(NSString *)title {
     self.navigationItem.title = title;
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#ffffff"],
-                                                                      NSFontAttributeName : [UIFont systemFontOfSize:18 weight:UIFontWeightMedium]}];
+    
     
 }
 

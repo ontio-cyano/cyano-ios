@@ -122,7 +122,7 @@
     }else if ([prompt hasPrefix:@"makeDappTransaction"]){
         self.hashString = obj[@"result"];
         NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.checkTransaction('%@','checkTrade')",obj[@"result"]];
-        LOADJSPRE;
+        LOADJS1;
         LOADJS2;
         LOADJS3;
         __weak typeof(self) weakSelf = self;

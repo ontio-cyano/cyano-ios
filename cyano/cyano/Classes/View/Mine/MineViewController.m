@@ -9,6 +9,7 @@
 #import "MineViewController.h"
 #import "ExportWalletViewController.h"
 #import "SendConfirmView.h"
+#import "ChangeNodeViewController.h"
 @interface MineViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
@@ -111,7 +112,7 @@
     _tableView.delegate = self;
     _tableView.dataSource = self;
     _tableView.showsVerticalScrollIndicator =NO;
-    _tableView.separatorStyle = UITableViewCellSeparatorStyleSingleLine;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
     [self.view addSubview:_tableView];
     
     [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -138,6 +139,17 @@
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
+        UIView *line = [[UIView alloc]init];
+        line.backgroundColor = BUTTONBACKCOLOR  ;
+        [cell.contentView addSubview:line];
+        
+        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.left.equalTo(cell.contentView).offset(10*SCALE_W);
+            make.right.equalTo(cell.contentView).offset(-10*SCALE_W);
+            make.bottom.equalTo(cell.contentView.mas_bottom).offset(-1);
+            make.height.mas_offset(1);
+        }];
+        
     }
     if (indexPath.row == 0) {
         cell.textLabel.text = @"SELECT NODE";
@@ -146,11 +158,14 @@
     }else{
         cell.textLabel.text = @"EXPORT WALLET";
     }
+    cell.textLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     cell.textLabel.textColor = BLUELB;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row == 0) {
+        ChangeNodeViewController * vc = [[ChangeNodeViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
         
     }else if (indexPath.row == 1){
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:ASSET_ACCOUNT];

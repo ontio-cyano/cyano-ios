@@ -52,8 +52,8 @@
 }
 
 -(void)createTabBarItem{
-    NSArray*selectImage=@[@"Me_A-b",@"Me_ID-B",@"more_selected",@"more_selected"];
-    NSArray*UnselectImage=@[@"Me_A",@"Me_ID",@"more_unselected",@"more_unselected"];
+    NSArray*selectImage=@[@"Me_A-b",@"Me_ID-B",@"findBlack",@"more_selected"];
+    NSArray*UnselectImage=@[@"Me_A",@"Me_ID",@"find",@"more_unselected"];
     NSArray*UnselectImageTitle=@[@"资产",@"身份",@"发现",@"我"];
     for (int i=0; i<self.tabBar.items.count;i++) {
         self.tabBar.hidden = NO;

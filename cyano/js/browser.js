@@ -75204,6 +75204,48 @@ class RestClient {
             return res.data;
         });
     }
+    getUnboundOng(address) {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_unbound_ong + address.toBase58();
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getBlockTxsByHeight(height) {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_block_txs_by_height + height;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getGasPrice() {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_gasprice;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getGrangOng(address) {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_grant_ong + address.toBase58();
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getMempoolTxCount() {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_mempool_txcount;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getMempoolTxState(hash) {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_mempool_txstate + hash;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
+    getVersion() {
+        const url = this.url + _urlConsts__WEBPACK_IMPORTED_MODULE_3__["default"].Url_get_version;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(url).then(res => {
+            return res.data;
+        });
+    }
 }
 
 /***/ }),
@@ -75252,7 +75294,15 @@ __webpack_require__.r(__webpack_exports__);
   Url_get_block_height_by_txhash: '/api/v1/block/height/txhash/',
   Url_get_storage: '/api/v1/storage/',
   Url_get_merkleproof: '/api/v1/merkleproof/',
-  Url_get_allowance: '/api/v1/allowance/'
+  Url_get_allowance: '/api/v1/allowance/',
+  Url_get_block_txs_by_height: '/api/v1/block/transactions/height/',
+  Url_get_unbound_ong: '/api/v1/unboundong/',
+  Url_get_grant_ong: '/api/v1/grantong/',
+  Url_get_mempool_txcount: '/api/v1/mempool/txcount',
+  Url_get_mempool_txstate: '/api/v1/mempool/txstate/',
+  Url_get_version: '/api/v1/version',
+  Url_get_networkid: '/api/v1/networkid',
+  Url_get_gasprice: '/api/v1/gasprice'
 });
 
 /***/ }),
@@ -75392,7 +75442,11 @@ class RpcClient {
     getBlockHeight() {
         const req = this.makeRequest('getblockcount');
         return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
-            return res.data;
+            if (res.data && res.data.result) {
+                return res.data.result - 1;
+            } else {
+                return 0;
+            }
         });
     }
     /**
@@ -75510,6 +75564,48 @@ class RpcClient {
             throw _error__WEBPACK_IMPORTED_MODULE_2__["ERROR_CODE"].INVALID_PARAMS;
         }
         const req = this.makeRequest('getallowance', asset, from.toBase58(), to.toBase58());
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getUnboundOng(address) {
+        const req = this.makeRequest('getunboundong', 'ong', address.toBase58(), address.toBase58());
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getBlockTxsByHeight(height) {
+        const req = this.makeRequest('getblocktxsbyheight', height);
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getGasPrice() {
+        const req = this.makeRequest('getgasprice');
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getGrantOng(address) {
+        const req = this.makeRequest('getgrantong', address.toBase58());
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getMempoolTxCount() {
+        const req = this.makeRequest('getmempooltxcount');
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getMempoolTxState(txHash) {
+        const req = this.makeRequest('getmempooltxstate', txHash);
+        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
+            return res.data;
+        });
+    }
+    getVersion() {
+        const req = this.makeRequest('getversion');
         return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(this.url, req).then(res => {
             return res.data;
         });
@@ -77262,7 +77358,6 @@ class SDK {
         password = '';
         return result;
     }
-
     static getBalance(address, callback) {
         const addressObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
         const request = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}${_consts__WEBPACK_IMPORTED_MODULE_4__["REST_API"].getBalance}/${addressObj.toBase58()}`;
@@ -77843,7 +77938,6 @@ class SDK {
             return result;
         });
     }
-    
     static checkTransaction(txData, callback) {
         const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(txData,true).then(res => {
@@ -77869,8 +77963,8 @@ class SDK {
     static makeDappTransaction(jsonString, fromkey, callback) {
        const fromprivate = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](fromkey);
        var jsonObj = JSON.parse(jsonString);
-      const txs = Ont.TransactionBuilder.makeTransactionByJson(jsonObj);
-                                                                                                 const signContent = txs[0].getSignContent();
+       const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
+       const signContent = txs[0].getSignContent();
        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(txs[0], fromprivate);
        const ss = txs[0].serialize()
        const txHash = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(txs[0].getSignContent())
@@ -77879,6 +77973,21 @@ class SDK {
            result: ss,
            txHash: txHash,
            tx:txs[0]
+       };
+        if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return result;
+       
+   }
+
+   static makeDappInvokeReadTransaction(jsonString, callback) {
+       var jsonObj = JSON.parse(jsonString);
+       const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
+       const ss = txs[0].serialize()
+       const obj = {
+           error: 0,
+           result: ss
        };
         if (callback) {
                 Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
@@ -78922,7 +79031,6 @@ async function getAuthorizeInfo(peerPubKey, address, url) {
     const key = Object(_utils__WEBPACK_IMPORTED_MODULE_6__["str2hexstr"])(AUTHORIZE_INFO_POOL) + peerPubKey + address.serialize();
     const res = await restClient.getStorage(codeHash, key);
     const result = res.Result;
-    console.log('result: ' + result);
     if (result) {
         return AuthorizeInfo.deserialize(new _utils__WEBPACK_IMPORTED_MODULE_6__["StringReader"](result));
     } else {
@@ -82090,7 +82198,7 @@ class Transaction {
 /*!***********************************************!*\
   !*** ./src/transaction/transactionBuilder.ts ***!
   \***********************************************/
-/*! exports provided: Default_params, signTransaction, signTransactionAsync, addSign, signTx, makeNativeContractTx, makeInvokeTransaction, makeDeployCodeTransaction, buildTxParam, buildRpcParam, buildRestfulParam, sendRawTxRestfulUrl, transferStringParameter, transformMapParameter, transformArrayParameter, transformParameter, buildParamsByJson, makeTransactionByJson */
+/*! exports provided: Default_params, signTransaction, signTransactionAsync, addSign, signTx, makeNativeContractTx, makeInvokeTransaction, makeDeployCodeTransaction, buildTxParam, buildRpcParam, buildRestfulParam, sendRawTxRestfulUrl, transferStringParameter, transformMapParameter, transformArrayParameter, transformParameter, buildParamsByJson, makeTransactionsByJson */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82112,7 +82220,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformArrayParameter", function() { return transformArrayParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformParameter", function() { return transformParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildParamsByJson", function() { return buildParamsByJson; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTransactionByJson", function() { return makeTransactionByJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTransactionsByJson", function() { return makeTransactionsByJson; });
 /* harmony import */ var _common_fixed64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/fixed64 */ "./src/common/fixed64.ts");
 /* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
 /* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../crypto */ "./src/crypto/index.ts");
@@ -82523,12 +82631,12 @@ function buildParamsByJson(json) {
     }
     return paramsList;
 }
-function makeTransactionByJson(json) {
+function makeTransactionsByJson(json) {
     if (!json) {
         throw new Error('Invalid parameter. Expect JSON object');
     }
-    if (!json.action || json.action !== 'invoke') {
-        throw new Error('Invalid parameter. The action type must be "invoke."');
+    if (!json.action || json.action !== 'invoke' && json.action !== 'invokeRead') {
+        throw new Error('Invalid parameter. The action type must be "invoke or invokeRead"');
     }
     if (!json.params || !json.params.invokeConfig) {
         throw new Error('Invalid parameter. The params can not be empty.');
