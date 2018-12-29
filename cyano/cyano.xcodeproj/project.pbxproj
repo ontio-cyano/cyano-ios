@@ -38,6 +38,9 @@
 		18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B69FD121CB43E6008B0AFB /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B69FD521CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B69FD221CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle */; };
 		18B69FDE21CB82B5008B0AFB /* ScanViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B69FDD21CB82B5008B0AFB /* ScanViewController.m */; };
+		18BBE81321D505DF003CA72C /* CyanoWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BBE81221D505DF003CA72C /* CyanoWebView.m */; };
+		18BBE81521D50714003CA72C /* Cyano.html in Resources */ = {isa = PBXBuildFile; fileRef = 18BBE81421D50714003CA72C /* Cyano.html */; };
+		18BBE81821D5092F003CA72C /* RNJsWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18BBE81721D5092F003CA72C /* RNJsWebView.m */; };
 		18C2588821CA89C80095B77D /* InfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588521CA89C70095B77D /* InfoAlert.m */; };
 		18C2588B21CA8A250095B77D /* SendConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588921CA8A250095B77D /* SendConfirmView.m */; };
 		18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588E21CA8AA30095B77D /* PwdEnterView.m */; };
@@ -168,6 +171,11 @@
 		18B69FD221CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = BangcleSafeKeyBoard.bundle; sourceTree = "<group>"; };
 		18B69FDC21CB82B5008B0AFB /* ScanViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ScanViewController.h; sourceTree = "<group>"; };
 		18B69FDD21CB82B5008B0AFB /* ScanViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ScanViewController.m; sourceTree = "<group>"; };
+		18BBE81121D505DF003CA72C /* CyanoWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CyanoWebView.h; sourceTree = "<group>"; };
+		18BBE81221D505DF003CA72C /* CyanoWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CyanoWebView.m; sourceTree = "<group>"; };
+		18BBE81421D50714003CA72C /* Cyano.html */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.html; name = Cyano.html; path = js/Cyano.html; sourceTree = SOURCE_ROOT; };
+		18BBE81621D5092F003CA72C /* RNJsWebView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RNJsWebView.h; sourceTree = "<group>"; };
+		18BBE81721D5092F003CA72C /* RNJsWebView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = RNJsWebView.m; sourceTree = "<group>"; };
 		18C2588421CA89C70095B77D /* InfoAlert.h */ = {isa = PBXFileReference; explicitFileType = sourcecode.c.h; fileEncoding = 4; path = InfoAlert.h; sourceTree = "<group>"; };
 		18C2588521CA89C70095B77D /* InfoAlert.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InfoAlert.m; sourceTree = "<group>"; };
 		18C2588921CA8A250095B77D /* SendConfirmView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SendConfirmView.m; sourceTree = "<group>"; };
@@ -385,6 +393,7 @@
 		1875265E21C7874F00AADDB7 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				18BBE81021D5059A003CA72C /* SDK */,
 				18F71A3A21CA470C00762870 /* Custom */,
 				18F7199C21C9DFB900762870 /* ViewModel */,
 				18F7199B21C9DFB400762870 /* View */,
@@ -483,6 +492,18 @@
 				18B69FD121CB43E6008B0AFB /* GTMBase64.m */,
 			);
 			path = Headers;
+			sourceTree = "<group>";
+		};
+		18BBE81021D5059A003CA72C /* SDK */ = {
+			isa = PBXGroup;
+			children = (
+				18BBE81121D505DF003CA72C /* CyanoWebView.h */,
+				18BBE81221D505DF003CA72C /* CyanoWebView.m */,
+				18BBE81621D5092F003CA72C /* RNJsWebView.h */,
+				18BBE81721D5092F003CA72C /* RNJsWebView.m */,
+				18BBE81421D50714003CA72C /* Cyano.html */,
+			);
+			path = SDK;
 			sourceTree = "<group>";
 		};
 		18C2588C21CA8AA30095B77D /* PWDEnter */ = {
@@ -782,6 +803,7 @@
 				1875263521C77FAF00AADDB7 /* LaunchScreen.storyboard in Resources */,
 				1875263221C77FAF00AADDB7 /* Assets.xcassets in Resources */,
 				1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */,
+				18BBE81521D50714003CA72C /* Cyano.html in Resources */,
 				1875263021C77FAE00AADDB7 /* Main.storyboard in Resources */,
 				18F71A4421CA493000762870 /* js in Resources */,
 			);
@@ -871,6 +893,7 @@
 				18F71A1C21C9F30700762870 /* UIImage+MJ.m in Sources */,
 				18F719FB21C9EBC500762870 /* EasyShowUtils.m in Sources */,
 				1873B3A121D0817400B2373F /* SGQRCodeGenerateManager.m in Sources */,
+				18BBE81321D505DF003CA72C /* CyanoWebView.m in Sources */,
 				18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */,
 				18F71A2321C9F96D00762870 /* MineViewController.m in Sources */,
 				18F71A0021C9EBC500762870 /* EasyTextGlobalConfig.m in Sources */,
@@ -882,6 +905,7 @@
 				18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */,
 				18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */,
 				1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */,
+				18BBE81821D5092F003CA72C /* RNJsWebView.m in Sources */,
 				1873B39F21D0817400B2373F /* SGQRCodeScanningView.m in Sources */,
 				18F71A0321C9EBC500762870 /* UIView+EasyShowExt.m in Sources */,
 				18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */,

@@ -77938,6 +77938,29 @@ class SDK {
             return result;
         });
     }
+
+    static sendTransactionWithWebsocket(txData, callback) {
+        const socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_12__["WebsocketClient"](`ws://${SDK.SERVER_NODE}:${SDK.SOCKET_PORT}`);
+        return socketClient.sendRawTransaction(txData, false, true).then(res => {
+            const obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                result: res
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return obj;
+        }).catch(err => {
+            const result = {
+                error: err.Error,
+                result: ''
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            }
+            return result;
+        });
+    }
     static checkTransaction(txData, callback) {
         const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(txData,true).then(res => {
@@ -82635,8 +82658,8 @@ function makeTransactionsByJson(json) {
     if (!json) {
         throw new Error('Invalid parameter. Expect JSON object');
     }
-    if (!json.action || json.action !== 'invoke' && json.action !== 'invokeRead') {
-        throw new Error('Invalid parameter. The action type must be "invoke or invokeRead"');
+    if (!json.action || json.action !== 'invoke' && json.action !== 'invokeRead' && json.action !== 'invokePasswordFree') {
+        throw new Error('Invalid parameter. The action type must be "invoke 、 invokeRead or invokePasswordFree"');
     }
     if (!json.params || !json.params.invokeConfig) {
         throw new Error('Invalid parameter. The params can not be empty.');

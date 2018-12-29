@@ -22,11 +22,14 @@
 @property(nonatomic, strong) SendConfirmView *sendConfirmV;
 @property(nonatomic, strong) BrowserView *browserView;
 @property(nonatomic, copy)   NSString *confirmPwd;
+@property(nonatomic, copy)   NSString *confirmSurePwd;
 @property(nonatomic, copy)   NSString       *hashString;
 @property(nonatomic, strong) MBProgressHUD *hub;
 @property(nonatomic, assign) BOOL isLogin;
 @property(nonatomic, strong) NSDictionary   *promptDic;
-@property(nonatomic,strong)UIWindow         *window;
+@property(nonatomic, strong) UIWindow         *window;
+@property(nonatomic, strong) InfoAlert * InfoAlertV;
+@property(nonatomic, assign) BOOL isFirst;
 @end
 
 @implementation DAppViewController
@@ -36,6 +39,7 @@
     [self configNav];
     [self configUI];
     self.isLogin = YES;
+    self.isFirst = YES;
     AppDelegate *appDelegate = (AppDelegate *) [[UIApplication sharedApplication] delegate];
     if (appDelegate.isNetWorkConnect == NO) {
         [Common showToast:@"Network error"];
@@ -56,6 +60,8 @@
 }
 -(void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:INVOKEPASSWORDFREE];
+    [Common deleteEncryptedContent:INVOKEPASSWORDFREE];
     [webView.configuration.userContentController addScriptMessageHandler:self name:@"JSCallback"];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, id> *)change context:(void *)context {
@@ -123,13 +129,14 @@
 
 // 返回
 - (void)navLeftAction {
+    [[NSUserDefaults standardUserDefaults]removeObjectForKey:INVOKEPASSWORDFREE];
+    [Common deleteEncryptedContent:INVOKEPASSWORDFREE];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
 // 加载网页
 - (void)loadWeb {
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dAppDic[@"link"]]]];
-    
 }
 
 //将NSString转换成十六进制的字符串则可使用如下方式:
@@ -292,27 +299,54 @@
     NSString *base64decodeString = [Common stringEncodeBase64:resultStr];
     NSDictionary *resultDic = [Common dictionaryWithJsonString:[base64decodeString stringByRemovingPercentEncoding]];
     self.promptDic = resultDic;
-    
-    InfoAlert * v = [[InfoAlert alloc]initWithTitle:self.promptDic[@"action"] msgString:[self convertToJsonData:self.promptDic] buttonString:self.promptDic[@"action"] leftString:@""];
-    v.callback = ^(NSString *string) {
-        if (self.promptDic[@"action"]) {
-            // login
-            if ([self.promptDic[@"action"] isEqualToString:@"login"]) {
-                self.isLogin = YES;
-                [self loginRequest:self.promptDic];
-                // invoke
-            }else if ([self.promptDic[@"action"] isEqualToString:@"invoke"]){
-                self.isLogin = NO;
-                [self invokeTransactionRequest:self.promptDic];
-                // getAccount
-            }else if ([self.promptDic[@"action"] isEqualToString:@"getAccount"]){
-                [self getAccount:self.promptDic];
-            }else if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
-                [self invokeReadRequest:self.promptDic];
+   
+    NSArray *allArray = [[NSUserDefaults standardUserDefaults] valueForKey:INVOKEPASSWORDFREE];
+    NSDictionary * params = self.promptDic[@"params"];
+    NSString *jsonString = [Common dictionaryToJson:params];
+    if (allArray) {
+        self.isFirst = YES;
+        for (NSString * paramsStr in allArray) {
+            if ([jsonString isEqualToString:paramsStr]) {
+                self.isFirst = NO;
             }
         }
-    };
-    [v show];
+        
+    }else{
+        self.isFirst = YES;
+    }
+    if (self.isFirst) {
+        
+        __weak typeof(self) weakSelf = self;
+        _InfoAlertV = [[InfoAlert alloc]initWithTitle:self.promptDic[@"action"] msgString:[self convertToJsonData:self.promptDic] buttonString:self.promptDic[@"action"] leftString:@""];
+        _InfoAlertV.callback = ^(NSString *string) {
+            if (weakSelf.promptDic[@"action"]) {
+                // login
+                
+                if ([weakSelf.promptDic[@"action"] isEqualToString:@"login"]) {
+                    weakSelf.isLogin = YES;
+                    [weakSelf loginRequest:weakSelf.promptDic];
+                    // invoke
+                }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"invoke"]){
+                    weakSelf.isLogin = NO;
+                    [weakSelf invokeTransactionRequest:weakSelf.promptDic];
+                    // getAccount
+                }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"getAccount"]){
+                    [weakSelf getAccount:weakSelf.promptDic];
+                }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"invokeRead"]){
+                    [weakSelf invokeReadRequest:weakSelf.promptDic];
+                }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+                    
+                    [weakSelf invokePasswordFreeRequest:weakSelf.promptDic];
+                    
+                }
+            }
+        };
+        [_InfoAlertV show];
+    }else{
+        [self invokePasswordFreeRequest:self.promptDic];
+    
+    }
+    
 }
 // 登录
 - (void)loginRequest:(NSDictionary*)resultDic{
@@ -334,7 +368,6 @@
     NSString *base64String = [Common base64EncodeString:encodedURL];
     NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
     [self postMessage:jsStr];
-//    [webView evaluateJavaScript:jsStr completionHandler:nil];
 }
 // invoke 合约
 - (void)invokeTransactionRequest:(NSDictionary*)resultDic{
@@ -353,6 +386,24 @@
     [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
         [weakSelf handlePrompt:prompt];
     }];
+}
+// invokePasswordFree
+-(void)invokePasswordFreeRequest:(NSDictionary*)resultDic{
+    if (self.isFirst) {
+        self.sendConfirmV.paybyStr = @"";
+        self.sendConfirmV.amountStr = @"";
+        self.sendConfirmV.isWalletBack = YES;
+        [self.sendConfirmV show];
+    }else{
+        NSString *str = [self convertToJsonData:self.promptDic];
+        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,self.confirmSurePwd];
+        [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+        __weak typeof(self) weakSelf = self;
+        [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+            [weakSelf handlePrompt:prompt];
+        }];
+    }
+    
 }
 - (SendConfirmView *)sendConfirmV {
     
@@ -437,8 +488,15 @@
                     [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
                         [weakSelf handlePrompt:prompt];
                     }];
-                }else if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
-                    
+                }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+                    NSString *str = [self convertToJsonData:self.promptDic];
+                    self.confirmSurePwd = obj[@"result"];
+                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
+                    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+                    __weak typeof(self) weakSelf = self;
+                    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+                        [weakSelf handlePrompt:prompt];
+                    }];
                 }
             }
         }
@@ -497,12 +555,23 @@
         if ([[obj valueForKey:@"error"] integerValue] == 0) {
             [self.sendConfirmV dismiss];
             NSDictionary * result = obj[@"result"];
-            NSDictionary *nParams = @{@"action":@"invoke",
+            NSDictionary *nParams ;
+            if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+                nParams = @{@"action":@"invokePasswordFree",
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
-                                      @"result":result[@"Result"]
+                                      @"result":self.hashString
                                       };
+                [self toSaveInvokePasswordFreeInfo];
+            }else{
+                nParams = @{@"action":@"invoke",
+                            @"version": @"v1.0.0",
+                            @"error": @0,
+                            @"desc": @"SUCCESS",
+                            @"result":result[@"Result"]
+                            };
+            }
             NSString *jsonString = [Common dictionaryToJson:nParams];
             NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
             NSString *base64String = [Common base64EncodeString:encodedURL];
@@ -543,9 +612,26 @@
                 [self postMessage:jsStr];
             }else{
                 
-                InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
-                v.callback = ^(NSString *string) {
-                    self.hub=[ToastUtil showMessage:@"" toView:nil];
+                if (self.isFirst) {
+                    InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
+                    v.callback = ^(NSString *string) {
+                        self.hub=[ToastUtil showMessage:@"" toView:nil];
+                        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
+                        LOADJS1;
+                        LOADJS2;
+                        LOADJS3;
+                        __weak typeof(self) weakSelf = self;
+                        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+                        [self.browserView setCallbackPrompt:^(NSString * prompt) {
+                            [weakSelf handlePrompt:prompt];
+                        }];
+                    };
+                    v.callleftback = ^(NSString *string) {
+                        
+                        [self.sendConfirmV dismiss];
+                    };
+                    [v show];
+                }else{
                     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
                     LOADJS1;
                     LOADJS2;
@@ -555,18 +641,37 @@
                     [self.browserView setCallbackPrompt:^(NSString * prompt) {
                         [weakSelf handlePrompt:prompt];
                     }];
-                };
-                v.callleftback = ^(NSString *string) {
-                    
-                    [self.sendConfirmV dismiss];
-                };
-                [v show];
+                }
+               
             }
         }
         
     }
 }
-
+-(void)toSaveInvokePasswordFreeInfo{
+    NSDictionary * params = self.promptDic[@"params"];
+    NSString *jsonString = [Common dictionaryToJson:params];
+    NSArray *allArray = [[NSUserDefaults standardUserDefaults] valueForKey:INVOKEPASSWORDFREE];
+    NSMutableArray *newArray;
+    if (allArray) {
+        newArray = [[NSMutableArray alloc] initWithArray:allArray];
+        BOOL isHave = NO;
+        for (NSString * str  in newArray) {
+            if ([str isEqualToString:jsonString]) {
+                isHave = YES;
+            }
+        }
+        if (isHave == NO) {
+            [newArray addObject:jsonString];
+        }
+    } else {
+        newArray = [[NSMutableArray alloc] init];
+        [newArray addObject:jsonString];
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:INVOKEPASSWORDFREE];
+    [Common setEncryptedContent:self.confirmSurePwd WithKey:INVOKEPASSWORDFREE];
+}
 
 -(NSString *)convertToJsonData:(NSDictionary *)dict{
     

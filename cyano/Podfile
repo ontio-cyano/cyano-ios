@@ -15,5 +15,6 @@ target 'cyano' do
   pod 'libPhoneNumber-iOS'
   pod 'IQKeyboardManager' ,'~> 6.0.6'
   pod 'SVProgressHUD'
+  pod 'SDCycleScrollView', '~> 1.75'
 end
 

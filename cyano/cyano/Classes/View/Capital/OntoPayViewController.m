@@ -254,7 +254,7 @@
     NSDictionary * dic = _payInfo[@"params"];
     NSDictionary * params = @{@"user":self.defaultDic[@"address"],
                               @"message":dic[@"message"],
-                              @"publickey":self.defaultDic[@"publicKey"],
+                              @"publicKey":self.defaultDic[@"publicKey"],
                               @"signature":infoString,
                               @"type":@"account"
                               };
