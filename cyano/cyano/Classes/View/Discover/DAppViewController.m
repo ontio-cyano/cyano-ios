@@ -136,7 +136,7 @@
 
 // 加载网页
 - (void)loadWeb {
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dAppDic[@"link"]]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://101.132.193.149:5000"]]];
 }
 
 //将NSString转换成十六进制的字符串则可使用如下方式:
@@ -315,7 +315,10 @@
         self.isFirst = YES;
     }
     if (self.isFirst) {
-        
+        if ([self.promptDic[@"action"] isEqualToString:@"getAccount"]){
+            [self getAccount:self.promptDic];
+            return;
+        }
         __weak typeof(self) weakSelf = self;
         _InfoAlertV = [[InfoAlert alloc]initWithTitle:self.promptDic[@"action"] msgString:[self convertToJsonData:self.promptDic] buttonString:self.promptDic[@"action"] leftString:@""];
         _InfoAlertV.callback = ^(NSString *string) {
@@ -331,7 +334,6 @@
                     [weakSelf invokeTransactionRequest:weakSelf.promptDic];
                     // getAccount
                 }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"getAccount"]){
-                    [weakSelf getAccount:weakSelf.promptDic];
                 }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"invokeRead"]){
                     [weakSelf invokeReadRequest:weakSelf.promptDic];
                 }else if ([weakSelf.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
@@ -561,7 +563,7 @@
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
-                                      @"result":self.hashString
+                                      @"result":result[@"Result"]
                                       };
                 [self toSaveInvokePasswordFreeInfo];
             }else{

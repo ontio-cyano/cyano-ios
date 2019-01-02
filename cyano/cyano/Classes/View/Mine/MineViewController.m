@@ -128,7 +128,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 3;
+    return 4;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50*SCALE_W;
@@ -155,8 +155,10 @@
         cell.textLabel.text = @"SELECT NODE";
     }else if (indexPath.row ==1){
         cell.textLabel.text = @"CLEAR WALLET";
-    }else{
+    }else if (indexPath.row ==2){
         cell.textLabel.text = @"EXPORT WALLET";
+    }else if (indexPath.row ==3){
+        cell.textLabel.text = @"CLEAR IDENTITY";
     }
     cell.textLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     cell.textLabel.textColor = BLUELB;
@@ -173,6 +175,9 @@
         [[NSUserDefaults standardUserDefaults] synchronize];
     }else if (indexPath.row == 2){
         [self toExportWallet];
+    }else if (indexPath.row == 3){
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:APP_ACCOUNT];
+        [[NSUserDefaults standardUserDefaults] synchronize];
     }
 }
 -(void)toExportWallet{

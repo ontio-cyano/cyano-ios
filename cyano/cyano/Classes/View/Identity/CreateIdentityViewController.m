@@ -1,22 +1,27 @@
 //
-//  CreateWalletViewController.m
+//  CreateIdentityViewController.m
 //  cyano
 //
-//  Created by Apple on 2018/12/19.
-//  Copyright © 2018 LR. All rights reserved.
+//  Created by Apple on 2019/1/2.
+//  Copyright © 2019 LR. All rights reserved.
 //
 
-#import "CreateWalletViewController.h"
+#import "CreateIdentityViewController.h"
 #import "UITextField+LKLUITextField.h"
 #import "BrowserView.h"
-@interface CreateWalletViewController ()
+#import "SendConfirmView.h"
+@interface CreateIdentityViewController ()
 <UITextFieldDelegate>
 @property(nonatomic,strong)UITextField * pwdField;
 @property(nonatomic,strong)UITextField * pwdAgainField;
 @property(nonatomic,strong)BrowserView * browserView;
+
+@property(nonatomic,strong)SendConfirmView *sendConfirmV;
+@property(nonatomic,copy)  NSString *confirmPwd;
+@property(nonatomic,copy)  NSMutableString *identityString;
 @end
 
-@implementation CreateWalletViewController
+@implementation CreateIdentityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -29,7 +34,7 @@
     UILabel *alertLB = [[UILabel alloc]init];
     alertLB.textColor = [UIColor whiteColor];
     alertLB.numberOfLines = 0;
-    alertLB.text = @"Enter your passphrase for account encryption.";
+    alertLB.text = @"Enter your passphrase for identity encryption.\n Registration will cost you 0.01 ONG.";
     alertLB.font = [UIFont systemFontOfSize:16];
     alertLB.textAlignment = NSTextAlignmentCenter;
     [self.view addSubview:alertLB];
@@ -40,7 +45,7 @@
     
     UILabel *pwdLB = [[UILabel alloc]init];
     pwdLB.textAlignment = NSTextAlignmentLeft;
-    pwdLB.text = @"Password";
+    pwdLB.text = @"Identity password";
     pwdLB.textColor = LBCOLOR;
     pwdLB.font = [UIFont systemFontOfSize:16];
     [bottomV addSubview:pwdLB];
@@ -56,22 +61,22 @@
     
     UILabel *pwdAgainLB = [[UILabel alloc]init];
     pwdAgainLB.textAlignment = NSTextAlignmentLeft;
-    pwdAgainLB.text = @"Password again";
+    pwdAgainLB.text = @"Identity password again";
     pwdAgainLB.textColor = LBCOLOR;
     pwdAgainLB.font = [UIFont systemFontOfSize:16];
     [bottomV addSubview:pwdAgainLB];
     
     _pwdAgainField = [[UITextField alloc]init];
     _pwdAgainField.delegate = self;
-    _pwdAgainField.layer.borderWidth = 1;
     _pwdAgainField.secureTextEntry = YES;
+    _pwdAgainField.layer.borderWidth = 1;
     _pwdAgainField.layer.borderColor = [[UIColor colorWithHexString:@"#dededf"]CGColor];
     _pwdAgainField.backgroundColor = WHITE;
     [_pwdAgainField setTextFieldPlaceholderString:@"" leftImageView:nil paddingLeft:15];
     [bottomV addSubview:_pwdAgainField];
     
     UIButton * signButton = [[UIButton alloc]init];
-    [signButton setTitle:@"SIGN UP" forState:UIControlStateNormal];
+    [signButton setTitle:@"CREATE" forState:UIControlStateNormal];
     [signButton setTitleColor:BLUELB forState:UIControlStateNormal];
     signButton.backgroundColor = BUTTONBACKCOLOR;
     signButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
@@ -84,7 +89,7 @@
     cancelButton.backgroundColor = BUTTONBACKCOLOR;
     cancelButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [bottomV addSubview:cancelButton];
-
+    
     [self.view addSubview:self.browserView];
     
     [cancelButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
@@ -164,53 +169,113 @@
     
     id obj = [NSJSONSerialization JSONObjectWithData:[resultStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
     // 密码解密回调处理
-    [SVProgressHUD dismiss];
-    if ([prompt hasPrefix:@"getAssetAccountDataStr"]) {
+    
+    if ([prompt hasPrefix:@"createIdentity"]) {
+        
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
-            
+            [SVProgressHUD dismiss];
             [Common showToast:@"failed"];
             return;
+        }else{
+            [self sendTrade:obj[@"tx"]];
         }
-        NSMutableString *str=[obj valueForKey:@"result"];
-        
-        NSDictionary *jsDic= [self parseJSONStringToNSDictionary:str];
-        
-        NSArray *allArray = [[NSUserDefaults standardUserDefaults] valueForKey:ALLASSET_ACCOUNT];
-        NSMutableArray *newArray;
-        if (allArray) {
-            newArray = [[NSMutableArray alloc] initWithArray:allArray];
+        self.identityString = obj[@"result"];
+
+    }else if ([prompt hasPrefix:@"decryptEncryptedPrivateKey"]){
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [SVProgressHUD dismiss];
+            self.confirmPwd = @"";
+            [Common showToast:@"Password error"];
+        }else{
+            [self.sendConfirmV dismiss];
+            [self createIdentity];
+        }
+    }else if ([prompt hasPrefix:@"sendTransaction"]){
+        [SVProgressHUD dismiss];
+        if ([[obj valueForKey:@"error"] integerValue] == 0) {
+                    NSMutableString *str =self.identityString;
+                    NSMutableString *appStr1 = [NSMutableString stringWithString:str];
+                    [[NSUserDefaults standardUserDefaults] setObject:[appStr1 stringByReplacingOccurrencesOfString:@"\n" withString:@""] forKey:APP_ACCOUNT];
+                    [[NSUserDefaults standardUserDefaults] synchronize];
+                    [Common showToast:@"succeed"];
+                    [self.navigationController popViewControllerAnimated:YES];
+            
         } else {
-            newArray = [[NSMutableArray alloc] init];
+            if ([[obj valueForKey:@"error"] integerValue] > 0) {
+                [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+                
+            }
+            
         }
-        [newArray addObject:jsDic];
-        [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:ALLASSET_ACCOUNT];
-        
-        NSString *jsonStr = [Common  dictionaryToJson:newArray[newArray.count-1]];
-        [[NSUserDefaults standardUserDefaults] setObject:jsonStr forKey:ASSET_ACCOUNT];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-        [Common showToast:@"succeed"];
-        [self.navigationController popViewControllerAnimated:YES];
     }
 }
+-(void)sendTrade:(NSString*)tx{
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",tx];
+    LOADJS1;
+    LOADJS2;
+    LOADJS3;
+    __weak typeof(self) weakSelf = self;
+    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    [self.browserView setCallbackPrompt:^(NSString * prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+-(void)createIdentity{
+    NSString * jsStr = jsStr = [NSString stringWithFormat:@"Ont.SDK.createIdentity('%@','%@','%@','%@','%@','createIdentity')",
+                                @"",
+                                self.pwdField.text,
+                                _walletDic[@"address"],
+                                [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDGASPRICE],
+                                [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDGASLIMIT]];
+    LOADJS1;
+    LOADJS2;
+    LOADJS3;
+    __weak typeof(self) weakSelf = self;
+    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    [self.browserView setCallbackPrompt:^(NSString * prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
 - (void)createWallet{
-//    if (self.pwdField.text.length > 15||self.pwdAgainField.text.length > 15|| self.pwdField.text.length < 8||self.pwdAgainField.text.length <8) {
-//        [Common showToast:@"Please enter 8-15 characters for password"];
-//        return;
-//    }
+
     if ([self.pwdField.text isEqualToString:self.pwdAgainField.text]) {
-        [SVProgressHUD show];
-       NSString * jsStr = [NSString stringWithFormat:@"Ont.SDK.createAccount('%@','%@','getAssetAccountDataStr')",@"",[Common transferredMeaning:self.pwdField.text]];
-        LOADJS1;
-        LOADJS2;
-        LOADJS3;
-        __weak typeof(self) weakSelf = self;
-        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-        [self.browserView setCallbackPrompt:^(NSString * prompt) {
-            [weakSelf handlePrompt:prompt];
-        }];
+        self.sendConfirmV.paybyStr = @"";
+        self.sendConfirmV.amountStr = @"";
+        self.sendConfirmV.isWalletBack = YES;
+        [self.sendConfirmV show];
+        
+       
     }else{
         [Common showToast:@"The passwords do not match"];
     }
+}
+- (SendConfirmView *)sendConfirmV {
+    
+    if (!_sendConfirmV) {
+        
+        _sendConfirmV = [[SendConfirmView alloc] initWithFrame:CGRectMake(0, self.view.height, kScreenWidth, kScreenHeight)];
+        __weak typeof(self) weakSelf = self;
+        [_sendConfirmV setCallback:^(NSString *token, NSString *from, NSString *to, NSString *value, NSString *password) {
+            weakSelf.confirmPwd = password;
+            [weakSelf loadPswJS];
+        }];
+    }
+    return _sendConfirmV;
+}
+- (void)loadPswJS{
+    
+    [SVProgressHUD show];
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",self.walletDic[@"key"],[Common transferredMeaning:_confirmPwd],self.walletDic[@"address"],self.walletDic[@"salt"]];
+    
+    if (_confirmPwd.length==0) {
+        return;
+    }
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+    
 }
 - (void)navLeftAction{
     [self.navigationController popViewControllerAnimated:YES];
@@ -220,6 +285,19 @@
     NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *responseJSON = [NSJSONSerialization JSONObjectWithData:JSONData options:NSJSONReadingMutableLeaves error:nil];
     return responseJSON;
+}
+- (NSString *)DataTOjsonString:(id)object {
+    NSString *jsonString = nil;
+    NSError *error;
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:object
+                                                       options:NSJSONWritingPrettyPrinted // Pass 0 if you don't care about the readability of the generated string
+                                                         error:&error];
+    if (!jsonData) {
+        DebugLog(@"Got an error: %@", error);
+    } else {
+        jsonString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
+    }
+    return jsonString;
 }
 /*
 #pragma mark - Navigation

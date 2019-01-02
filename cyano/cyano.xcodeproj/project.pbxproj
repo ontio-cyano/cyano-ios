@@ -16,6 +16,9 @@
 		183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527321D11C2D0066DDFC /* WebIdentityViewController.m */; };
 		183A527721D11E2A0066DDFC /* OntoPaySendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */; };
 		18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18402BE021CF20580093BF2A /* ReceiveViewController.m */; };
+		1851FC7221DCA27300CF8EDE /* CreateIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */; };
+		1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */; };
+		1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7821DCB79500CF8EDE /* IdentityViewController.m */; };
 		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
 		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
 		1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39221D0817400B2373F /* SGQRCodeHelperTool.m */; };
@@ -81,7 +84,6 @@
 		18F71A1D21C9F30700762870 /* UIBarButtonItem+MJ.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A1A21C9F30700762870 /* UIBarButtonItem+MJ.m */; };
 		18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A1F21C9F95300762870 /* CapitalViewController.m */; };
 		18F71A2321C9F96D00762870 /* MineViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2221C9F96D00762870 /* MineViewController.m */; };
-		18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2521C9F97C00762870 /* IdentityViewController.m */; };
 		18F71A2F21CA201B00762870 /* CusNavigationController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2D21CA201A00762870 /* CusNavigationController.m */; };
 		18F71A3021CA201B00762870 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A2E21CA201B00762870 /* MainViewController.m */; };
 		18F71A3321CA2FC900762870 /* CreateWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3221CA2FC900762870 /* CreateWalletViewController.m */; };
@@ -127,6 +129,12 @@
 		183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPaySendViewController.m; sourceTree = "<group>"; };
 		18402BDF21CF20580093BF2A /* ReceiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveViewController.h; sourceTree = "<group>"; };
 		18402BE021CF20580093BF2A /* ReceiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveViewController.m; sourceTree = "<group>"; };
+		1851FC7021DCA27300CF8EDE /* CreateIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateIdentityViewController.h; sourceTree = "<group>"; };
+		1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateIdentityViewController.m; sourceTree = "<group>"; };
+		1851FC7321DCA28300CF8EDE /* ImportIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportIdentityViewController.h; sourceTree = "<group>"; };
+		1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ImportIdentityViewController.m; sourceTree = "<group>"; };
+		1851FC7721DCB79500CF8EDE /* IdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdentityViewController.h; sourceTree = "<group>"; };
+		1851FC7821DCB79500CF8EDE /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
 		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
 		1873B38E21D0817400B2373F /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
 		1873B39021D0817400B2373F /* UIImage+SGImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SGImageSize.m"; sourceTree = "<group>"; };
@@ -259,8 +267,6 @@
 		18F71A1F21C9F95300762870 /* CapitalViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CapitalViewController.m; sourceTree = "<group>"; };
 		18F71A2121C9F96D00762870 /* MineViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MineViewController.h; sourceTree = "<group>"; };
 		18F71A2221C9F96D00762870 /* MineViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MineViewController.m; sourceTree = "<group>"; };
-		18F71A2421C9F97C00762870 /* IdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = IdentityViewController.h; sourceTree = "<group>"; };
-		18F71A2521C9F97C00762870 /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
 		18F71A2A21CA12DC00762870 /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 		18F71A2B21CA201A00762870 /* CusNavigationController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CusNavigationController.h; sourceTree = "<group>"; };
 		18F71A2C21CA201A00762870 /* MainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
@@ -421,8 +427,12 @@
 		1875266021C7874F00AADDB7 /* Identity */ = {
 			isa = PBXGroup;
 			children = (
-				18F71A2421C9F97C00762870 /* IdentityViewController.h */,
-				18F71A2521C9F97C00762870 /* IdentityViewController.m */,
+				1851FC7721DCB79500CF8EDE /* IdentityViewController.h */,
+				1851FC7821DCB79500CF8EDE /* IdentityViewController.m */,
+				1851FC7021DCA27300CF8EDE /* CreateIdentityViewController.h */,
+				1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */,
+				1851FC7321DCA28300CF8EDE /* ImportIdentityViewController.h */,
+				1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */,
 			);
 			path = Identity;
 			sourceTree = "<group>";
@@ -894,8 +904,8 @@
 				18F719FB21C9EBC500762870 /* EasyShowUtils.m in Sources */,
 				1873B3A121D0817400B2373F /* SGQRCodeGenerateManager.m in Sources */,
 				18BBE81321D505DF003CA72C /* CyanoWebView.m in Sources */,
-				18F71A2621C9F97C00762870 /* IdentityViewController.m in Sources */,
 				18F71A2321C9F96D00762870 /* MineViewController.m in Sources */,
+				1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */,
 				18F71A0021C9EBC500762870 /* EasyTextGlobalConfig.m in Sources */,
 				18F71A2F21CA201B00762870 /* CusNavigationController.m in Sources */,
 				1875263821C77FAF00AADDB7 /* main.m in Sources */,
@@ -921,6 +931,7 @@
 				18F719FD21C9EBC500762870 /* EasyLoadingConfig.m in Sources */,
 				18F719BB21C9EA2200762870 /* UILabel+changeSpace.m in Sources */,
 				1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */,
+				1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */,
 				18F719F821C9EBC500762870 /* EasyTextView.m in Sources */,
 				1873B3A021D0817400B2373F /* SGQRCodeScanManager.m in Sources */,
 				18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */,
@@ -937,6 +948,7 @@
 				18C2588821CA89C80095B77D /* InfoAlert.m in Sources */,
 				18F71A0521C9EBC500762870 /* EasyTextBgView.m in Sources */,
 				1804C62C21D22C490059C905 /* ImportWalletViewController.m in Sources */,
+				1851FC7221DCA27300CF8EDE /* CreateIdentityViewController.m in Sources */,
 				1873B3A221D0817400B2373F /* SGQRCodeAlbumManager.m in Sources */,
 				183A527121D119410066DDFC /* PaySureViewController.m in Sources */,
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,

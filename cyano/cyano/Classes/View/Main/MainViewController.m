@@ -40,6 +40,7 @@
         vc2=[[IdentityViewController alloc]init];
     }
     CusNavigationController*nc2=[[CusNavigationController alloc]initWithRootViewController:vc2];
+    
     if (vc3==nil) {
         vc3=[[DiscoverViewController alloc]init];
     }

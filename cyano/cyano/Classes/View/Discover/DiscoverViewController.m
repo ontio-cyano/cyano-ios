@@ -92,7 +92,7 @@
 {
     
     UICollectionReusableView *headerView = [collectionView dequeueReusableSupplementaryViewOfKind:UICollectionElementKindSectionHeader withReuseIdentifier:@"_collectionView" forIndexPath:indexPath];
-    headerView.backgroundColor =BLUELB;
+    headerView.backgroundColor =WHITE;
    
     
     if (indexPath.section == 0) {

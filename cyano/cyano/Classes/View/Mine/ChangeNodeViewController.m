@@ -71,15 +71,15 @@
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
     UIView * headV = [[UIView alloc]initWithFrame:CGRectMake(0, 0, SYSWidth, 50*SCALE_W)];
-    headV.backgroundColor = BLUELB;
+//    headV.backgroundColor = BLUELB;
     
     UILabel * sectionLB = [[UILabel alloc]init];
-    sectionLB.textColor = WHITE;
+    sectionLB.textColor = BLUELB;
     sectionLB.font = [UIFont systemFontOfSize:14];
     [headV addSubview:sectionLB];
     
     [sectionLB mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.bottom.equalTo(headV);
+        make.top.equalTo(headV);
         make.left.equalTo(headV).offset(10*SCALE_W);
         make.right.equalTo(headV).offset(-10*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
@@ -91,11 +91,15 @@
     }else if (section == 2){
         sectionLB.text = @"Main network node";
     }else{
-        sectionLB.hidden = YES;
+        sectionLB.text = @"Private network node";
+        
         UITextField * nodeField = [[UITextField alloc]init];
         nodeField.text = self.autoNode;
         nodeField.layer.cornerRadius = 2;
         nodeField.backgroundColor = WHITE;
+        nodeField.layer.borderColor = [BLUELB CGColor];;
+        nodeField.layer.borderWidth = 1;
+        nodeField.text = @"http://127.0.0.1:20334";
         nodeField.font= [UIFont systemFontOfSize:14];
         [headV addSubview:nodeField];
         
@@ -109,14 +113,15 @@
         [headV addSubview:sureBtn];
         
         [nodeField mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.top.equalTo(headV).offset(10*SCALE_W);
+            make.top.equalTo(headV).offset(60*SCALE_W);
+            make.left.equalTo(headV).offset(10*SCALE_W);
             make.bottom.equalTo(headV).offset(-10*SCALE_W);
             make.right.equalTo(headV).offset(-100*SCALE_W);
         }];
         
         [sureBtn mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.bottom.equalTo(headV).offset(-5*SCALE_W);
-            make.top.equalTo(headV).offset(5*SCALE_W);
+            make.top.equalTo(headV).offset(55*SCALE_W);
             make.width.mas_offset(80*SCALE_W);
         }];
         
@@ -138,9 +143,15 @@
     return lineV;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 3) {
+        return 100*SCALE_W;
+    }
     return 50*SCALE_W;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    if (section == 1 || section == 2) {
+        return 0.01;
+    }
     return 1;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -150,7 +161,7 @@
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
         UILabel * nodeLB = [[UILabel alloc]init];
-        nodeLB.textColor = BLUELB;
+//        nodeLB.textColor = BLUELB;
         nodeLB.tag = 1001;
         nodeLB.font = [UIFont systemFontOfSize:14];
         [cell.contentView addSubview:nodeLB];

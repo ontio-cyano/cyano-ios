@@ -1,5 +1,5 @@
 //
-//  IdentityViewController.h
+//  CreateIdentityViewController.h
 //  cyano
 //
 //  Created by Apple on 2019/1/2.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IdentityViewController : BaseViewController
-
+@interface CreateIdentityViewController : BaseViewController
+@property(nonatomic,strong)NSDictionary * walletDic;
 @end
 
 NS_ASSUME_NONNULL_END

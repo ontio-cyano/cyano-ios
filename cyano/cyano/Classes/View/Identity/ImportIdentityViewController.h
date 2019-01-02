@@ -1,5 +1,5 @@
 //
-//  IdentityViewController.h
+//  ImportIdentityViewController.h
 //  cyano
 //
 //  Created by Apple on 2019/1/2.
@@ -10,8 +10,8 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface IdentityViewController : BaseViewController
-
+@interface ImportIdentityViewController : BaseViewController
+@property(nonatomic,assign)BOOL isWIF;;
 @end
 
 NS_ASSUME_NONNULL_END

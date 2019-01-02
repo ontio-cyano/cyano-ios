@@ -56,7 +56,8 @@
     
 //    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
-    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName : [UIColor colorWithHexString:@"#ffffff"],
+    [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :
+                                                                          [UIColor colorWithHexString:@"#ffffff"],
                                                                       NSFontAttributeName : [UIFont systemFontOfSize:18 weight:UIFontWeightMedium]}];
 
 }
