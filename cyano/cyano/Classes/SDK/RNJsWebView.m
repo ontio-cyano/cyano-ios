@@ -7,7 +7,7 @@
 //
 
 #import "RNJsWebView.h"
-#import <JavaScriptCore/JavaScriptCore.h>
+
 @implementation RNJsWebView
 
 
@@ -30,7 +30,7 @@
         config.userContentController = [[WKUserContentController alloc]init];
         config.processPool = [[WKProcessPool alloc]init];
         
-        _wkWebView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+        _wkWebView = [[WKWebView alloc] initWithFrame:self.frame configuration:config];
         _wkWebView.UIDelegate = self;
         _wkWebView.navigationDelegate = self;
         
@@ -79,7 +79,13 @@
     }];
 }
 
-
+-(void)sendMessageToWeb:(NSDictionary *)dic{
+    NSString * jsonString = [self dictionaryToJson:dic];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [self base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
 #pragma mark WKWebViewDelegate
 /**
  webview加载完成
@@ -141,36 +147,30 @@
     NSString *base64decodeString = [self stringEncodeBase64:resultStr];
     NSDictionary *resultDic = [self dictionaryWithJsonString:[base64decodeString stringByRemovingPercentEncoding]];
     if (resultDic[@"action"]) {
-        // login
         if ([resultDic[@"action"] isEqualToString:@"login"]) {
-            [self loginRequest:resultDic];
-            // invoke
+            if (_loginCallback) {
+                _loginCallback(resultDic);
+            }
         }else if ([resultDic[@"action"] isEqualToString:@"invoke"]){
-            [self invokeTransactionRequest:resultDic];
-            // getAccount
+            if (_invokeTransactionCallback) {
+                _invokeTransactionCallback(resultDic);
+            }
         }else if ([resultDic[@"action"] isEqualToString:@"getAccount"]){
-            [self getAccount:resultDic];
+            if (_getAccountCallback) {
+                _getAccountCallback(resultDic);
+            }
         }else if ([resultDic[@"action"] isEqualToString:@"invokeRead"]){
-            [self invokeReadRequest:resultDic];
+            if (_invokeReadCallback) {
+                _invokeReadCallback(resultDic);
+            }
+        }else if ([resultDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+            if (_invokePasswordFreeCallback) {
+                _invokePasswordFreeCallback(resultDic);
+            }
         }
     }
 }
 
--(void)loginRequest:(NSDictionary*)resultDic{
-    
-}
-
--(void)invokeTransactionRequest:(NSDictionary*)resultDic{
-    
-}
-
--(void)getAccount:(NSDictionary*)resultDic{
-    
-}
-
--(void)invokeReadRequest:(NSDictionary*)resultDic{
-    
-}
 - (NSString *)stringEncodeBase64:(NSString *)base64 {
     
     NSData *nsdataFromBase64String = [[NSData alloc] initWithBase64EncodedString:base64 options:0];
@@ -224,6 +224,13 @@
     //去掉字符串中的换行符
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
+}
+- (NSString *)base64EncodeString:(NSString *)string {
+    
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    
+    return [data base64EncodedStringWithOptions:0];
+    
 }
 @end
 
