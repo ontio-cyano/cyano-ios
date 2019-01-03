@@ -16,6 +16,7 @@
 		183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527321D11C2D0066DDFC /* WebIdentityViewController.m */; };
 		183A527721D11E2A0066DDFC /* OntoPaySendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */; };
 		18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18402BE021CF20580093BF2A /* ReceiveViewController.m */; };
+		184A8C4C21DDB041002A82D3 /* PrivateAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 184A8C4B21DDB041002A82D3 /* PrivateAppViewController.m */; };
 		1851FC7221DCA27300CF8EDE /* CreateIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */; };
 		1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */; };
 		1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7821DCB79500CF8EDE /* IdentityViewController.m */; };
@@ -129,6 +130,8 @@
 		183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPaySendViewController.m; sourceTree = "<group>"; };
 		18402BDF21CF20580093BF2A /* ReceiveViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ReceiveViewController.h; sourceTree = "<group>"; };
 		18402BE021CF20580093BF2A /* ReceiveViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ReceiveViewController.m; sourceTree = "<group>"; };
+		184A8C4A21DDB041002A82D3 /* PrivateAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateAppViewController.h; sourceTree = "<group>"; };
+		184A8C4B21DDB041002A82D3 /* PrivateAppViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateAppViewController.m; sourceTree = "<group>"; };
 		1851FC7021DCA27300CF8EDE /* CreateIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreateIdentityViewController.h; sourceTree = "<group>"; };
 		1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreateIdentityViewController.m; sourceTree = "<group>"; };
 		1851FC7321DCA28300CF8EDE /* ImportIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportIdentityViewController.h; sourceTree = "<group>"; };
@@ -416,6 +419,8 @@
 				1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */,
 				188553FF21CD098B009356EE /* DAppViewController.h */,
 				1885540021CD098B009356EE /* DAppViewController.m */,
+				184A8C4A21DDB041002A82D3 /* PrivateAppViewController.h */,
+				184A8C4B21DDB041002A82D3 /* PrivateAppViewController.m */,
 				18259BB721CB8DBA00DB863E /* DAppCell.h */,
 				18259BB821CB8DBA00DB863E /* DAppCell.m */,
 				18C2588421CA89C70095B77D /* InfoAlert.h */,
@@ -895,6 +900,7 @@
 				18F719B221C9E97800762870 /* ToastUtil.m in Sources */,
 				18F719AE21C9E92800762870 /* CCRequest.m in Sources */,
 				1804C62921D21A540059C905 /* ExportWalletViewController.m in Sources */,
+				184A8C4C21DDB041002A82D3 /* PrivateAppViewController.m in Sources */,
 				18F71A0621C9EBC500762870 /* EasyTextTypes.m in Sources */,
 				18F719F721C9EBC500762870 /* EasyAlertTypes.m in Sources */,
 				18F71A3D21CA471400762870 /* BrowserView.m in Sources */,

@@ -136,7 +136,7 @@
 
 // 加载网页
 - (void)loadWeb {
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://101.132.193.149:5000"]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dAppDic[@"link"]]]];
 }
 
 //将NSString转换成十六进制的字符串则可使用如下方式:

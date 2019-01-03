@@ -11,6 +11,7 @@
 #import "DAppCell.h"
 #import "SDCycleScrollView.h"
 #import "WebIdentityViewController.h"
+#import "PrivateAppViewController.h"
 @interface DiscoverViewController ()
 <UICollectionViewDelegate,UICollectionViewDataSource,UICollectionViewDelegateFlowLayout,SDCycleScrollViewDelegate>
 @property(nonatomic,strong)UICollectionView  * collectionView;
@@ -99,10 +100,21 @@
         headerView.hidden = YES;
     }else{
         headerView.hidden = NO;
-        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20*SCALE_W, 0, SYSWidth - 40*SCALE_W, 50*SCALE_W)];
+        UILabel *label = [[UILabel alloc] initWithFrame:CGRectMake(20*SCALE_W, 0, 100*SCALE_W, 50*SCALE_W)];
         label.text = @"DApps";
         label.font = [UIFont systemFontOfSize:20];
         [headerView addSubview:label];
+        
+        UIButton * btn = [[UIButton alloc]initWithFrame:CGRectMake(SYSWidth - 130*SCALE_W, 0, 110*SCALE_W, 50*SCALE_W)];
+        btn.backgroundColor = BLUELB;
+        [btn setTitle:@"Private App" forState:UIControlStateNormal];
+        [btn setTitleColor:[UIColor blackColor] forState:UIControlStateNormal];
+        btn.layer.cornerRadius = 3;
+        [headerView addSubview:btn];
+        [btn handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+            PrivateAppViewController *vc = [[PrivateAppViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }];
     }
     return headerView;
 }
