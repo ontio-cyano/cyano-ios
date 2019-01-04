@@ -278,7 +278,6 @@
 - (void)userContentController:(WKUserContentController *)userContentController didReceiveScriptMessage:(WKScriptMessage *)message {
     DebugLog(@"message:%@", message);
     if ([message.name isEqualToString:@"JSCallback"]) {
-        NSLog(@"message.body=%@",message.body);
         if ([message.body isKindOfClass:[NSDictionary class]]) {
             return;
         }
@@ -302,7 +301,10 @@
    
     NSArray *allArray = [[NSUserDefaults standardUserDefaults] valueForKey:INVOKEPASSWORDFREE];
     NSDictionary * params = self.promptDic[@"params"];
-    NSString *jsonString = [Common dictionaryToJson:params];
+    NSString *jsonString ;
+    if (params.count >0) {
+       jsonString = [Common dictionaryToJson:params];
+    }
     if (allArray) {
         self.isFirst = YES;
         for (NSString * paramsStr in allArray) {
@@ -359,11 +361,13 @@
 }
 // 获取账户信息
 -(void)getAccount:(NSDictionary*)resultDic{
+    
     NSDictionary *params = @{@"action":@"getAccount",
                              @"version":@"v1.0.0",
                              @"error":@0,
                              @"desc":@"SUCCESS",
-                             @"result":self.defaultWalletDic[@"address"]
+                             @"result":self.defaultWalletDic[@"address"],
+                             @"id":self.promptDic[@"id"]
                              };
     NSString * jsonString = [Common dictionaryToJson:params];
     NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -441,7 +445,8 @@
     NSDictionary *nParams = @{@"action":self.promptDic[@"action"],
                               @"error": dic[@"error"],
                               @"desc": @"ERROR",
-                              @"result":dic[@"result"]
+                              @"result":dic[@"result"],
+                              @"id":self.promptDic[@"id"]
                               };
     
     
@@ -517,13 +522,15 @@
                                     @"publicKey":self.defaultWalletDic[@"publicKey"],
                                     @"address": self.defaultWalletDic[@"address"],
                                     @"message":params[@"message"] ,
-                                    @"signature":obj[@"result"]
+                                    @"signature":obj[@"result"],
+                                    @"id":self.promptDic[@"id"]
                                     };
             NSDictionary *nParams = @{@"action":@"login",
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
-                                      @"result":result
+                                      @"result":result,
+                                      @"id":self.promptDic[@"id"]
                                       };
             
             
@@ -563,7 +570,8 @@
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
-                                      @"result":result[@"Result"]
+                                      @"result":result[@"Result"],
+                                      @"id":self.promptDic[@"id"]
                                       };
                 [self toSaveInvokePasswordFreeInfo];
             }else{
@@ -571,7 +579,8 @@
                             @"version": @"v1.0.0",
                             @"error": @0,
                             @"desc": @"SUCCESS",
-                            @"result":result[@"Result"]
+                            @"result":result[@"Result"],
+                            @"id":self.promptDic[@"id"]
                             };
             }
             NSString *jsonString = [Common dictionaryToJson:nParams];
@@ -605,7 +614,8 @@
                                          @"version":@"v1.0.0",
                                          @"error":@0,
                                          @"desc":@"SUCCESS",
-                                         @"result":nparams
+                                         @"result":nparams,
+                                         @"id":self.promptDic[@"id"]
                                          };
                 NSString *jsonString = [Common dictionaryToJson:params];
                 NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
