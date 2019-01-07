@@ -136,7 +136,7 @@
 
 // 加载网页
 - (void)loadWeb {
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dAppDic[@"link"]]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dappUrl]]];
 }
 
 //将NSString转换成十六进制的字符串则可使用如下方式:

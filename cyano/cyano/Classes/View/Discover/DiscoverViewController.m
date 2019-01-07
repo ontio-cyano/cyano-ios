@@ -132,10 +132,11 @@
         return;
     }
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
-    
+    NSDictionary * dic = _dataArray[indexPath.row];
     DAppViewController * vc = [[DAppViewController alloc]init];
     vc.defaultWalletDic = dict;
     vc.dAppDic = _dataArray[indexPath.row];
+    vc.dappUrl = dic[@"link"];
     [self.navigationController pushViewController:vc animated:YES];
 }
 //item大小

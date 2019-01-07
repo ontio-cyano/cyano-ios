@@ -12,5 +12,6 @@
 @interface DAppViewController : BaseViewController
 @property (nonatomic,strong) NSDictionary * defaultWalletDic;
 @property (nonatomic,strong) NSDictionary * dAppDic;
+@property (nonatomic,copy)   NSString     * dappUrl;
 @end
 
