@@ -285,7 +285,7 @@
         _inputL = [[UILabel alloc] init];
         _inputL.font = [UIFont systemFontOfSize:14];
         _inputL.textColor = [UIColor colorWithHexString:@"#c3c1c7"];
-        _inputL.text =  @"Please input wallet password";//Localized(@"InputTheWalletPassword");
+        _inputL.text =  @"Please input password";//Localized(@"InputTheWalletPassword");
         if (self.isIdentity) {
             _inputL.text = Localized(@"InputONTIDPassword");
         }

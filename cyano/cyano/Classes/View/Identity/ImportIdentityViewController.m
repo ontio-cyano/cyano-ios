@@ -14,6 +14,7 @@
 @property(nonatomic,strong)UITextField* nameField;
 @property(nonatomic,strong)UITextField* pwdField;
 @property(nonatomic,strong)MBProgressHUD *hub;
+@property(nonatomic,copy)  NSString * identityString;
 @end
 
 @implementation ImportIdentityViewController
@@ -179,9 +180,11 @@
     NSString *jsurl ;
     _hub=[ToastUtil showMessage:@"" toView:nil];
     if (_isWIF){
-        jsurl = [NSString stringWithFormat:@"Ont.SDK.importAccountWithWif('%@','%@','%@','importAccountWithWif')",self.nameField.text,self.importTextView.text,[Common transferredMeaning:self.pwdField.text]];
+        jsurl = [NSString stringWithFormat:@"Ont.SDK.importIdentityWithWif('%@','%@','%@','importIdentityWithWif')",self.nameField.text,self.importTextView.text,[Common base64EncodeString:self.pwdField.text]];
+        
     }else{
-        jsurl = [NSString stringWithFormat:@"Ont.SDK.importAccountWithPrivateKey('%@','%@','%@','importAccountWithPrivateKey')",self.nameField.text,self.importTextView.text,[Common transferredMeaning:self.pwdField.text]];
+        jsurl = [NSString stringWithFormat:@"Ont.SDK.importIdentityWithPrivateKey('%@','%@','%@','importIdentityWithPrivateKey')",self.nameField.text,self.importTextView.text,[Common base64EncodeString:self.pwdField.text]];
+        
     }
     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsurl completionHandler:^(id _Nullable result, NSError * _Nullable error) {
     }];
@@ -198,7 +201,7 @@
     NSArray *promptArray = [prompt componentsSeparatedByString:@"params="];
     NSString *resultStr = promptArray[1];
     id obj = [NSJSONSerialization JSONObjectWithData:[resultStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    if ([prompt hasPrefix:@"importAccountWithWif"] || [prompt hasPrefix:@"importAccountWithPrivateKey"]) {
+    if ([prompt hasPrefix:@"importIdentityWithWif"] ) {
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             [_hub hideAnimated:YES];
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
@@ -206,31 +209,28 @@
         }else{
             [_hub hideAnimated:YES];
             NSMutableString *str=[obj valueForKey:@"result"];
-            NSDictionary *jsDic= [Common dictionaryWithJsonString:str];
-            DebugLog(@"~~~~~~~~%@",[obj valueForKey:@"result"]);
+            [[NSUserDefaults standardUserDefaults] setObject:[str stringByReplacingOccurrencesOfString:@"\n" withString:@""] forKey:APP_ACCOUNT];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [Common showToast:@"succeed"];
+            [self.navigationController popViewControllerAnimated:YES];
             
-           NSString * urlstr =  [NSString stringWithFormat:@"Ont.SDK.importIdentityWithWallet('%@','%@','%@','%@','%@','importIdentityAndCreateWallet')",jsDic[@"label"],jsDic[@"publicKey"],self.pwdField.text,jsDic[@"address"],jsDic[@"salt"]];
-            NSString *url = [urlstr stringByReplacingOccurrencesOfString:@"\n" withString:@""];
-            [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:url completionHandler:^(id _Nullable result, NSError * _Nullable error) {
-            }];
-            __weak typeof(self) weakSelf = self;
-            
-            [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
-                [weakSelf handlePrompt:prompt];
-            }];
-
+           
         }
-    }else if ([prompt hasPrefix:@"importIdentityAndCreateWallet"]) {
+    }else if ([prompt hasPrefix:@"importIdentityWithPrivateKey"]){
+        NSLog(@"obj=%@",obj);
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
-            NSString * titleString;
-            if ([[obj valueForKey:@"error"] integerValue] == 53000){
-                titleString = [NSString stringWithFormat:@"%@ %@",@"Failed to Create Your digital identity.",@"Password error"];
-            }else{
-                titleString = [NSString stringWithFormat:@"%@ %@: %@",@"Failed to Create Your digital identity.",@"System error",[obj valueForKey:@"error"]];
-            }
-            [Common showToast:titleString];
+            [_hub hideAnimated:YES];
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            [Common showToast:errorStr];
         }else{
-            NSLog(@"eee%@",obj);
+            [_hub hideAnimated:YES];
+            NSMutableString *str=[obj valueForKey:@"result"];
+            [[NSUserDefaults standardUserDefaults] setObject:[str stringByReplacingOccurrencesOfString:@"\n" withString:@""] forKey:APP_ACCOUNT];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            [Common showToast:@"succeed"];
+            [self.navigationController popViewControllerAnimated:YES];
+            
+            
         }
     }
     

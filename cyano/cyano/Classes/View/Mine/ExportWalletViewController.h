@@ -12,6 +12,7 @@
 
 @interface ExportWalletViewController : BaseViewController
 @property(nonatomic,copy)NSString * wifString;
+@property(nonatomic,copy)NSString * keyString;
 @end
 
 

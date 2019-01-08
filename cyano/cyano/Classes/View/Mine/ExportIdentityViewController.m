@@ -1,18 +1,20 @@
 //
-//  ExportWalletViewController.m
+//  ExportIdentityViewController.m
 //  cyano
 //
-//  Created by Apple on 2018/12/25.
-//  Copyright © 2018 LR. All rights reserved.
+//  Created by Apple on 2019/1/8.
+//  Copyright © 2019 LR. All rights reserved.
 //
 
-#import "ExportWalletViewController.h"
+#import "ExportIdentityViewController.h"
 
-@interface ExportWalletViewController ()
+
+
+@interface ExportIdentityViewController ()
 
 @end
 
-@implementation ExportWalletViewController
+@implementation ExportIdentityViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -20,20 +22,21 @@
     [self configUI];
 }
 -(void)configUI{
-    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:APP_ACCOUNT];
     if (!jsonStr) {
         [Common showToast:@"No Wallet"];
         return;
     }
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
-    
+    NSDictionary *controlsDic = dict[@"controls"][0];
+    NSLog(@"idDic=%@",dict);
     UILabel * addressLB = [[UILabel alloc]init];
     addressLB.text = @"Address:";
     addressLB.textAlignment = NSTextAlignmentLeft;
     [self.view addSubview:addressLB];
     
     UILabel * addressDetailLB = [[UILabel alloc]init];
-    addressDetailLB.text = dict[@"address"];
+    addressDetailLB.text = controlsDic[@"address"];
     addressDetailLB.font = [UIFont systemFontOfSize:14];
     addressDetailLB.numberOfLines = 0;
     addressDetailLB.textAlignment = NSTextAlignmentLeft;
@@ -86,7 +89,7 @@
     
     [copyAdd handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         NSLog(@"111");
-        [Common showToast:@"Copied wallet address"];
+        [Common showToast:@"Copied identity address"];
         UIPasteboard *pasteboard = [UIPasteboard generalPasteboard];
         pasteboard.string = addressDetailLB.text;
     }];
@@ -178,14 +181,5 @@
 - (void)navLeftAction {
     [self.navigationController popViewControllerAnimated:YES];
 }
-/*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
 
 @end

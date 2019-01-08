@@ -50,7 +50,7 @@
     [self.window makeKeyAndVisible];
     
     //JS初始化
-    _browserView = self.browserView;
+    [self.window addSubview: self.browserView];
     return YES;
 }
 

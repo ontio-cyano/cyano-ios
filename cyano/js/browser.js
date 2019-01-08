@@ -76756,31 +76756,34 @@ encrypted, address, salt, keyphrase, scryptParams = _consts__WEBPACK_IMPORTED_MO
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* WEBPACK VAR INJECTION */(function(Buffer) {/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "SDK", function() { return SDK; });
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
-/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var bip39__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! bip39 */ "./node_modules/bip39/index.js");
-/* harmony import */ var bip39__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(bip39__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _account__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../account */ "./src/account.ts");
-/* harmony import */ var _claim_claim__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../claim/claim */ "./src/claim/claim.ts");
-/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
-/* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../crypto */ "./src/crypto/index.ts");
-/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../error */ "./src/error.ts");
-/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../identity */ "./src/identity.ts");
-/* harmony import */ var _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../neocore/NeoRpc */ "./src/neocore/NeoRpc.ts");
-/* harmony import */ var _neocore_Program__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../neocore/Program */ "./src/neocore/Program.ts");
-/* harmony import */ var _neocore_SmartContract__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../neocore/SmartContract */ "./src/neocore/SmartContract.ts");
-/* harmony import */ var _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../network/rest/restClient */ "./src/network/rest/restClient.ts");
-/* harmony import */ var _scrypt__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../scrypt */ "./src/scrypt.ts");
-/* harmony import */ var _smartcontract_abi_abiInfo__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../smartcontract/abi/abiInfo */ "./src/smartcontract/abi/abiInfo.ts");
-/* harmony import */ var _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../smartcontract/abi/parameter */ "./src/smartcontract/abi/parameter.ts");
-/* harmony import */ var _smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../smartcontract/nativevm/ontAssetTxBuilder */ "./src/smartcontract/nativevm/ontAssetTxBuilder.ts");
-/* harmony import */ var _smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../smartcontract/nativevm/ontidContractTxBuilder */ "./src/smartcontract/nativevm/ontidContractTxBuilder.ts");
-/* harmony import */ var _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../smartcontract/neovm/oep8TxBuilder */ "./src/smartcontract/neovm/oep8TxBuilder.ts");
-/* harmony import */ var _transaction_ddo__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../transaction/ddo */ "./src/transaction/ddo.ts");
-/* harmony import */ var _transaction_transaction__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../transaction/transaction */ "./src/transaction/transaction.ts");
-/* harmony import */ var _transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../transaction/transactionBuilder */ "./src/transaction/transactionBuilder.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../utils */ "./src/utils.ts");
-/* harmony import */ var _wallet__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../wallet */ "./src/wallet.ts");
+/* harmony import */ var _smartcontract_neovm_oep4TxBuilder__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./../smartcontract/neovm/oep4TxBuilder */ "./src/smartcontract/neovm/oep4TxBuilder.ts");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! axios */ "./node_modules/axios/index.js");
+/* harmony import */ var axios__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(axios__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var bip39__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! bip39 */ "./node_modules/bip39/index.js");
+/* harmony import */ var bip39__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(bip39__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _account__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../account */ "./src/account.ts");
+/* harmony import */ var _claim_claim__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../claim/claim */ "./src/claim/claim.ts");
+/* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
+/* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../crypto */ "./src/crypto/index.ts");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../error */ "./src/error.ts");
+/* harmony import */ var _identity__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../identity */ "./src/identity.ts");
+/* harmony import */ var _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../neocore/NeoRpc */ "./src/neocore/NeoRpc.ts");
+/* harmony import */ var _neocore_Program__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../neocore/Program */ "./src/neocore/Program.ts");
+/* harmony import */ var _neocore_SmartContract__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../neocore/SmartContract */ "./src/neocore/SmartContract.ts");
+/* harmony import */ var _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../network/rest/restClient */ "./src/network/rest/restClient.ts");
+/* harmony import */ var _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../network/websocket/websocketClient */ "./src/network/websocket/websocketClient.ts");
+/* harmony import */ var _scrypt__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../scrypt */ "./src/scrypt.ts");
+/* harmony import */ var _smartcontract_abi_abiInfo__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../smartcontract/abi/abiInfo */ "./src/smartcontract/abi/abiInfo.ts");
+/* harmony import */ var _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../smartcontract/abi/parameter */ "./src/smartcontract/abi/parameter.ts");
+/* harmony import */ var _smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../smartcontract/nativevm/ontAssetTxBuilder */ "./src/smartcontract/nativevm/ontAssetTxBuilder.ts");
+/* harmony import */ var _smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../smartcontract/nativevm/ontidContractTxBuilder */ "./src/smartcontract/nativevm/ontidContractTxBuilder.ts");
+/* harmony import */ var _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ../smartcontract/neovm/oep8TxBuilder */ "./src/smartcontract/neovm/oep8TxBuilder.ts");
+/* harmony import */ var _transaction_ddo__WEBPACK_IMPORTED_MODULE_20__ = __webpack_require__(/*! ../transaction/ddo */ "./src/transaction/ddo.ts");
+/* harmony import */ var _transaction_transaction__WEBPACK_IMPORTED_MODULE_21__ = __webpack_require__(/*! ../transaction/transaction */ "./src/transaction/transaction.ts");
+/* harmony import */ var _transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__ = __webpack_require__(/*! ../transaction/transactionBuilder */ "./src/transaction/transactionBuilder.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_23__ = __webpack_require__(/*! ../utils */ "./src/utils.ts");
+/* harmony import */ var _wallet__WEBPACK_IMPORTED_MODULE_24__ = __webpack_require__(/*! ../wallet */ "./src/wallet.ts");
+
 /*
 * Copyright (C) 2018 The ontology Authors
 * This file is part of The ontology library.
@@ -76807,6 +76810,7 @@ __webpack_require__.r(__webpack_exports__);
 *************************************************************************************
 *************************************************************************************
 */
+
 
 
 
@@ -76862,7 +76866,7 @@ class SDK {
     static setRestPort(port) {
         if (port) {
             SDK.REST_PORT = port;
-            SDK.restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+            SDK.restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
             return;
         }
         throw new Error('Can not set ' + port + ' as restful port');
@@ -76870,27 +76874,28 @@ class SDK {
     static setSocketPort(port) {
         if (port) {
             SDK.SOCKET_PORT = port;
+            SDK.socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_13__["WebsocketClient"](`ws://${SDK.SERVER_NODE}:${SDK.SOCKET_PORT}`);
             return;
         }
         throw new Error('Can not set ' + port + 'as socket port');
     }
     static getDecryptError(err) {
         return {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].Decrypto_ERROR,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].Decrypto_ERROR,
             result: ''
         };
     }
     static transformPassword(password) {
-        if (Object(_utils__WEBPACK_IMPORTED_MODULE_21__["isBase64"])(password)) {
+        if (Object(_utils__WEBPACK_IMPORTED_MODULE_23__["isBase64"])(password)) {
             return Buffer.from(password, 'base64').toString();
         }
         return password;
     }
     static createWallet(name, password, payer, gasPrice, gasLimit, callback) {
-        const wallet = _wallet__WEBPACK_IMPORTED_MODULE_22__["Wallet"].create(name);
+        const wallet = _wallet__WEBPACK_IMPORTED_MODULE_24__["Wallet"].create(name);
         password = this.transformPassword(password);
-        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"].random();
-        const identity = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].create(privateKey, password, name);
+        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"].random();
+        const identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].create(privateKey, password, name);
         wallet.defaultOntid = identity.ontid;
         wallet.addIdentity(identity);
         // let account = new Account()
@@ -76903,136 +76908,222 @@ class SDK {
             tx: ''
         };
         const publicKey = privateKey.getPublicKey();
-        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__["buildRegisterOntidTx"])(identity.ontid, publicKey, gasPrice, gasLimit);
-        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildRegisterOntidTx"])(identity.ontid, publicKey, gasPrice, gasLimit);
+        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
         // add preExec
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             // preExec success, send real request
             if (res.Result.Result === '01') {
                 // restClient.sendRawTransaction(tx.serialize(), false)
                 obj.tx = tx.serialize();
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 return obj;
             } else {
                 const errResult = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].PreExec_ERROR,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].PreExec_ERROR,
                     result: ''
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(errResult), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(errResult), callback);
                 }
                 return errResult;
             }
         }).catch(err => {
             obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+        });
+    }
+    static importIdentityWithPrivateKey(label = '', privateKey, password, callback) {
+        privateKey = privateKey.trim();
+        password = this.transformPassword(password);
+        if (!privateKey || privateKey.length !== 64 || !Object(_utils__WEBPACK_IMPORTED_MODULE_23__["isHexString"])(privateKey)) {
+            const obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
+                result: ''
+            };
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            return obj;
+        }
+        let obj;
+        const pri = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](privateKey);
+        const identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].create(pri, password, label);
+        obj = {
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+            result: identity.toJson()
+        };
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildGetDDOTx"])(identity.ontid);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        return restClient.sendRawTransaction(tx.serialize(), true).then(res => {
+            const result = res.Result;
+            if (result.Result) {
+                //
+            } else {
+                obj.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].UNKNOWN_ONTID;
+                obj.result = '';
+            }
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return obj;
+        }).catch(err => {
+            obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
+                result: ''
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+        });
+    }
+    static importIdentityWithWif(label = '', wif, password, callback) {
+        wif = wif.trim();
+        password = this.transformPassword(password);
+        let obj;
+        let pri;
+        try {
+            pri = _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"].deserializeWIF(wif);
+        } catch (err) {
+            const obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
+                result: ''
+            };
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            return obj;
+        }
+        const identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].create(pri, password, label);
+        obj = {
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+            result: identity.toJson()
+        };
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildGetDDOTx"])(identity.ontid);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        return restClient.sendRawTransaction(tx.serialize(), true).then(res => {
+            const result = res.Result;
+            if (result.Result) {
+                //
+            } else {
+                obj.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].UNKNOWN_ONTID;
+                obj.result = '';
+            }
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return obj;
+        }).catch(err => {
+            obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
+                result: ''
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
         });
     }
     static importIdentityWithWallet(label, encryptedPrivateKey, password, address, salt, callback) {
         let obj;
-        let identity = new _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"]();
+        let identity = new _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"]();
         try {
             // TODO check ontid
-            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             password = this.transformPassword(password);
-            identity = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].importIdentity(label, encryptedPrivateKeyObj, password, addr, salt);
+            identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].importIdentity(label, encryptedPrivateKeyObj, password, addr, salt);
         } catch (err) {
             obj = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return obj;
         }
         obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: identity.toJson()
         };
         // check ontid on chain
-        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__["buildGetDDOTx"])(identity.ontid);
-        const param = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["buildRestfulParam"])(tx);
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildGetDDOTx"])(identity.ontid);
+        const param = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["buildRestfulParam"])(tx);
         const restUrl = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`;
-        const url = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["sendRawTxRestfulUrl"])(restUrl, true);
+        const url = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["sendRawTxRestfulUrl"])(restUrl, true);
         // clear privateKey and password
         password = '';
-        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, param).then(res => {
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, param).then(res => {
             const result = res.data.Result;
             if (result.Result) {
                 //
             } else {
-                obj.error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].UNKNOWN_ONTID;
+                obj.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].UNKNOWN_ONTID;
                 obj.result = '';
             }
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return obj;
         }).catch(err => {
             obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
         });
     }
     // send http post to check
     static importIdentityAndCreateWallet(label, encryptedPrivateKey, password, address, salt, callback) {
-        let identity = new _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"]();
+        let identity = new _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"]();
         let error = {};
         let obj;
         try {
             password = this.transformPassword(password);
-            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
-            identity = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].importIdentity(label, encryptedPrivateKeyObj, password, addr, salt);
-            const wallet = _wallet__WEBPACK_IMPORTED_MODULE_22__["Wallet"].create(identity.label);
+            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
+            identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].importIdentity(label, encryptedPrivateKeyObj, password, addr, salt);
+            const wallet = _wallet__WEBPACK_IMPORTED_MODULE_24__["Wallet"].create(identity.label);
             wallet.defaultOntid = identity.ontid;
             wallet.addIdentity(identity);
             const walletStr = wallet.toJson();
             obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: walletStr
             };
             // check ontid on chain
-            const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__["buildGetDDOTx"])(identity.ontid);
-            const param = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["buildRestfulParam"])(tx);
+            const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildGetDDOTx"])(identity.ontid);
+            const param = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["buildRestfulParam"])(tx);
             const restUrl = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`;
-            const url = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["sendRawTxRestfulUrl"])(restUrl, true);
-            return axios__WEBPACK_IMPORTED_MODULE_0___default.a.post(url, param).then(res => {
+            const url = Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["sendRawTxRestfulUrl"])(restUrl, true);
+            return axios__WEBPACK_IMPORTED_MODULE_1___default.a.post(url, param).then(res => {
                 const result = res.data.Result;
                 if (result.Result) {
                     //
                 } else {
-                    obj.error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].UNKNOWN_ONTID;
+                    obj.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].UNKNOWN_ONTID;
                     obj.result = '';
                 }
                 // clear privateKey and password
                 password = '';
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 return obj;
             }).catch(err => {
                 obj = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                     result: ''
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
             });
             // callback && sendBackResult2Native(JSON.stringify(obj), callback)
@@ -77040,36 +77131,36 @@ class SDK {
         } catch (err) {
             error = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(error), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(error), callback);
             }
             return Promise.reject(error);
         }
     }
     static createIdentity(label, password, payer, gasPrice, gasLimit, callback) {
-        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"].random();
+        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"].random();
         password = this.transformPassword(password);
-        const identity = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].create(privateKey, password, label);
+        const identity = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].create(privateKey, password, label);
         const result = identity.toJson();
         let obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result,
             tx: ''
         };
         // register ontid
         const publicKey = privateKey.getPublicKey();
-        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__["buildRegisterOntidTx"])(identity.ontid, publicKey, gasPrice, gasLimit);
-        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildRegisterOntidTx"])(identity.ontid, publicKey, gasPrice, gasLimit);
+        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         password = '';
         privateKey.key = '';
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             // preExec success, send real request
             if (res.Result.Result === '01') {
                 // restClient.sendRawTransaction(tx.serialize(), false)
                 obj.tx = tx.serialize();
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 // clear privateKey and password
                 privateKey.key = '';
@@ -77077,42 +77168,42 @@ class SDK {
                 return obj;
             } else {
                 const errResult = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].PreExec_ERROR,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].PreExec_ERROR,
                     result: ''
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(errResult), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(errResult), callback);
                 }
                 return errResult;
             }
         }).catch(err => {
             obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
         });
     }
     static createAccount(label, password, callback) {
         // generate mnemnic
-        let mnemonic = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["generateMnemonic"])();
+        let mnemonic = Object(_utils__WEBPACK_IMPORTED_MODULE_23__["generateMnemonic"])();
         password = this.transformPassword(password);
-        const mnemonicHex = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["str2hexstr"])(mnemonic);
-        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"].generateFromMnemonic(mnemonic);
-        const account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].create(privateKey, password, label);
+        const mnemonicHex = Object(_utils__WEBPACK_IMPORTED_MODULE_23__["str2hexstr"])(mnemonic);
+        const privateKey = _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"].generateFromMnemonic(mnemonic);
+        const account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].create(privateKey, password, label);
         const addr = account.address;
         const salt = Buffer.from(account.salt, 'base64').toString('hex');
-        const mnemonicEnc = _scrypt__WEBPACK_IMPORTED_MODULE_12__["encryptWithGcm"](mnemonicHex, addr, salt, password);
+        const mnemonicEnc = _scrypt__WEBPACK_IMPORTED_MODULE_14__["encryptWithGcm"](mnemonicHex, addr, salt, password);
         const result = account.toJson();
         const obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result,
             mnemonicEnc
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         privateKey.key = '';
@@ -77123,42 +77214,42 @@ class SDK {
     static decryptMnemonicEnc(mnemonicEnc, address, salt, password, callback) {
         let obj;
         password = this.transformPassword(password);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
         const saltHex = Buffer.from(salt, 'base64').toString('hex');
-        const decMneHex = _scrypt__WEBPACK_IMPORTED_MODULE_12__["decryptWithGcm"](mnemonicEnc, addr, saltHex, password);
-        const decMne = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["hexstr2str"])(decMneHex);
+        const decMneHex = _scrypt__WEBPACK_IMPORTED_MODULE_14__["decryptWithGcm"](mnemonicEnc, addr, saltHex, password);
+        const decMne = Object(_utils__WEBPACK_IMPORTED_MODULE_23__["hexstr2str"])(decMneHex);
         obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: decMne
         };
         // tslint:disable-next-line:no-unused-expression
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         return obj;
     }
     static importAccountWithWallet(label, encryptedPrivateKey, address, salt, password, callback) {
-        let account = new _account__WEBPACK_IMPORTED_MODULE_2__["Account"]();
+        let account = new _account__WEBPACK_IMPORTED_MODULE_3__["Account"]();
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
-            account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].importAccount(label, encryptedPrivateKeyObj, password, addr, salt);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
+            account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].importAccount(label, encryptedPrivateKeyObj, password, addr, salt);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         const obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: account.toJson()
         };
         // add address check
         if (address !== account.address.toBase58()) {
-            obj.error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_ADDR, obj.result = '';
+            obj.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_ADDR, obj.result = '';
         }
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         password = '';
@@ -77167,16 +77258,16 @@ class SDK {
     static signSelfClaim(context, claimData, ontid, encryptedPrivateKey, password, address, salt, callback) {
         let privateKey;
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
-        const restUrl = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}${_consts__WEBPACK_IMPORTED_MODULE_4__["REST_API"].sendRawTx}`;
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
+        const restUrl = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}${_consts__WEBPACK_IMPORTED_MODULE_5__["REST_API"].sendRawTx}`;
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
@@ -77184,18 +77275,18 @@ class SDK {
         const metadata = {
             issuer: ontid,
             subject: ontid,
-            issuedAt: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["now"])()
+            issuedAt: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["now"])()
         };
         // todo: pass real public key id
         const publicKeyId = ontid + '#keys-1';
-        const claim = new _claim_claim__WEBPACK_IMPORTED_MODULE_3__["Claim"](metadata, undefined, undefined);
+        const claim = new _claim_claim__WEBPACK_IMPORTED_MODULE_4__["Claim"](metadata, undefined, undefined);
         claim.sign(restUrl, publicKeyId, privateKey);
         const obj = {
             error: 0,
             result: claim
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         privateKey.key = '';
@@ -77204,16 +77295,16 @@ class SDK {
     }
     static decryptEncryptedPrivateKey(encryptedPrivateKey, password, address, salt, callback) {
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         let pri;
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             pri = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
@@ -77222,7 +77313,7 @@ class SDK {
             result: pri.key
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         password = '';
@@ -77231,15 +77322,15 @@ class SDK {
     static getClaim(claimId, context, issuer, subject, encryptedPrivateKey, password, address, salt, payer, gasPrice, gasLimit, callback) {
         let privateKey;
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
@@ -77253,27 +77344,27 @@ class SDK {
         };
         // const type = 'JSON';
         const value = JSON.stringify(valueObj);
-        const attr = new _transaction_ddo__WEBPACK_IMPORTED_MODULE_18__["DDOAttribute"]();
+        const attr = new _transaction_ddo__WEBPACK_IMPORTED_MODULE_20__["DDOAttribute"]();
         attr.key = path;
         attr.type = 'JSON';
         attr.value = value;
         const publicKey = privateKey.getPublicKey();
-        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_16__["buildAddAttributeTx"])(subject, [attr], publicKey, gasPrice, gasLimit);
-        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_18__["buildAddAttributeTx"])(subject, [attr], publicKey, gasPrice, gasLimit);
+        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             if (res.Result.Result === '01') {
                 // user agent will do this
                 // restClient.sendRawTransaction(tx.serialize(), false)
                 // const hash = sha256(sha256(tx.serializeUnsignedData()))
                 const obj = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                     result: '',
                     tx: tx.serialize()
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 // clear privateKey and password
                 privateKey.key = '';
@@ -77281,21 +77372,21 @@ class SDK {
                 return obj;
             } else {
                 const obj = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].PreExec_ERROR,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].PreExec_ERROR,
                     result: ''
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 return obj;
             }
         }).catch(err => {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
         });
     }
@@ -77303,23 +77394,23 @@ class SDK {
     encryptedPrivateKey, password, address, salt, callback) {
         let privateKey;
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         let result;
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         const signature = privateKey.sign(content);
         result = signature.serializePgp();
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         // clear privateKey and password
         privateKey.key = '';
@@ -77330,28 +77421,27 @@ class SDK {
     encryptedPrivateKey, password, address, salt, callback) {
         let privateKey;
         password = this.transformPassword(password);
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         let result;
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         const signature = privateKey.sign(content);
-
         result = signature.serializeHex();
         const obj = {
            error: 0,
            result: result
        };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         privateKey.key = '';
@@ -77359,9 +77449,9 @@ class SDK {
         return result;
     }
     static getBalance(address, callback) {
-        const addressObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
-        const request = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}${_consts__WEBPACK_IMPORTED_MODULE_4__["REST_API"].getBalance}/${addressObj.toBase58()}`;
-        return axios__WEBPACK_IMPORTED_MODULE_0___default.a.get(request).then(res => {
+        const addressObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
+        const request = `http://${SDK.SERVER_NODE}:${SDK.REST_PORT}${_consts__WEBPACK_IMPORTED_MODULE_5__["REST_API"].getBalance}/${addressObj.toBase58()}`;
+        return axios__WEBPACK_IMPORTED_MODULE_1___default.a.get(request).then(res => {
             if (res.data.Error === 0) {
                 const result = res.data.Result;
                 const obj = {
@@ -77369,7 +77459,7 @@ class SDK {
                     result
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 return obj;
             } else {
@@ -77378,17 +77468,17 @@ class SDK {
                     result: ''
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 return obj;
             }
         }).catch(err => {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return Promise.reject(obj);
         });
@@ -77399,41 +77489,41 @@ class SDK {
         let toAddress;
         password = this.transformPassword(password);
         try {
-            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
-            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](to);
+            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](to);
         } catch (err) {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
-        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_15__["makeTransferTx"])(token, fromAddress, toAddress, value, gasPrice, gasLimit);
-        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_17__["makeTransferTx"])(token, fromAddress, toAddress, value, gasPrice, gasLimit);
+        tx.payer = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: '',
             tx: tx.serialize(),
-            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getSignContent())
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent())
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
@@ -77443,47 +77533,47 @@ class SDK {
         let addressObj;
         password = this.transformPassword(password);
         try {
-            addressObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            addressObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
         } catch (err) {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addressObj, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
-        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_15__["makeWithdrawOngTx"])(addressObj, addressObj, value, new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer), gasPrice, gasLimit);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_17__["makeWithdrawOngTx"])(addressObj, addressObj, value, new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer), gasPrice, gasLimit);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: '',
             tx: tx.serialize(),
-            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getSignContent())
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent())
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
         return result;
     }
     static exportIdentityToQrcode(identityDataStr, callback) {
-        const obj = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].parseJson(identityDataStr);
+        const obj = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].parseJson(identityDataStr);
         let salt = obj.controls[0].salt;
-        if (!Object(_utils__WEBPACK_IMPORTED_MODULE_21__["isBase64"])(salt)) {
+        if (!Object(_utils__WEBPACK_IMPORTED_MODULE_23__["isBase64"])(salt)) {
             salt = Buffer.from(salt, 'hex').toString('base64');
         }
         const result = {
@@ -77504,23 +77594,23 @@ class SDK {
             }
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return result;
     }
     static exportIdentityToKeystring(identityDataStr, callback) {
-        const obj = _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"].parseJson(identityDataStr);
+        const obj = _identity__WEBPACK_IMPORTED_MODULE_8__["Identity"].parseJson(identityDataStr);
         const address = obj.controls[0].address.toBase58();
         const salt = obj.controls[0].salt;
         const key = obj.controls[0].encryptedKey.key;
         const result = salt + address + key;
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return result;
     }
     static exportAccountToQrcode(accountDataStr, callback) {
-        const obj = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].parseJson(accountDataStr);
+        const obj = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].parseJson(accountDataStr);
         const result = {
             type: 'A',
             label: obj.label,
@@ -77539,47 +77629,47 @@ class SDK {
             }
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return result;
     }
     static exportAccountToKeystring(accountDataStr, callback) {
-        const obj = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].parseJson(accountDataStr);
+        const obj = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].parseJson(accountDataStr);
         const salt = obj.salt;
         const address = obj.address.toBase58();
         const key = obj.encryptedKey.key;
         const result = salt + address + key;
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return result;
     }
     static importAccountMnemonic(label, mnemonic, password, callback) {
         mnemonic = mnemonic.trim();
         password = this.transformPassword(password);
-        if (!bip39__WEBPACK_IMPORTED_MODULE_1__["validateMnemonic"](mnemonic)) {
+        if (!bip39__WEBPACK_IMPORTED_MODULE_2__["validateMnemonic"](mnemonic)) {
             // tslint:disable-next-line:no-shadowed-variable
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             // tslint:disable-next-line:no-unused-expression
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         }
-        const seed = bip39__WEBPACK_IMPORTED_MODULE_1__["mnemonicToSeedHex"](mnemonic);
+        const seed = bip39__WEBPACK_IMPORTED_MODULE_2__["mnemonicToSeedHex"](mnemonic);
         const hdkey = HDKey.fromMasterSeed(Buffer.from(seed, 'hex'));
-        const pri = hdkey.derive(_consts__WEBPACK_IMPORTED_MODULE_4__["ONT_BIP44_PATH"]);
+        const pri = hdkey.derive(_consts__WEBPACK_IMPORTED_MODULE_5__["ONT_BIP44_PATH"]);
         const key = Buffer.from(pri.privateKey).toString('hex');
-        const privateKey = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](key);
-        const account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].create(privateKey, password, label);
+        const privateKey = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](key);
+        const account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].create(privateKey, password, label);
         const result = account.toJson();
         const obj = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         // clear privateKey and password
         privateKey.key = '';
@@ -77590,23 +77680,26 @@ class SDK {
     static exportWifPrivakeKey(encryptedKey, password, address, salt, callback) {
         if (address.length !== 34 && address.length !== 40) {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         }
         password = this.transformPassword(password);
-        const encrypt = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedKey);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+        const encrypt = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedKey);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
         const saltHex = Buffer.from(salt, 'base64').toString('hex');
         const privateKey = encrypt.decrypt(password, addr, saltHex);
         let wif = privateKey.serializeWIF();
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
-            result: wif
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+            result: {
+                wif,
+                privateKey: privateKey.key
+            }
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         wif = '';
@@ -77617,21 +77710,21 @@ class SDK {
         let privateKey;
         password = this.transformPassword(password);
         try {
-            privateKey = _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"].deserializeWIF(wif);
+            privateKey = _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"].deserializeWIF(wif);
         } catch (err) {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         }
-        const account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].create(privateKey, password, label);
+        const account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].create(privateKey, password, label);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: account.toJson()
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
@@ -77640,21 +77733,21 @@ class SDK {
     static importAccountWithPrivateKey(label, privateKey, password, callback) {
         privateKey = privateKey.trim();
         password = this.transformPassword(password);
-        if (!privateKey || privateKey.length !== 64 || !Object(_utils__WEBPACK_IMPORTED_MODULE_21__["isHexString"])(privateKey)) {
+        if (!privateKey || privateKey.length !== 64 || !Object(_utils__WEBPACK_IMPORTED_MODULE_23__["isHexString"])(privateKey)) {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         }
-        const pri = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](privateKey);
-        const account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].create(pri, password, label);
+        const pri = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](privateKey);
+        const account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].create(pri, password, label);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: account.toJson()
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey = '';
         password = '';
@@ -77670,22 +77763,22 @@ class SDK {
             keyStoreObj = JSON.parse(keystore);
         } catch (err) {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         }
         if (keyStoreObj.type !== 'A') {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             return obj;
         } else {
-            let account = new _account__WEBPACK_IMPORTED_MODULE_2__["Account"]();
-            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](keyStoreObj.key);
+            let account = new _account__WEBPACK_IMPORTED_MODULE_3__["Account"]();
+            const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](keyStoreObj.key);
             try {
                 const params = {
                     cost: keyStoreObj.scrypt.n || 4096,
@@ -77693,14 +77786,14 @@ class SDK {
                     parallel: keyStoreObj.scrypt.r || 8,
                     size: keyStoreObj.scrypt.dkLen || 64
                 };
-                const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](keyStoreObj.address);
-                account = _account__WEBPACK_IMPORTED_MODULE_2__["Account"].importAccount(keyStoreObj.label, encryptedPrivateKeyObj, password, addr, keyStoreObj.salt, params);
+                const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](keyStoreObj.address);
+                account = _account__WEBPACK_IMPORTED_MODULE_3__["Account"].importAccount(keyStoreObj.label, encryptedPrivateKeyObj, password, addr, keyStoreObj.salt, params);
                 const obj = {
-                    error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                    error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                     result: account.toJson()
                 };
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
                 }
                 // clear privateKey and password
                 password = '';
@@ -77708,21 +77801,21 @@ class SDK {
             } catch (err) {
                 const result = this.getDecryptError(err);
                 if (callback) {
-                    Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                    Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
                 }
                 return result;
             }
         }
     }
     static getUnclaimedOng(address, callback) {
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
-        return restClient.getAllowance('ong', new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_15__["ONT_CONTRACT"]), new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address)).then(res => {
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        return restClient.getAllowance('ong', new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_17__["ONT_CONTRACT"]), new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address)).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: res.Result
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }).catch(err => {
@@ -77731,20 +77824,20 @@ class SDK {
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         });
     }
     static querySmartCodeEventByTxhash(txHash, callback) {
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.getSmartCodeEvent(txHash).then(res => {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: res
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return obj;
         }).catch(err => {
@@ -77753,7 +77846,7 @@ class SDK {
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         });
@@ -77762,40 +77855,40 @@ class SDK {
         const M = parseInt(requiredSignatureNum, 10);
         let pks = [];
         let pubs = [];
-        let error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS;
+        let error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS;
         try {
             pks = JSON.parse(allRelatedPks);
-            pubs = pks.map(p => _crypto__WEBPACK_IMPORTED_MODULE_5__["PublicKey"].deserializeHex(new _utils__WEBPACK_IMPORTED_MODULE_21__["StringReader"](p)));
+            pubs = pks.map(p => _crypto__WEBPACK_IMPORTED_MODULE_6__["PublicKey"].deserializeHex(new _utils__WEBPACK_IMPORTED_MODULE_23__["StringReader"](p)));
         } catch (err) {
-            error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS;
+            error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS;
         }
         if (M < 2 || pks.length < M || pks.length > 12) {
-            error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS;
+            error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS;
         }
         let address = '';
         try {
-            address = _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"].fromMultiPubKeys(M, pubs).toBase58();
+            address = _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"].fromMultiPubKeys(M, pubs).toBase58();
         } catch (err) {
-            error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS;
+            error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS;
         }
         if (callback) {
             const result = {
                 error,
                 result: address
             };
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return address;
     }
     static adderssFromPublicKey(publicKey, callback) {
-        const pk = _crypto__WEBPACK_IMPORTED_MODULE_5__["PublicKey"].deserializeHex(new _utils__WEBPACK_IMPORTED_MODULE_21__["StringReader"](publicKey));
-        const address = _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"].fromPubKey(pk).toBase58();
+        const pk = _crypto__WEBPACK_IMPORTED_MODULE_6__["PublicKey"].deserializeHex(new _utils__WEBPACK_IMPORTED_MODULE_23__["StringReader"](publicKey));
+        const address = _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"].fromPubKey(pk).toBase58();
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: address
         };
         if (callback) {
-            Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         }
         return address;
     }
@@ -77803,53 +77896,53 @@ class SDK {
         let fromAddress;
         let toAddress;
         try {
-            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
-            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](to);
+            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](to);
         } catch (err) {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
-        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_15__["makeTransferTx"])(asset, fromAddress, toAddress, amount, gasPrice, gasLimit);
+        const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_17__["makeTransferTx"])(asset, fromAddress, toAddress, amount, gasPrice, gasLimit);
         tx.payer = fromAddress;
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
-            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getSignContent()),
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent()),
             txData: tx.serialize()
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         return result;
     }
     static signMultiAddrTransaction(encryptedPrivateKey, address, salt, password, allRelatedPks, requiredSignatureNum, txDada, callback) {
         password = this.transformPassword(password);
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
         const M = parseInt(requiredSignatureNum, 10);
-        const tx = _transaction_transaction__WEBPACK_IMPORTED_MODULE_19__["Transaction"].deserialize(txDada);
+        const tx = _transaction_transaction__WEBPACK_IMPORTED_MODULE_21__["Transaction"].deserialize(txDada);
         const pubs = JSON.parse(allRelatedPks);
-        const pks = pubs.map(p => new _crypto__WEBPACK_IMPORTED_MODULE_5__["PublicKey"](p));
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTx"])(tx, M, pks, privateKey);
+        const pks = pubs.map(p => new _crypto__WEBPACK_IMPORTED_MODULE_6__["PublicKey"](p));
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTx"])(tx, M, pks, privateKey);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             signedHash: tx.serialize()
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         return tx;
     }
     /**
@@ -77857,74 +77950,74 @@ class SDK {
      */
     static neoTransfer(from, to, value, encryptedPrivateKey, password, salt, callback, params) {
         password = this.transformPassword(password);
-        const recv = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](to);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
-        const abiInfo = _smartcontract_abi_abiInfo__WEBPACK_IMPORTED_MODULE_13__["default"].parseJson(NEP5_ABI);
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(CONTRACT_HASH));
+        const recv = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](to);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+        const abiInfo = _smartcontract_abi_abiInfo__WEBPACK_IMPORTED_MODULE_15__["default"].parseJson(NEP5_ABI);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(CONTRACT_HASH));
         const amount = parseInt(value, 10);
         const func = abiInfo.getFunction('Transfer');
         func.name = func.name.toLowerCase();
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex, params);
         } catch (err) {
             const result = this.getDecryptError(err);
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         }
-        const p1 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["Parameter"]('from', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["ParameterType"].ByteArray, addr.serialize());
-        const p2 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["Parameter"]('to', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["ParameterType"].ByteArray, recv.serialize());
-        const p3 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["Parameter"]('value', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_14__["ParameterType"].Integer, amount * NEO_TRAN);
+        const p1 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["Parameter"]('from', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["ParameterType"].ByteArray, addr.serialize());
+        const p2 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["Parameter"]('to', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["ParameterType"].ByteArray, recv.serialize());
+        const p3 = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["Parameter"]('value', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_16__["ParameterType"].Integer, amount * NEO_TRAN);
         func.setParamsValue(p1, p2, p3);
-        const tx = _neocore_SmartContract__WEBPACK_IMPORTED_MODULE_10__["SmartContract"].makeInvokeTransaction(contractAddr, addr, func);
-        const p = new _neocore_Program__WEBPACK_IMPORTED_MODULE_9__["Program"]();
-        p.parameter = _neocore_Program__WEBPACK_IMPORTED_MODULE_9__["Program"].programFromParams([tx.sign(privateKey)]);
-        p.code = _neocore_Program__WEBPACK_IMPORTED_MODULE_9__["Program"].programFromPubKey(privateKey.getPublicKey());
+        const tx = _neocore_SmartContract__WEBPACK_IMPORTED_MODULE_11__["SmartContract"].makeInvokeTransaction(contractAddr, addr, func);
+        const p = new _neocore_Program__WEBPACK_IMPORTED_MODULE_10__["Program"]();
+        p.parameter = _neocore_Program__WEBPACK_IMPORTED_MODULE_10__["Program"].programFromParams([tx.sign(privateKey)]);
+        p.code = _neocore_Program__WEBPACK_IMPORTED_MODULE_10__["Program"].programFromPubKey(privateKey.getPublicKey());
         tx.scripts = [p];
-        return _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_8__["NeoRpc"].sendRawTransaction(NEO_NODE, tx.serialize()).then(res => {
+        return _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_9__["NeoRpc"].sendRawTransaction(NEO_NODE, tx.serialize()).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: ''
             };
             if (res.result) {
-                result.result = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getHash());
-                callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                result.result = Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getHash());
+                callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             } else {
-                result.error = _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].NETWORK_ERROR;
-                callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                result.error = _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].NETWORK_ERROR;
+                callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         });
     }
     static getNeoBalance(address, callback) {
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(CONTRACT_HASH));
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](address);
-        return _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_8__["NeoRpc"].getBalance(NEO_NODE, contractAddr, addr).then(res => {
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(CONTRACT_HASH));
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](address);
+        return _neocore_NeoRpc__WEBPACK_IMPORTED_MODULE_9__["NeoRpc"].getBalance(NEO_NODE, contractAddr, addr).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: 0
             };
             if (res.result) {
-                const balance = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(res.result), 16);
+                const balance = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(res.result), 16);
                 result.result = balance;
             }
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             return result;
         });
     }
     static sendTransaction(txData, callback) {
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(txData).then(res => {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: res
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return obj;
         }).catch(err => {
@@ -77933,43 +78026,20 @@ class SDK {
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
-            }
-            return result;
-        });
-    }
-
-    static sendTransactionWithWebsocket(txData, callback) {
-        const socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_12__["WebsocketClient"](`ws://${SDK.SERVER_NODE}:${SDK.SOCKET_PORT}`);
-        return socketClient.sendRawTransaction(txData, false, true).then(res => {
-            const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
-                result: res
-            };
-            if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(obj), callback);
-            }
-            return obj;
-        }).catch(err => {
-            const result = {
-                error: err.Error,
-                result: ''
-            };
-            if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         });
     }
     static checkTransaction(txData, callback) {
-        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
+        const restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"](`http://${SDK.SERVER_NODE}:${SDK.REST_PORT}`);
         return restClient.sendRawTransaction(txData,true).then(res => {
             const obj = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: res
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return obj;
         }).catch(err => {
@@ -77978,19 +78048,22 @@ class SDK {
                 result: ''
             };
             if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
         });
     }
     static makeDappTransaction(jsonString, fromkey, callback) {
-       const fromprivate = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](fromkey);
+       const fromprivate = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](fromkey);
+
        var jsonObj = JSON.parse(jsonString);
-       const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
+      const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
        const signContent = txs[0].getSignContent();
-       Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(txs[0], fromprivate);
+
+       Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(txs[0], fromprivate);
        const ss = txs[0].serialize()
-       const txHash = Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(txs[0].getSignContent())
+       const txHash = Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(txs[0].getSignContent())
+       
        const obj = {
            error: 0,
            result: ss,
@@ -77998,76 +78071,83 @@ class SDK {
            tx:txs[0]
        };
         if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
             }
             return result;
        
    }
-
-   static makeDappInvokeReadTransaction(jsonString, callback) {
-       var jsonObj = JSON.parse(jsonString);
-       const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
-       const ss = txs[0].serialize()
-       const obj = {
-           error: 0,
-           result: ss
-       };
-        if (callback) {
-                Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+    static sendTransactionWithWebsocket(txData, callback) {
+        const socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_13__["WebsocketClient"](`ws://${SDK.SERVER_NODE}:${SDK.SOCKET_PORT}`);
+        return socketClient.sendRawTransaction(txData, false, true).then(res => {
+            const obj = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+                result: res
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return obj;
+        }).catch(err => {
+            const result = {
+                error: err.Error,
+                result: ''
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             }
             return result;
-       
-   }
+        });
+    }
     // ope8 apis for ONTO
     static queryOep8Balance(contractHash, account, tokenId, callback) {
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(contractHash));
-        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__["Oep8TxBuilder"](contractAddr);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](account);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__["Oep8TxBuilder"](contractAddr);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](account);
         const tx = oep8.makeQueryBalanceOfTx(addr, tokenId);
         return SDK.restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: 0
             };
             if (res.Result.Result) {
-                result.result = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(res.Result.Result), 16);
+                result.result = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(res.Result.Result), 16);
             }
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             return result;
         });
     }
     static queryOep8Balances(contractHash, account, callback) {
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(contractHash));
-        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__["Oep8TxBuilder"](contractAddr);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](account);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__["Oep8TxBuilder"](contractAddr);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](account);
         const tx = oep8.makeQueryBalancesTx(addr);
         return SDK.restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: [0, 0, 0, 0, 0, 0, 0, 0]
             };
             if (res.Result.Result) {
-                const vals = res.Result.Result.map(v => v ? parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(v), 16) : 0);
+                const vals = res.Result.Result.map(v => v ? parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(v), 16) : 0);
                 result.result = vals;
             }
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             return result;
         });
     }
     static queryOep8TotalBalance(contractHash, account, callback) {
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(contractHash));
-        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__["Oep8TxBuilder"](contractAddr);
-        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](account);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__["Oep8TxBuilder"](contractAddr);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](account);
         const tx = oep8.makeQueryTotalBalanceTx(addr);
         return SDK.restClient.sendRawTransaction(tx.serialize(), true).then(res => {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
                 result: 0
             };
             if (res.Result.Result) {
-                result.result = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(res.Result.Result), 16);
+                result.result = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(res.Result.Result), 16);
             }
-            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
             return result;
         });
     }
@@ -78077,37 +78157,37 @@ class SDK {
         let payerAddress;
         password = this.transformPassword(password);
         try {
-            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
-            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](to);
-            payerAddress = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](payer);
+            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](to);
+            payerAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](payer);
         } catch (err) {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             return result;
         }
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
-            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](from);
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
         } catch (err) {
             const result = this.getDecryptError(err);
             return result;
         }
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(contractHash));
-        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__["Oep8TxBuilder"](contractAddr);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__["Oep8TxBuilder"](contractAddr);
         const tx = oep8.makeTransferTx(fromAddress, toAddress, tokenId, value, gasPrice, gasLimit, payerAddress);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: '',
             tx: tx.serialize(),
-            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getSignContent())
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent())
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
@@ -78117,16 +78197,16 @@ class SDK {
         let addr;
         password = this.transformPassword(password);
         try {
-            addr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](account);
+            addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](account);
         } catch (err) {
             const result = {
-                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
                 result: ''
             };
             return result;
         }
         let privateKey;
-        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
         try {
             const saltHex = Buffer.from(salt, 'base64').toString('hex');
             privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
@@ -78134,27 +78214,86 @@ class SDK {
             const result = this.getDecryptError(err);
             return result;
         }
-        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_5__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(contractHash));
-        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_17__["Oep8TxBuilder"](contractAddr);
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep8 = new _smartcontract_neovm_oep8TxBuilder__WEBPACK_IMPORTED_MODULE_19__["Oep8TxBuilder"](contractAddr);
         const tx = oep8.makeCompoundTx(addr, compoundNum, gasPrice, gasLimit, addr);
-        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_20__["signTransaction"])(tx, privateKey);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
         const result = {
-            error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].SUCCESS,
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
             result: '',
             tx: tx.serialize(),
-            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_21__["reverseHex"])(tx.getSignContent())
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent())
         };
-        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_21__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
+        // clear privateKey and password
+        privateKey.key = '';
+        password = '';
+        return result;
+    }
+    // ope4 apis for ONTO
+    static queryOep4Balance(contractHash, account, callback) {
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep4 = new _smartcontract_neovm_oep4TxBuilder__WEBPACK_IMPORTED_MODULE_0__["Oep4TxBuilder"](contractAddr);
+        const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](account);
+        const tx = oep4.queryBalanceOf(addr);
+        return SDK.restClient.sendRawTransaction(tx.serialize(), true).then(res => {
+            const result = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+                result: 0
+            };
+            if (res.Result.Result) {
+                result.result = parseInt(Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(res.Result.Result), 16);
+            }
+            callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            return result;
+        });
+    }
+    static transferOep4(contractHash, from, to, value, encryptedPrivateKey, password, salt, gasPrice, gasLimit, callback) {
+        let fromAddress;
+        let toAddress;
+        password = this.transformPassword(password);
+        try {
+            fromAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+            toAddress = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](to);
+        } catch (err) {
+            const result = {
+                error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].INVALID_PARAMS,
+                result: ''
+            };
+            return result;
+        }
+        let privateKey;
+        const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_6__["PrivateKey"](encryptedPrivateKey);
+        try {
+            const addr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](from);
+            const saltHex = Buffer.from(salt, 'base64').toString('hex');
+            privateKey = encryptedPrivateKeyObj.decrypt(password, addr, saltHex);
+        } catch (err) {
+            const result = this.getDecryptError(err);
+            return result;
+        }
+        const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_6__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(contractHash));
+        const oep4 = new _smartcontract_neovm_oep4TxBuilder__WEBPACK_IMPORTED_MODULE_0__["Oep4TxBuilder"](contractAddr);
+        const tx = oep4.makeTransferTx(fromAddress, toAddress, value, gasPrice, gasLimit, fromAddress);
+        Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_22__["signTransaction"])(tx, privateKey);
+        const result = {
+            error: _error__WEBPACK_IMPORTED_MODULE_7__["ERROR_CODE"].SUCCESS,
+            result: '',
+            tx: tx.serialize(),
+            txHash: Object(_utils__WEBPACK_IMPORTED_MODULE_23__["reverseHex"])(tx.getSignContent())
+        };
+        callback && Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(result), callback);
         // clear privateKey and password
         privateKey.key = '';
         password = '';
         return result;
     }
 }
-SDK.SERVER_NODE = _consts__WEBPACK_IMPORTED_MODULE_4__["TEST_NODE"];
-SDK.REST_PORT = _consts__WEBPACK_IMPORTED_MODULE_4__["HTTP_REST_PORT"];
-SDK.SOCKET_PORT = _consts__WEBPACK_IMPORTED_MODULE_4__["HTTP_WS_PORT"];
-SDK.restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_11__["default"]();
+SDK.SERVER_NODE = _consts__WEBPACK_IMPORTED_MODULE_5__["TEST_NODE"];
+SDK.REST_PORT = _consts__WEBPACK_IMPORTED_MODULE_5__["HTTP_REST_PORT"];
+SDK.SOCKET_PORT = _consts__WEBPACK_IMPORTED_MODULE_5__["HTTP_WS_PORT"];
+SDK.restClient = new _network_rest_restClient__WEBPACK_IMPORTED_MODULE_12__["default"]();
+SDK.socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_13__["WebsocketClient"]();
 /* WEBPACK VAR INJECTION */}.call(this, __webpack_require__(/*! ./../../node_modules/buffer/index.js */ "./node_modules/buffer/index.js").Buffer))
 
 /***/ }),
@@ -82659,7 +82798,7 @@ function makeTransactionsByJson(json) {
         throw new Error('Invalid parameter. Expect JSON object');
     }
     if (!json.action || json.action !== 'invoke' && json.action !== 'invokeRead' && json.action !== 'invokePasswordFree') {
-        throw new Error('Invalid parameter. The action type must be "invoke 、 invokeRead or invokePasswordFree"');
+        throw new Error('Invalid parameter. The action type must be "invoke or invokeRead"');
     }
     if (!json.params || !json.params.invokeConfig) {
         throw new Error('Invalid parameter. The params can not be empty.');

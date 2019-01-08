@@ -10,6 +10,7 @@
 #import "ExportWalletViewController.h"
 #import "SendConfirmView.h"
 #import "ChangeNodeViewController.h"
+#import "ExportIdentityViewController.h"
 @interface MineViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
@@ -18,6 +19,8 @@
 @property(nonatomic,strong)MBProgressHUD *hub;
 @property(nonatomic,copy)  NSString *confirmPwd;
 @property(nonatomic,strong)NSDictionary* defaultDic;
+@property(nonatomic,strong)NSDictionary* defaultIdentityDic;
+@property(nonatomic,assign)BOOL isIdentity;
 @end
 
 @implementation MineViewController
@@ -53,6 +56,15 @@
     return _sendConfirmV;
 }
 - (void)loadPswJS{
+    if (self.isIdentity) {
+        [self loadPswJsByIdentity];
+    }else{
+        [self loadPswJsByWallet];
+    }
+    
+    
+}
+-(void)loadPswJsByWallet{
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     if (dict.count == 0) {
@@ -69,7 +81,26 @@
     [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
         [weakSelf handlePrompt:prompt];
     }];
-    
+}
+-(void)loadPswJsByIdentity{
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:APP_ACCOUNT];
+    NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+    NSDictionary *controlsDic = dict[@"controls"][0];
+    self.defaultIdentityDic = controlsDic;
+    if (dict.count == 0) {
+        return;
+    }
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptByIdentity')",controlsDic[@"key"],[Common transferredMeaning:_confirmPwd],controlsDic[@"address"],controlsDic[@"salt"]];
+
+    if (_confirmPwd.length==0) {
+        return;
+    }
+    _hub=[ToastUtil showMessage:@"" toView:nil];
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
 }
 - (void)handlePrompt:(NSString *)prompt{
     
@@ -94,12 +125,45 @@
     }else if ([prompt hasPrefix:@"exportWifPrivakeKey"]) {
         NSLog(@"wif=%@",prompt);
         [_hub hideAnimated:YES];
+        NSDictionary *resultDic = obj[@"result"];
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
             [Common showToast:errorStr];
         }else{
             ExportWalletViewController * vc = [[ExportWalletViewController alloc]init];
-            vc.wifString = obj[@"result"];
+            vc.wifString = resultDic[@"wif"];
+            vc.keyString = resultDic[@"privateKey"];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else if ([prompt hasPrefix:@"decryptByIdentity"]) {
+        NSLog(@"identity=%@",obj);
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            self.confirmPwd = @"";
+            [Common showToast:@"Password error"];
+        }else{
+            [self.sendConfirmV dismiss];
+                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.exportWifPrivakeKey('%@','%@','%@','%@','exportWifByIdentity')",self.defaultIdentityDic[@"key"],[Common transferredMeaning:_confirmPwd],self.defaultIdentityDic[@"address"],self.defaultIdentityDic[@"salt"]];
+            
+            if (_confirmPwd.length==0) {
+                return;
+            }
+            [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+            __weak typeof(self) weakSelf = self;
+            [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+                [weakSelf handlePrompt:prompt];
+            }];
+        }
+    }else if ([prompt hasPrefix:@"exportWifByIdentity"]) {
+        [_hub hideAnimated:YES];
+        NSDictionary *resultDic = obj[@"result"];
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            [Common showToast:errorStr];
+        }else{
+            ExportIdentityViewController * vc = [[ExportIdentityViewController alloc]init];
+            vc.wifString = resultDic[@"wif"];
+            vc.keyString = resultDic[@"privateKey"];
             [self.navigationController pushViewController:vc animated:YES];
         }
     }
@@ -128,7 +192,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 4;
+    return 5;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     return 50*SCALE_W;
@@ -159,6 +223,8 @@
         cell.textLabel.text = @"EXPORT WALLET";
     }else if (indexPath.row ==3){
         cell.textLabel.text = @"CLEAR IDENTITY";
+    }else if (indexPath.row ==4){
+        cell.textLabel.text = @"EXPORT IDENTITY";
     }
     cell.textLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     cell.textLabel.textColor = BLUELB;
@@ -178,7 +244,21 @@
     }else if (indexPath.row == 3){
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:APP_ACCOUNT];
         [[NSUserDefaults standardUserDefaults] synchronize];
+    }else if (indexPath.row == 4){
+        [self toExportIdentity];
     }
+}
+-(void)toExportIdentity{
+    NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:APP_ACCOUNT];
+    if (!jsonStr) {
+        [Common showToast:@"No identity"];
+        return;
+    }
+    self.isIdentity = YES;
+    self.sendConfirmV.paybyStr = @"";
+    self.sendConfirmV.amountStr = @"";
+    self.sendConfirmV.isWalletBack = YES;
+    [self.sendConfirmV show];
 }
 -(void)toExportWallet{
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
@@ -186,6 +266,7 @@
         [Common showToast:@"No Wallet"];
         return;
     }
+    self.isIdentity = NO;
     self.defaultDic = [Common dictionaryWithJsonString:jsonStr];
     self.sendConfirmV.paybyStr = @"";
     self.sendConfirmV.amountStr = @"";
