@@ -361,13 +361,21 @@
 }
 // 获取账户信息
 -(void)getAccount:(NSDictionary*)resultDic{
-    
+    NSString * idStr = @"";
+    if (self.promptDic[@"id"]) {
+        idStr = self.promptDic[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (self.promptDic[@"version"]) {
+        versionStr = self.promptDic[@"version"];
+    }
     NSDictionary *params = @{@"action":@"getAccount",
                              @"version":@"v1.0.0",
                              @"error":@0,
                              @"desc":@"SUCCESS",
                              @"result":self.defaultWalletDic[@"address"],
-                             @"id":self.promptDic[@"id"]
+                             @"id":idStr,
+                             @"version":versionStr
                              };
     NSString * jsonString = [Common dictionaryToJson:params];
     NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
@@ -377,6 +385,12 @@
 }
 // invoke 合约
 - (void)invokeTransactionRequest:(NSDictionary*)resultDic{
+    NSDictionary * params = resultDic[@"params"];
+    NSDictionary * invokeConfig = params[@"invokeConfig"];
+    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+        [Common showToast:@"No Wallet"];
+        return;
+    }
     self.sendConfirmV.paybyStr = @"";
     self.sendConfirmV.amountStr = @"";
     self.sendConfirmV.isWalletBack = YES;
@@ -385,6 +399,12 @@
 
 // invokeRead
 -(void)invokeReadRequest:(NSDictionary*)resultDic{
+    NSDictionary * params = resultDic[@"params"];
+    NSDictionary * invokeConfig = params[@"invokeConfig"];
+    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+        [Common showToast:@"No Wallet"];
+        return;
+    }
     NSString *str = [self convertToJsonData:self.promptDic];
     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappInvokeReadTransaction('%@','makeDappTransaction')",str];
     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
@@ -395,6 +415,12 @@
 }
 // invokePasswordFree
 -(void)invokePasswordFreeRequest:(NSDictionary*)resultDic{
+    NSDictionary * params = resultDic[@"params"];
+    NSDictionary * invokeConfig = params[@"invokeConfig"];
+    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+        [Common showToast:@"No Wallet"];
+        return;
+    }
     if (self.isFirst) {
         self.sendConfirmV.paybyStr = @"";
         self.sendConfirmV.amountStr = @"";
@@ -441,12 +467,20 @@
 }
 // 错误信息上传
 -(void)errorSend:(NSDictionary*)dic{
-    
+    NSString * idStr = @"";
+    if (self.promptDic[@"id"]) {
+        idStr = self.promptDic[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (self.promptDic[@"version"]) {
+        versionStr = self.promptDic[@"version"];
+    }
     NSDictionary *nParams = @{@"action":self.promptDic[@"action"],
                               @"error": dic[@"error"],
                               @"desc": @"ERROR",
                               @"result":dic[@"result"],
-                              @"id":self.promptDic[@"id"]
+                              @"id":idStr,
+                              @"version":versionStr
                               };
     
     
@@ -495,6 +529,8 @@
                     [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
                         [weakSelf handlePrompt:prompt];
                     }];
+                    
+                    
                 }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
                     NSString *str = [self convertToJsonData:self.promptDic];
                     self.confirmSurePwd = obj[@"result"];
@@ -518,19 +554,27 @@
             [_hub hideAnimated:YES];
             [self.sendConfirmV dismiss];
             NSDictionary *params = self.promptDic[@"params"];
+            NSString * idStr = @"";
+            if (self.promptDic[@"id"]) {
+                idStr = self.promptDic[@"id"];
+            }
+            NSString * versionStr = @"";
+            if (self.promptDic[@"version"]) {
+                versionStr = self.promptDic[@"version"];
+            }
             NSDictionary *result =@{@"type": @"account",
                                     @"publicKey":self.defaultWalletDic[@"publicKey"],
                                     @"address": self.defaultWalletDic[@"address"],
                                     @"message":params[@"message"] ,
                                     @"signature":obj[@"result"],
-                                    @"id":self.promptDic[@"id"]
                                     };
             NSDictionary *nParams = @{@"action":@"login",
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
                                       @"result":result,
-                                      @"id":self.promptDic[@"id"]
+                                      @"id":idStr,
+                                      @"version":versionStr
                                       };
             
             
@@ -565,13 +609,22 @@
             [self.sendConfirmV dismiss];
             NSDictionary * result = obj[@"result"];
             NSDictionary *nParams ;
+            NSString * idStr = @"";
+            if (self.promptDic[@"id"]) {
+                idStr = self.promptDic[@"id"];
+            }
+            NSString * versionStr = @"";
+            if (self.promptDic[@"version"]) {
+                versionStr = self.promptDic[@"version"];
+            }
             if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
                 nParams = @{@"action":@"invokePasswordFree",
                                       @"version": @"v1.0.0",
                                       @"error": @0,
                                       @"desc": @"SUCCESS",
                                       @"result":result[@"Result"],
-                                      @"id":self.promptDic[@"id"]
+                                      @"id":idStr,
+                                      @"version":versionStr
                                       };
                 [self toSaveInvokePasswordFreeInfo];
             }else{
@@ -580,7 +633,8 @@
                             @"error": @0,
                             @"desc": @"SUCCESS",
                             @"result":result[@"Result"],
-                            @"id":self.promptDic[@"id"]
+                            @"id":idStr,
+                            @"version":versionStr
                             };
             }
             NSString *jsonString = [Common dictionaryToJson:nParams];
@@ -610,12 +664,21 @@
                 [self.sendConfirmV dismiss];
                 NSDictionary *result = obj[@"result"];
                 NSDictionary *nparams =result[@"Result"];
+                NSString * idStr = @"";
+                if (self.promptDic[@"id"]) {
+                    idStr = self.promptDic[@"id"];
+                }
+                NSString * versionStr = @"";
+                if (self.promptDic[@"version"]) {
+                    versionStr = self.promptDic[@"version"];
+                }
                 NSDictionary *params = @{@"action":@"invokeRead",
                                          @"version":@"v1.0.0",
                                          @"error":@0,
                                          @"desc":@"SUCCESS",
                                          @"result":nparams,
-                                         @"id":self.promptDic[@"id"]
+                                         @"id":idStr,
+                                         @"version":versionStr
                                          };
                 NSString *jsonString = [Common dictionaryToJson:params];
                 NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];

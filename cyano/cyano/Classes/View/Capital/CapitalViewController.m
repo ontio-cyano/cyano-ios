@@ -14,7 +14,10 @@
 #import "ImportWalletViewController.h"
 #import "WebIdentityViewController.h"
 #import "SendConfirmView.h"
+#import "TokensCell.h"
+#import "Oep4TokensViewController.h"
 @interface CapitalViewController ()
+<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView  * bgView;
 @property(nonatomic,strong)UIView  * walletView;
 @property(nonatomic,strong)UILabel * addressLB;
@@ -26,9 +29,11 @@
 @property(nonatomic,copy)NSString  *claimOngAmount;
 @property(nonatomic,copy)NSString  *ongAmount;
 @property(nonatomic,copy)NSString  *password;
-@property(nonatomic,strong)BrowserView   *browserView;
+@property(nonatomic,strong)BrowserView     *browserView;
 @property(nonatomic,strong)SendConfirmView *sendConfirmV;
 @property(nonatomic,strong)MBProgressHUD   *hub;
+@property(nonatomic,strong)UITableView     *tableView;
+@property(nonatomic,strong)NSMutableArray  *dataArray;
 @end
 
 @implementation CapitalViewController
@@ -41,7 +46,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    
+    [self getOep4];
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT]; //[Common getEncryptedContent:ASSET_ACCOUNT];
     if (jsonStr) {
         _bgView.hidden = YES;
@@ -63,6 +68,10 @@
     [self createWalletView];
 }
 - (void)getData{
+    [self getAmount];
+    
+}
+-(void)getAmount{
     NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
     NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
     self.walletDict = dict;
@@ -79,7 +88,6 @@
         if ([[responseOriginal valueForKey:@"error"] integerValue] > 0) {
             return;
         }
-        NSLog(@"---***%@",responseObject);
         for (NSDictionary *dic in (NSArray *) responseObject) {
             if ([dic[@"AssetName"] isEqualToString:@"ont"]) {
                 self.ontNumLB.text = [NSString stringWithFormat:@"%@",dic[@"Balance"]];
@@ -103,6 +111,35 @@
         self.ontNumLB.text = @"0";
         self.ongNumLB.text = @"0";
         self.claimNumLB.text = @"0(Claim)";
+    };
+    
+    [[CCRequest shareInstance] requestWithURLString1:urlStr
+                                          MethodType:MethodTypeGET
+                                              Params:nil
+                                             Success:successCallback
+                                             Failure:failureCallback];
+}
+-(void)getOep4{
+    NSString *urlStr = [NSString stringWithFormat:@"%@/%@/%d/%d", OEP4Info, @"oep4",20,1];
+    CCSuccess successCallback = ^(id responseObject, id responseOriginal) {
+        if ([[responseOriginal valueForKey:@"error"] integerValue] > 0) {
+            return;
+        }
+        self.dataArray = [NSMutableArray array];
+        NSDictionary * ResultDic = responseOriginal[@"Result"];
+        if (ResultDic.count>0) {
+            NSArray * ContractList = ResultDic[@"ContractList"];
+            if (ContractList.count>0) {
+                for (NSDictionary * dic in ContractList) {
+                    [self.dataArray addObject:dic];
+                }
+            }
+        }
+        
+        [self.tableView reloadData];
+    };
+    CCFailure failureCallback = ^(NSError *error, NSString *errorDesc, id responseOriginal) {
+        [Common showToast:@"Network error"];
     };
     
     [[CCRequest shareInstance] requestWithURLString1:urlStr
@@ -194,6 +231,14 @@
     recordButton.titleLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [_walletView addSubview:recordButton];
     
+    _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.backgroundColor = TABLEBACKCOLOR;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator =NO;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_walletView addSubview:_tableView];
+    
     [sendButton handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         SendViewController * vc = [[SendViewController alloc]init];
         vc.ongNum = self.ongNumLB.text;
@@ -264,21 +309,31 @@
         make.left.equalTo(self.walletView).offset(20*SCALE_W);
         make.width.mas_offset(100*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
-        make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
+        make.top.equalTo(topView.mas_bottom).offset(5);
     }];
     
     [receiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sendButton.mas_right).offset(5*SCALE_W);
         make.width.mas_offset(100*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
-        make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
+        make.top.equalTo(topView.mas_bottom).offset(5);
     }];
     
     [recordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(receiveButton.mas_right).offset(5*SCALE_W);
         make.width.mas_offset(100*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
-        make.bottom.equalTo(self.walletView).offset(-100*SCALE_W);
+        make.top.equalTo(topView.mas_bottom).offset(5);
+    }];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(sendButton.mas_bottom).offset(5);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34);
+        }else{
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49);
+        }
     }];
     
 }
@@ -369,6 +424,57 @@
     }];
     
     
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return self.dataArray.count;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    return 50;
+}
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    UIView * headV = [[UIView alloc]initWithFrame:CGRectZero];
+    
+    UILabel * tokensLB = [[UILabel alloc]init];
+    tokensLB.text = @"OEP-4 tokens";
+    tokensLB.textAlignment = NSTextAlignmentLeft;
+    [headV addSubview:tokensLB];
+    
+    [headV mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.width.mas_offset(SYSWidth);
+        make.height.mas_offset(50);
+    }];
+    
+    [tokensLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headV).offset(20);
+        make.centerY.equalTo(headV);
+    }];
+    return headV;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * cellId = @"cellId";
+    TokensCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[TokensCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+        cell.selectionStyle =UITableViewCellSelectionStyleNone;
+
+    }
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    [cell reloadCellByDic:dic];
+    return cell;
+}
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    NSDictionary *dic = self.dataArray[indexPath.row];
+    Oep4TokensViewController *vc =[[Oep4TokensViewController alloc]init];
+    vc.ongNum = self.ongNumLB.text;
+    vc.ontNum = self.ontNumLB.text;
+    vc.walletDict = self.walletDict;
+    vc.isONT = YES;
+    vc.isOEP4 = YES;
+    vc.tokenDict = dic;
+    [self.navigationController pushViewController:vc animated:YES];
 }
 #pragma mark -  刷新钱包定时器
 - (void)toRefreshWallet
@@ -473,7 +579,6 @@
     
 }
 -(void)toClaimOng{
-    NSLog(@"SERVERNODE=%@",SERVERNODE);
     NSString * fee = [Common getRealFee:@"500" GasLimit:@"20000"];
     BOOL isEnough = [Common isEnoughOng:self.ongNumLB.text fee:fee];
     if (isEnough) {

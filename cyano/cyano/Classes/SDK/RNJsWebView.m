@@ -229,6 +229,7 @@
     
     NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
     
+    
     return [data base64EncodedStringWithOptions:0];
     
 }

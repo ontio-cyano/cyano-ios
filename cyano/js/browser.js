@@ -78076,6 +78076,20 @@ class SDK {
             return result;
        
    }
+   static makeDappInvokeReadTransaction(jsonString, callback) {
+       var jsonObj = JSON.parse(jsonString);
+       const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
+       const ss = txs[0].serialize()
+       const obj = {
+           error: 0,
+           result: ss
+       };
+        if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_23__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            }
+            return result;
+       
+   }
     static sendTransactionWithWebsocket(txData, callback) {
         const socketClient = new _network_websocket_websocketClient__WEBPACK_IMPORTED_MODULE_13__["WebsocketClient"](`ws://${SDK.SERVER_NODE}:${SDK.SOCKET_PORT}`);
         return socketClient.sendRawTransaction(txData, false, true).then(res => {

@@ -190,7 +190,6 @@
             payVc.dataArray = self.walletArray;
             [self.navigationController pushViewController:payVc animated:YES];
             return;
-            return;
         }
     }
 }

@@ -297,7 +297,9 @@ static NSInteger networkStatus = -1;
     requestUrl = [CapitalURL stringByAppendingString:urlString];
 
   }
-
+    if ([urlString hasPrefix:OEP4Info]) {
+        requestUrl = [CapitalURL stringByAppendingString:urlString];
+    }
   DebugLog(@"url==  %@", requestUrl);
   switch (methodType) {
     case MethodTypePOST: {

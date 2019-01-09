@@ -11,7 +11,7 @@
 		1804C62C21D22C490059C905 /* ImportWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804C62B21D22C490059C905 /* ImportWalletViewController.m */; };
 		18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18259BB821CB8DBA00DB863E /* DAppCell.m */; };
 		1828E47F21D471E6001E506E /* ChangeNodeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1828E47E21D471E6001E506E /* ChangeNodeViewController.m */; };
-		183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183470D721D0CC6F00587980 /* OntoPayViewController.m */; };
+		183470D821D0CC6F00587980 /* OntoPayLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183470D721D0CC6F00587980 /* OntoPayLoginViewController.m */; };
 		183A527121D119410066DDFC /* PaySureViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A526F21D119400066DDFC /* PaySureViewController.m */; };
 		183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527321D11C2D0066DDFC /* WebIdentityViewController.m */; };
 		183A527721D11E2A0066DDFC /* OntoPaySendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */; };
@@ -21,6 +21,7 @@
 		1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */; };
 		1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7821DCB79500CF8EDE /* IdentityViewController.m */; };
 		1854544E21E4728200F18919 /* ExportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854544D21E4728200F18919 /* ExportIdentityViewController.m */; };
+		18724FED21E5C74F004FF337 /* TokensCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18724FEC21E5C74F004FF337 /* TokensCell.m */; };
 		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
 		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
 		1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39221D0817400B2373F /* SGQRCodeHelperTool.m */; };
@@ -49,6 +50,7 @@
 		18C2588821CA89C80095B77D /* InfoAlert.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588521CA89C70095B77D /* InfoAlert.m */; };
 		18C2588B21CA8A250095B77D /* SendConfirmView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588921CA8A250095B77D /* SendConfirmView.m */; };
 		18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18C2588E21CA8AA30095B77D /* PwdEnterView.m */; };
+		18EB777821E5D7720066422B /* Oep4TokensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB777721E5D7720066422B /* Oep4TokensViewController.m */; };
 		18F719A521C9E85900762870 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F719A321C9E85900762870 /* BaseViewController.m */; };
 		18F719A921C9E88E00762870 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F719A821C9E88D00762870 /* Common.m */; };
 		18F719AE21C9E92800762870 /* CCRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F719AB21C9E92800762870 /* CCRequest.m */; };
@@ -122,7 +124,7 @@
 		1828E47D21D471E6001E506E /* ChangeNodeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ChangeNodeViewController.h; sourceTree = "<group>"; };
 		1828E47E21D471E6001E506E /* ChangeNodeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ChangeNodeViewController.m; sourceTree = "<group>"; };
 		183470D621D0CC6F00587980 /* OntoPayLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = OntoPayLoginViewController.h; sourceTree = "<group>"; };
-		183470D721D0CC6F00587980 /* OntoPayViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPayViewController.m; sourceTree = "<group>"; };
+		183470D721D0CC6F00587980 /* OntoPayLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OntoPayLoginViewController.m; sourceTree = "<group>"; };
 		183A526F21D119400066DDFC /* PaySureViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PaySureViewController.m; sourceTree = "<group>"; };
 		183A527021D119410066DDFC /* PaySureViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PaySureViewController.h; sourceTree = "<group>"; };
 		183A527221D11C2D0066DDFC /* WebIdentityViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebIdentityViewController.h; sourceTree = "<group>"; };
@@ -141,6 +143,8 @@
 		1851FC7821DCB79500CF8EDE /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
 		1854544C21E4728200F18919 /* ExportIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportIdentityViewController.h; sourceTree = "<group>"; };
 		1854544D21E4728200F18919 /* ExportIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportIdentityViewController.m; sourceTree = "<group>"; };
+		18724FEB21E5C74F004FF337 /* TokensCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokensCell.h; sourceTree = "<group>"; };
+		18724FEC21E5C74F004FF337 /* TokensCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokensCell.m; sourceTree = "<group>"; };
 		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
 		1873B38E21D0817400B2373F /* SGQRCode.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = SGQRCode.bundle; sourceTree = "<group>"; };
 		1873B39021D0817400B2373F /* UIImage+SGImageSize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+SGImageSize.m"; sourceTree = "<group>"; };
@@ -196,6 +200,8 @@
 		18C2588A21CA8A250095B77D /* SendConfirmView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SendConfirmView.h; sourceTree = "<group>"; };
 		18C2588D21CA8AA30095B77D /* PwdEnterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PwdEnterView.h; sourceTree = "<group>"; };
 		18C2588E21CA8AA30095B77D /* PwdEnterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PwdEnterView.m; sourceTree = "<group>"; };
+		18EB777621E5D7720066422B /* Oep4TokensViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Oep4TokensViewController.h; sourceTree = "<group>"; };
+		18EB777721E5D7720066422B /* Oep4TokensViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Oep4TokensViewController.m; sourceTree = "<group>"; };
 		18F719A321C9E85900762870 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
 		18F719A421C9E85900762870 /* BaseViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BaseViewController.h; sourceTree = "<group>"; };
 		18F719A621C9E86B00762870 /* Config.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Config.h; sourceTree = "<group>"; };
@@ -461,11 +467,15 @@
 				1895C0DD21CFCE3200F884BD /* SendViewController.h */,
 				1895C0DE21CFCE3200F884BD /* SendViewController.m */,
 				183470D621D0CC6F00587980 /* OntoPayLoginViewController.h */,
-				183470D721D0CC6F00587980 /* OntoPayViewController.m */,
+				183470D721D0CC6F00587980 /* OntoPayLoginViewController.m */,
 				183A527021D119410066DDFC /* PaySureViewController.h */,
 				183A526F21D119400066DDFC /* PaySureViewController.m */,
 				183A527521D11E2A0066DDFC /* OntoPaySendViewController.h */,
 				183A527621D11E2A0066DDFC /* OntoPaySendViewController.m */,
+				18EB777621E5D7720066422B /* Oep4TokensViewController.h */,
+				18EB777721E5D7720066422B /* Oep4TokensViewController.m */,
+				18724FEB21E5C74F004FF337 /* TokensCell.h */,
+				18724FEC21E5C74F004FF337 /* TokensCell.m */,
 			);
 			path = Capital;
 			sourceTree = "<group>";
@@ -934,6 +944,7 @@
 				18F719FF21C9EBC500762870 /* EasyAlertView.m in Sources */,
 				18F719FC21C9EBC500762870 /* EasyShowLabel.m in Sources */,
 				18F71A3021CA201B00762870 /* MainViewController.m in Sources */,
+				18724FED21E5C74F004FF337 /* TokensCell.m in Sources */,
 				18838C0C21CBA95000D52A1F /* BackView.m in Sources */,
 				18F719A521C9E85900762870 /* BaseViewController.m in Sources */,
 				18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */,
@@ -948,6 +959,7 @@
 				18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */,
 				1883881921CCE915000CADFB /* AppDelegate.m in Sources */,
 				18F71A0721C9EBC500762870 /* EasyAlertConfig.m in Sources */,
+				18EB777821E5D7720066422B /* Oep4TokensViewController.m in Sources */,
 				18F71A0A21C9EBC500762870 /* EasyEmptyTypes.m in Sources */,
 				18F719C021C9EA3300762870 /* UIButton+EnlargeTouchArea.m in Sources */,
 				18F719F521C9EBC500762870 /* EasyLoadingTypes.m in Sources */,
@@ -963,7 +975,7 @@
 				1873B3A221D0817400B2373F /* SGQRCodeAlbumManager.m in Sources */,
 				183A527121D119410066DDFC /* PaySureViewController.m in Sources */,
 				18F719FA21C9EBC500762870 /* EasyEmptyView.m in Sources */,
-				183470D821D0CC6F00587980 /* OntoPayViewController.m in Sources */,
+				183470D821D0CC6F00587980 /* OntoPayLoginViewController.m in Sources */,
 				18F719B821C9E9CE00762870 /* AppHelper.m in Sources */,
 				1828E47F21D471E6001E506E /* ChangeNodeViewController.m in Sources */,
 				18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */,

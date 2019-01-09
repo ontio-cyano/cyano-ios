@@ -252,13 +252,21 @@
 }
 -(void)togiveLoginInfo:(NSString*)infoString{
     NSDictionary * dic = _payInfo[@"params"];
+    NSString * idStr = @"";
+    if (self.payInfo[@"id"]) {
+        idStr = self.payInfo[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (self.payInfo[@"version"]) {
+        versionStr = self.payInfo[@"version"];
+    }
     NSDictionary * params = @{@"user":self.defaultDic[@"address"],
                               @"message":dic[@"message"],
                               @"publicKey":self.defaultDic[@"publicKey"],
                               @"signature":infoString,
                               @"type":@"account"
                               };
-    NSDictionary * submitDic = @{@"action":@"login",@"version":@"v1.0.0",@"params":params};
+    NSDictionary * submitDic = @{@"action":@"login",@"version":versionStr,@"params":params,@"id":idStr};
     [[CCRequest shareInstance]requestWithURLString:dic[@"callback"] MethodType:MethodTypePOST Params:submitDic Success:^(id responseObject, id responseOriginal) {
         if (self.hub != nil) {
             [self.hub hideAnimated:YES];

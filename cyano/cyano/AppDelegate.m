@@ -94,7 +94,6 @@
                                                           / 1000000000] forKey:FEE];
          [[NSUserDefaults standardUserDefaults]
           setValue:[NSString stringWithFormat:@"%@", [responseObject valueForKey:@"LoginTimeout"]] forKey:LOGOUTTIME];
-//         [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"TestnetAddr"] forKey:TESTNETADDR];
          [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"OntPassAddr"] forKey:ONTPASSADDRSS];
          [[NSUserDefaults standardUserDefaults] setValue:[responseObject valueForKey:@"NetName"] forKey:NETNAME];
          

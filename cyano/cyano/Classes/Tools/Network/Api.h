@@ -100,7 +100,11 @@
 #define New_txnstate @"https://swap.ont.io/api/v1/onttxn/txnstate"
 
 
+
 #define IdentityMind_API "/S2/api/v1/trustanchor/identitymind/apply"  //IdentityMind认证
 #define IdentityMind_Info "/S2/api/v1/trustanchor/identitymind/inreview/info" //审核中信息
 #define App_Id @"VSBaRKF1"
 #define App_Secret @"peSWkLosxs1flqq9s6AkaQ=="
+
+
+#define OEP4Info @"/api/v1/explorer/oepcontract"

@@ -21,11 +21,14 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import "EasyShowView.h"
+//#import <CloudrailSI/CloudrailSI.h>
+typedef void(^leftButton)(NSString * string);
+typedef void(^rightButton)(NSString * string);
 @interface Common : NSObject
 
 /**
  将指定的视图转换为图片
-
+ 
  @param sourceView 视图
  @return 图片
  */
@@ -38,7 +41,7 @@
 
 /**
  获取当前app语言
-
+ 
  @return 当前多语言
  */
 + (NSString *)getUserLanguage;
@@ -51,14 +54,14 @@
 + (NSString *)getUNIT;
 /**
  调用系统相机
-
+ 
  @param viewController 调用的VC
  */
 + (void)takePhoto:(id<UINavigationControllerDelegate, UIImagePickerControllerDelegate>)viewController;
 
 /**
  调用相册
-
+ 
  @param viewController 调用的VC
  @param edit 是否可裁剪
  */
@@ -66,7 +69,7 @@
 
 /**
  设置textfiled组件左边偏移量
-
+ 
  @param textField textfield
  @param width 偏移量
  */
@@ -74,21 +77,21 @@
 
 /**
  获取当前设备的唯一标示码
-
+ 
  @return 标示码
  */
 + (NSString *)getUniqueDeviceIdentifierAsString;
 
 /**
  获取Appname
-
+ 
  @return appName
  */
 + (NSString *)getAppName;
 
 /**
  将string时间转换为date
-
+ 
  @param string 被转换的时间串
  @param formatStr 转换的格式
  @return date
@@ -97,7 +100,7 @@
 
 /**
  将date转换为时间串
-
+ 
  @param date 被转换的date
  @param formatStr 转换的格式
  @return 时间串
@@ -106,7 +109,7 @@
 
 /**
  找出某字符的位置
-
+ 
  @param string 原字符
  @param str 查找的字符
  @return 位置
@@ -120,7 +123,7 @@
 
 /**
  字典转字符串
-
+ 
  @param dic 字典
  @return 字符串
  */
@@ -128,7 +131,7 @@
 
 /**
  json字符串转字典
-
+ 
  @param jsonString json
  @return 字典
  */
@@ -143,24 +146,24 @@
 
 /**
  判断是否更新
-
+ 
  @return bool
  */
 + (BOOL)isFirstLauch;
 
 /**
  数字加，
-
+ 
  @param num 传入数字
  @return 加，数字
  */
 + (NSString *)countNumAndChangeformat:(NSString *)num;
 /**
-  数字加
-  
-  @param  time 传入时间戳
-  @return 当地时间
-  */
+ 数字加
+ 
+ @param  time 传入时间戳
+ @return 当地时间
+ */
 + (NSString *)getTimeFromTimestamp:(NSString *)time;
 
 // 时间格式
@@ -189,6 +192,7 @@
 
 + (NSString *)getNowTimeTimestamp;
 
++ (long)getboxTimestamp;
 //密码转义
 + (NSString *)transferredMeaning:(NSString *)password;
 
@@ -197,13 +201,20 @@
 
 // 固定到9位精度，也可以去掉末尾多余的0
 + (NSString *)getPrecision9Str:(NSString *)conversionValue;
++ (NSString *)getPrecision9Str:(NSString *)amountStr Decimal:(int)Decimal;
++ (NSString *)getshuftiStr:(NSString *)conversionValue;
 // 固定到8位精度，也可以去掉末尾多余的0
 + (NSString *)divideAndReturnPrecision8Str:(NSString *)nep5Str;
 //乘以10^9以后，返回String
 + (NSString *)getONGMul10_9Str:(NSString *)ongStr;
-
++ (NSString *)getOEP4Str:(NSString *)amountStr Decimals:(int)Decimals;
++ (NSString *)changeOEP4Str:(NSString *)amountStr Decimals:(int)Decimals;
++ (NSString *)getOEP4ZeroStr:(NSString *)amountStr Decimals:(int)Decimals ;
++ (NSString *)getPayMoney:(NSString*)payMoney;
 // GasLimit * gasPrice / 10^9
 + (NSString *)getRealFee:(NSString *)gasPrice GasLimit:(NSString *)gasLimit;
+
++ (NSString *)getAllFee:(NSString*)originalFee gasPrice:(NSString *)gasPrice GasLimit:(NSString *)gasLimit;
 + (BOOL)isEnoughOng:(NSString *)ong fee:(NSString *)fee;
 // 判断未解绑ONG是否足够提取
 + (bool)isEnoughUnboundONG:(NSString *)unboundOng;
@@ -220,7 +231,6 @@
 //除以10^9以后，数字后面保留九位小数
 + (NSString *)divideAndReturnPrecision9Str:(NSString *)ongStr;
 
-+ (NSString *)getPayMoney:(NSString*)payMoney;
 //把字符串转成Base64编码
 
 + (NSString *)base64EncodeString:(NSString *)string;
@@ -254,23 +264,42 @@
 
 + (UIImage *)rotationImage:(UIImageView *)imageView;
 
-
 + (NSString *)hexStringFromString:(NSString *)string;
 
-+ (UIImage*)rotationImage:(UIImageView*)imageView;
 
-+(BOOL)checkPhone:(NSString*)phone regin:(NSString*)regin;
++ (BOOL)checkPhone:(NSString *)phone regin:(NSString *)regin;
 + (UIImage *)fixOrientation:(UIImage *)aImage;
 
 + (UIImage *)compressImageQuality:(UIImage *)image toByte:(NSInteger)maxLength;
 
-
-
 // 吐司
-+ (void)showToast:(NSString*)text;
++ (void)showToast:(NSString *)text;
 //富文本
-+(NSMutableAttributedString*)attrString:(NSString*)string width:(CGFloat)width font:(UIFont*)font lineSpace:(CGFloat)lineSpace wordSpace:(CGFloat)wordSpace ;
++ (NSMutableAttributedString *)attrString:(NSString *)string width:(CGFloat)width font:(UIFont *)font lineSpace:(CGFloat)lineSpace wordSpace:(CGFloat)wordSpace;
 
-+(CGSize)attrSizeString:(NSString*)string width:(CGFloat)width font:(UIFont*)font lineSpace:(CGFloat)lineSpace wordSpace:(CGFloat)wordSpace ;
++ (CGSize)attrSizeString:(NSString *)string width:(CGFloat)width font:(UIFont *)font lineSpace:(CGFloat)lineSpace wordSpace:(CGFloat)wordSpace;
+
+//+ (NSString *)downloadFile:(NSString *)fileName dropbox:(CRDropbox *)dropbox;
+
++ (void)addAlertTitle:(NSString *)title message:(NSString*)message buttonString:(NSString*)buttonString buttonBlock:(leftButton)buttonBlock;
+
++ (NSString*)authMoreLeftString:(NSString*)leftString numString:(NSString*)numString;
+//+ (void)addAlertTitle:(NSString *)title message:(NSString*)message leftString:(NSString*)leftString rightString:(NSString*)rightString leftBlock:(leftButton)leftBlock rightBlock:(rightButton)rightBlock;
++ (NSString*)ownerTobase58:(NSString*)string;
+
++ (NSString*)convertToJsonData:(NSDictionary*)dic;
+//NS_INLINE id _Nullable tryBlock(void(^_Nonnull tryBlock)(void)) {
+//    @try {
+//        tryBlock();
+//    } @catch (NSException *exception) {
+//        return exception;
+//    } @catch (CRError *ue) {
+//        return ue;
+//    } @catch (id ue) {
+//        return ue;
+//    }
+//    return nil;
+//}
+
 
 @end
