@@ -71,7 +71,7 @@
     nodeField.backgroundColor = WHITE;
     nodeField.layer.borderColor = [BLUELB CGColor];;
     nodeField.layer.borderWidth = 1;
-    nodeField.text = @"http://127.0.0.1:8080";
+    nodeField.text = @"http://192.168.3.137:8888";
     nodeField.font= [UIFont systemFontOfSize:14];
     [v addSubview:nodeField];
     
@@ -80,7 +80,7 @@
     sureBtn.layer.cornerRadius = 3;
     sureBtn.layer.borderWidth = 1;
     sureBtn.layer.borderColor = [WHITE CGColor];
-    [sureBtn setTitle:@"confirm" forState:UIControlStateNormal];
+    [sureBtn setTitle:@"Go" forState:UIControlStateNormal];
     [sureBtn setTitleColor:WHITE forState:UIControlStateNormal];
     [v addSubview:sureBtn];
     

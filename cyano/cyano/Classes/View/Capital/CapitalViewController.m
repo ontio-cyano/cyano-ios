@@ -569,7 +569,6 @@
         [_hub hideAnimated:YES];
         if ([[obj valueForKey:@"error"] integerValue] == 0) {
             [Common showToast:@"The transaction has been issued."];
-//            [self.sendConfirmV dismiss];
         }else{
             if ([[obj valueForKey:@"error"] integerValue] > 0) {
                 [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];

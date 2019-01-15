@@ -204,6 +204,7 @@
             vc.callback = self.callback  ;
             vc.isONT = self.isONT;
             vc.payMoney = self.payMoney;
+            vc.payDetailDic = self.payDetailDic;
             [self.navigationController pushViewController:vc animated:YES];
         }
     }else if ([prompt hasPrefix:@"sendTransaction"]){
@@ -214,13 +215,50 @@
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
             [Common showToast:errorStr];
+            if (self.callback.length >0) {
+                [self sendHashToDragon:1];
+            }
         }else{
+            [self sendHashToDragon:0];
             [Common showToast:@"The transaction has been issued."];
         }
         
         [self.navigationController popToRootViewControllerAnimated:YES];
     }
     
+}
+-(void)sendHashToDragon:(int)isSuccess{
+    NSDictionary *params;
+    NSString * idStr = @"";
+    if (self.payDetailDic[@"id"]) {
+        idStr = self.payDetailDic[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (self.payDetailDic[@"version"]) {
+        versionStr = self.payDetailDic[@"version"];
+    }
+    if (isSuccess) {
+        params = @{@"action":@"invoke",
+                   @"error":@0,
+                   @"desc":@"SUCCESS",
+                   @"result":self.hashString,
+                   @"version":versionStr,
+                   @"id":idStr
+                   };
+    }else{
+        params = @{@"action":@"invoke",
+                   @"error":@8001,
+                   @"desc":@"SEND TX ERROR",
+                   @"result":@1,
+                   @"version":versionStr,
+                   @"id":idStr
+                   };
+    }
+    [[CCRequest shareInstance]requestWithURLString:self.callback MethodType:MethodTypePOST Params:params Success:^(id responseObject, id responseOriginal) {
+        
+    } Failure:^(NSError *error, NSString *errorDesc, id responseOriginal) {
+        
+    }];
 }
 - (void)getInvokeMessage:(NSString*)urlString{
     

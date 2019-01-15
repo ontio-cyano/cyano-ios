@@ -17,7 +17,6 @@
 }
 @property(nonatomic,strong)UITextField * AmountLBNumField;
 @property(nonatomic,strong)UITextField * addressField;
-@property(nonatomic,strong)UITableView * tableView;
 @property(nonatomic,strong)SendConfirmView *sendConfirmV;
 @property(nonatomic,strong)BrowserView   *browserView;
 @property(nonatomic,copy)  NSString      *confirmPwd;

@@ -18,6 +18,7 @@
 @property(nonatomic,copy)  NSString * hashString;
 @property(nonatomic,strong)NSDictionary * payInfo;
 @property(nonatomic,strong)NSDictionary * defaultDic;
+@property(nonatomic,strong)NSDictionary * payDetailDic;
 @property(nonatomic,assign)BOOL isONT;
 @end
 

@@ -21,6 +21,7 @@
 		1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */; };
 		1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7821DCB79500CF8EDE /* IdentityViewController.m */; };
 		1854544E21E4728200F18919 /* ExportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854544D21E4728200F18919 /* ExportIdentityViewController.m */; };
+		1862E60A21E6F66B008B83BC /* DDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862E60921E6F66B008B83BC /* DDOViewController.m */; };
 		18724FED21E5C74F004FF337 /* TokensCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18724FEC21E5C74F004FF337 /* TokensCell.m */; };
 		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
 		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
@@ -35,6 +36,7 @@
 		1875263821C77FAF00AADDB7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875263721C77FAF00AADDB7 /* main.m */; };
 		1875264221C77FB000AADDB7 /* cyanoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264121C77FB000AADDB7 /* cyanoTests.m */; };
 		1875264D21C77FB000AADDB7 /* cyanoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264C21C77FB000AADDB7 /* cyanoUITests.m */; };
+		1880DFCF21E8688C0084EDB8 /* libPods-cyano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1880DFCE21E8688C0084EDB8 /* libPods-cyano.a */; };
 		1883881921CCE915000CADFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875262921C77FAE00AADDB7 /* AppDelegate.m */; };
 		18838C0C21CBA95000D52A1F /* BackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0A21CBA94F00D52A1F /* BackView.m */; };
 		1885540121CD098B009356EE /* DAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885540021CD098B009356EE /* DAppViewController.m */; };
@@ -94,7 +96,6 @@
 		18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3821CA3F2A00762870 /* UITextField+LKLUITextField.m */; };
 		18F71A3D21CA471400762870 /* BrowserView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F71A3B21CA471300762870 /* BrowserView.m */; };
 		18F71A4421CA493000762870 /* js in Resources */ = {isa = PBXBuildFile; fileRef = 18F71A4321CA493000762870 /* js */; };
-		E8887C2A94D5C50DEFD8AE33 /* libPods-cyano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 28BA40EABDC9EA366B40A0F8 /* libPods-cyano.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -143,6 +144,8 @@
 		1851FC7821DCB79500CF8EDE /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
 		1854544C21E4728200F18919 /* ExportIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportIdentityViewController.h; sourceTree = "<group>"; };
 		1854544D21E4728200F18919 /* ExportIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportIdentityViewController.m; sourceTree = "<group>"; };
+		1862E60821E6F66B008B83BC /* DDOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDOViewController.h; sourceTree = "<group>"; };
+		1862E60921E6F66B008B83BC /* DDOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDOViewController.m; sourceTree = "<group>"; };
 		18724FEB21E5C74F004FF337 /* TokensCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokensCell.h; sourceTree = "<group>"; };
 		18724FEC21E5C74F004FF337 /* TokensCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokensCell.m; sourceTree = "<group>"; };
 		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
@@ -173,6 +176,7 @@
 		1875264821C77FB000AADDB7 /* cyanoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cyanoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1875264C21C77FB000AADDB7 /* cyanoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cyanoUITests.m; sourceTree = "<group>"; };
 		1875264E21C77FB000AADDB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1880DFCE21E8688C0084EDB8 /* libPods-cyano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-cyano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18838C0A21CBA94F00D52A1F /* BackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackView.m; sourceTree = "<group>"; };
 		18838C0B21CBA95000D52A1F /* BackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackView.h; sourceTree = "<group>"; };
 		188553FF21CD098B009356EE /* DAppViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DAppViewController.h; sourceTree = "<group>"; };
@@ -301,8 +305,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1880DFCF21E8688C0084EDB8 /* libPods-cyano.a in Frameworks */,
 				18B69FD321CB43E6008B0AFB /* libSafeKeyBoardSDk.a in Frameworks */,
-				E8887C2A94D5C50DEFD8AE33 /* libPods-cyano.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -447,6 +451,8 @@
 				1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */,
 				1851FC7321DCA28300CF8EDE /* ImportIdentityViewController.h */,
 				1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */,
+				1862E60821E6F66B008B83BC /* DDOViewController.h */,
+				1862E60921E6F66B008B83BC /* DDOViewController.m */,
 			);
 			path = Identity;
 			sourceTree = "<group>";
@@ -710,6 +716,7 @@
 		23FC253286DFC839B5725FB8 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				1880DFCE21E8688C0084EDB8 /* libPods-cyano.a */,
 				28BA40EABDC9EA366B40A0F8 /* libPods-cyano.a */,
 			);
 			name = Frameworks;
@@ -907,6 +914,7 @@
 			files = (
 				18F719C121C9EA3300762870 /* UIImage+GradientColor.m in Sources */,
 				18F719A921C9E88E00762870 /* Common.m in Sources */,
+				1862E60A21E6F66B008B83BC /* DDOViewController.m in Sources */,
 				18F719C421C9EAD100762870 /* SFHFKeychainUtils.m in Sources */,
 				183A527421D11C2D0066DDFC /* WebIdentityViewController.m in Sources */,
 				18F71A3321CA2FC900762870 /* CreateWalletViewController.m in Sources */,
@@ -1155,6 +1163,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6B83RQ97AA;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cyano/Classes/View/Main/PrefixHeader.pch;
@@ -1171,7 +1180,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LR.Cyano-Wallet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Debug;
 		};
@@ -1182,6 +1192,7 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 6B83RQ97AA;
+				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = cyano/Classes/View/Main/PrefixHeader.pch;
@@ -1198,7 +1209,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "LR.Cyano-Wallet";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
+				VALID_ARCHS = "arm64 armv7 armv7s";
 			};
 			name = Release;
 		};

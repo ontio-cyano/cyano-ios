@@ -9,11 +9,16 @@
 #import "IdentityViewController.h"
 #import "CreateIdentityViewController.h"
 #import "ImportIdentityViewController.h"
+#import "DDOViewController.h"
 @interface IdentityViewController ()
+<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView  * bgView;
 @property(nonatomic,strong)UIView  * IdentityView;
 @property(nonatomic,strong)UILabel * ontidLB;
 @property(nonatomic,strong)NSDictionary * idDic;
+
+@property(nonatomic,strong)UITableView  * tableView;
+@property(nonatomic,strong)NSMutableArray * dataArray;
 
 @end
 
@@ -41,7 +46,7 @@
         _IdentityView.hidden = NO;
         NSDictionary *jsDic= [self parseJSONStringToNSDictionary:str];
         self.idDic = jsDic;
-        _ontidLB.text = [NSString stringWithFormat:@"Registered ONT ID\n%@",self.idDic[@"ontid"]];
+        _ontidLB.text = [NSString stringWithFormat:@"%@",self.idDic[@"ontid"]];
         NSLog(@"jsDic=%@",jsDic);
     }
     
@@ -57,14 +62,27 @@
     topView.backgroundColor = BLUELB;
     [_IdentityView addSubview:topView];
     
+    UILabel * LB = [[UILabel alloc]init];
+    LB.textColor = WHITE;
+    LB.text = @"Registered ONT ID";
+    LB.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
+    LB.textAlignment = NSTextAlignmentLeft;
+    [_IdentityView addSubview:LB];
     
     _ontidLB = [[UILabel alloc]init];
     _ontidLB.textColor = WHITE;
-    _ontidLB.numberOfLines = 0;
-    
+    _ontidLB.lineBreakMode = NSLineBreakByTruncatingMiddle;
     _ontidLB.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
     _ontidLB.textAlignment = NSTextAlignmentLeft;
     [_IdentityView addSubview:_ontidLB];
+    
+    _tableView = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableView.delegate = self;
+    _tableView.backgroundColor = TABLEBACKCOLOR;
+    _tableView.dataSource = self;
+    _tableView.showsVerticalScrollIndicator =NO;
+    _tableView.separatorStyle = UITableViewCellSeparatorStyleNone;
+    [_IdentityView addSubview:_tableView];
     
     [_IdentityView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.right.top.bottom.equalTo(self.view);
@@ -75,11 +93,27 @@
         //        make.height.mas_offset(150*SCALE_W);
     }];
     
+    [LB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view).offset(15*SCALE_W);
+        make.right.equalTo(self.view).offset(-15*SCALE_W);
+        make.top.equalTo(self.IdentityView).offset(30*SCALE_W);
+    }];
+    
     [_ontidLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.view).offset(15*SCALE_W);
         make.right.equalTo(self.view).offset(-15*SCALE_W);
-        make.top.equalTo(self.IdentityView).offset(20*SCALE_W);
-        make.bottom.equalTo(topView.mas_bottom).offset(-50*SCALE_W);
+        make.top.equalTo(LB.mas_bottom).offset(10*SCALE_W);
+        make.bottom.equalTo(topView.mas_bottom).offset(-30*SCALE_W);
+    }];
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(topView.mas_bottom).offset(0);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.IdentityView.mas_bottom).offset(-49 - 34);
+        }else{
+            make.bottom.equalTo(self.IdentityView.mas_bottom).offset(-49);
+        }
     }];
 }
 - (void)createEmptyIdentityV{
@@ -178,6 +212,89 @@
     }];
     
     
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
+    if (section == 2) {
+        return 0.01;
+    }
+    return 50;
+}
+-(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
+    if (section == 2) {
+        return nil;
+    }
+    UIView * headV = [[UIView alloc]initWithFrame:CGRectZero];
+    headV.backgroundColor = TABLEBACKCOLOR;
+    
+    UILabel * typeLB = [[UILabel alloc]init];
+    typeLB.textAlignment = NSTextAlignmentLeft;
+    [headV addSubview:typeLB];
+    
+    UIButton * actionButon = [[UIButton alloc]init];
+    [actionButon setTitleColor:WHITE forState:UIControlStateNormal];
+    actionButon.layer.cornerRadius = 2;
+    actionButon.backgroundColor = BLUELB;
+    [headV addSubview:actionButon];
+    if (section == 0) {
+        typeLB.text = @"Controllers";
+        [actionButon setTitle:@"ADD" forState:UIControlStateNormal];
+    }else{
+        typeLB.text = @"Recover";
+        [actionButon setTitle:@"UPDATE" forState:UIControlStateNormal];
+    }
+    
+    [actionButon handleControlEvent:UIControlEventTouchUpInside withBlock:^{
+        NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+        if (jsonStr) {
+            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+            DDOViewController * vc = [[DDOViewController alloc]init];
+            if (section == 0) {
+                vc.isAdd = YES;
+            }else{
+                vc.isAdd = NO;
+            }
+            vc.walletDic = dict;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            [Common showToast:@"No Wallet"];
+        }
+    }];
+    
+    [typeLB mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(headV).offset(15*SCALE_W);
+        make.centerY.equalTo(headV);
+    }];
+    
+    [actionButon mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.right.equalTo(headV).offset(-15*SCALE_W);
+        make.centerY.equalTo(headV);
+        make.height.mas_offset(35);
+        make.width.mas_offset(90);
+    }];
+    return headV;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section{
+    return 0.01;
+}
+-(UIView*)tableView:(UITableView *)tableView viewForFooterInSection:(NSInteger)section{
+    return nil;
+}
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 50;
+}
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 3;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 3;
+}
+-(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString * cellId = @"cellId";
+    UITableViewCell * cell = [tableView dequeueReusableCellWithIdentifier:cellId];
+    if (!cell) {
+        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellId];
+    }
+    return cell;
 }
 -(NSDictionary *)parseJSONStringToNSDictionary:(NSString *)JSONString {
     NSData *JSONData = [JSONString dataUsingEncoding:NSUTF8StringEncoding];

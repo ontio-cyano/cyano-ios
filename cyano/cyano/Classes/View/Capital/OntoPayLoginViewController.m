@@ -71,7 +71,7 @@
     [self.view addSubview:requiredLB2];
     
     UILabel * FromLB =[[UILabel alloc]init];
-    FromLB.text = @"Payment wallet";
+    FromLB.text = @"log-in wallet";
     FromLB.font = [UIFont systemFontOfSize:16 weight:UIFontWeightBold];
     [FromLB changeSpace:0 wordSpace:1];
     FromLB.textAlignment = NSTextAlignmentLeft;
@@ -219,6 +219,7 @@
 
 // TS SDK 回调处理
 - (void)handlePrompt:(NSString *)prompt{
+    
     
     
     NSArray *promptArray = [prompt componentsSeparatedByString:@"params="];

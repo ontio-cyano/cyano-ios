@@ -387,9 +387,11 @@
 - (void)invokeTransactionRequest:(NSDictionary*)resultDic{
     NSDictionary * params = resultDic[@"params"];
     NSDictionary * invokeConfig = params[@"invokeConfig"];
-    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
-        [Common showToast:@"No Wallet"];
-        return;
+    if (invokeConfig[@"payer"]) {
+        if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+            [Common showToast:@"No Wallet"];
+            return;
+        }
     }
     self.sendConfirmV.paybyStr = @"";
     self.sendConfirmV.amountStr = @"";
@@ -401,9 +403,11 @@
 -(void)invokeReadRequest:(NSDictionary*)resultDic{
     NSDictionary * params = resultDic[@"params"];
     NSDictionary * invokeConfig = params[@"invokeConfig"];
-    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
-        [Common showToast:@"No Wallet"];
-        return;
+    if (invokeConfig[@"payer"]) {
+        if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+            [Common showToast:@"No Wallet"];
+            return;
+        }
     }
     NSString *str = [self convertToJsonData:self.promptDic];
     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappInvokeReadTransaction('%@','makeDappTransaction')",str];
@@ -417,10 +421,13 @@
 -(void)invokePasswordFreeRequest:(NSDictionary*)resultDic{
     NSDictionary * params = resultDic[@"params"];
     NSDictionary * invokeConfig = params[@"invokeConfig"];
-    if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
-        [Common showToast:@"No Wallet"];
-        return;
+    if (invokeConfig[@"payer"]) {
+        if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
+            [Common showToast:@"No Wallet"];
+            return;
+        }
     }
+    
     if (self.isFirst) {
         self.sendConfirmV.paybyStr = @"";
         self.sendConfirmV.amountStr = @"";
