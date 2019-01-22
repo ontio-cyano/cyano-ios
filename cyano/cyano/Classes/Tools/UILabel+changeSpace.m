@@ -22,17 +22,4 @@
     [attributedString addAttributes:@{NSParagraphStyleAttributeName : paragraphStyle} range:NSMakeRange(0, str.length)];
     self.attributedText = attributedString;
 }
-//func changeSpace(lineSpace:CGFloat, wordSpace:CGFloat) {
-//    if self.text == nil || self.text == "" {
-//        return
-//    }
-//    let text = self.text
-//    let attributedString =  NSMutableAttributedString.init(string: text!, attributes: [ kCTKernAttributeName as NSAttributedStringKey : wordSpace])
-//    let paragraphStyle = NSMutableParagraphStyle()
-//    paragraphStyle.lineSpacing = lineSpace
-//
-//    attributedString.addAttributes( [kCTParagraphStyleAttributeName as NSAttributedStringKey : paragraphStyle], range: .init(location: 0, length: ((text! as NSString).length)))
-//    self.attributedText = attributedString
-//
-//}
 @end

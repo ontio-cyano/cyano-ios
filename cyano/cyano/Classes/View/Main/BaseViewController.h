@@ -42,8 +42,7 @@
 
 - (void)setNavLeftItems:(NSMutableArray *)array;
 
- -(void)navLeftAction;
-//- (void)setStatusBarBackgroundColor:(UIColor *)color;
+-(void)navLeftAction;
 -(void)navRightAction;
 
 - (void)getNetWork;

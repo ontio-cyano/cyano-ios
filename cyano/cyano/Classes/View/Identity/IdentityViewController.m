@@ -10,6 +10,8 @@
 #import "CreateIdentityViewController.h"
 #import "ImportIdentityViewController.h"
 #import "DDOViewController.h"
+#import "ONTIdViewController.h"
+#import "ONTIdPreViewController.h"
 @interface IdentityViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView  * bgView;
@@ -244,20 +246,22 @@
     }
     
     [actionButon handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
-        if (jsonStr) {
-            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
-            DDOViewController * vc = [[DDOViewController alloc]init];
-            if (section == 0) {
-                vc.isAdd = YES;
-            }else{
-                vc.isAdd = NO;
-            }
-            vc.walletDic = dict;
-            [self.navigationController pushViewController:vc animated:YES];
-        }else{
-            [Common showToast:@"No Wallet"];
-        }
+        ONTIdPreViewController * vc = [[ONTIdPreViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+//        NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+//        if (jsonStr) {
+//            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+//            DDOViewController * vc = [[DDOViewController alloc]init];
+//            if (section == 0) {
+//                vc.isAdd = YES;
+//            }else{
+//                vc.isAdd = NO;
+//            }
+//            vc.walletDic = dict;
+//            [self.navigationController pushViewController:vc animated:YES];
+//        }else{
+//            [Common showToast:@"No Wallet"];
+//        }
     }];
     
     [typeLB mas_makeConstraints:^(MASConstraintMaker *make) {
