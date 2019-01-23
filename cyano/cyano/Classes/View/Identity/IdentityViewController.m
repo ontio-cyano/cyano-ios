@@ -12,6 +12,7 @@
 #import "DDOViewController.h"
 #import "ONTIdViewController.h"
 #import "ONTIdPreViewController.h"
+#import "ONTOSDKViewController.h"
 @interface IdentityViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView  * bgView;
@@ -248,6 +249,9 @@
     [actionButon handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         ONTIdPreViewController * vc = [[ONTIdPreViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
+        
+//        ONTOSDKViewController * vc= [[ONTOSDKViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
 //        NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
 //        if (jsonStr) {
 //            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];

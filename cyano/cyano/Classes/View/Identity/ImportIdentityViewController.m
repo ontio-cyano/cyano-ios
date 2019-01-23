@@ -40,6 +40,7 @@
     _importTextView = [[UITextView alloc]init];
     _importTextView.backgroundColor = BUTTONBACKCOLOR;
     _importTextView.layer.cornerRadius = 3;
+    _importTextView.text = @"KyFBEnNQ1nbkY5qid3B4XULPpTyogSFzsnjktF2AkQAqmYvb9s3f";
     [self.view addSubview:_importTextView];
     
     UILabel * walletName = [[UILabel alloc]init];

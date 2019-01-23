@@ -1,23 +1,25 @@
 //
-//  RNJsWebView.m
+//  ONTIdWebView.m
 //  cyano
 //
-//  Created by Apple on 2018/12/27.
-//  Copyright © 2018 LR. All rights reserved.
+//  Created by Apple on 2019/1/22.
+//  Copyright © 2019 LR. All rights reserved.
 //
 
-#import "RNJsWebView.h"
+#import "ONTIdWebView.h"
 
-@implementation RNJsWebView
-
+@implementation ONTIdWebView
 
 - (instancetype)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self) {
         
-
+        
         [self addSubview:self.wkWebView];
+        [self.wkWebView mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.top.right.bottom.left.equalTo(self);
+        }];
     }
     return self;
 }
@@ -150,25 +152,9 @@
     NSDictionary *resultDic = [self dictionaryWithJsonString:[base64decodeString stringByRemovingPercentEncoding]];
     NSLog(@"resultDic=%@",resultDic);
     if (resultDic[@"action"]) {
-        if ([resultDic[@"action"] isEqualToString:@"login"]) {
-            if (_loginCallback) {
-                _loginCallback(resultDic);
-            }
-        }else if ([resultDic[@"action"] isEqualToString:@"invoke"]){
-            if (_invokeTransactionCallback) {
-                _invokeTransactionCallback(resultDic);
-            }
-        }else if ([resultDic[@"action"] isEqualToString:@"getAccount"]){
-            if (_getAccountCallback) {
-                _getAccountCallback(resultDic);
-            }
-        }else if ([resultDic[@"action"] isEqualToString:@"invokeRead"]){
-            if (_invokeReadCallback) {
-                _invokeReadCallback(resultDic);
-            }
-        }else if ([resultDic[@"action"] isEqualToString:@"invokePasswordFree"]){
-            if (_invokePasswordFreeCallback) {
-                _invokePasswordFreeCallback(resultDic);
+        if ([resultDic[@"action"] isEqualToString:@"authentication"]) {
+            if (_authenticationCallback) {
+                _authenticationCallback(resultDic);
             }
         }
     }

@@ -11,7 +11,20 @@
 #define ONTOBundle_Name @"cyano.bundle"
 #define ONTOBundle_Path [[[NSBundle mainBundle]resourcePath] stringByAppendingPathComponent:ONTOBundle_Name]
 #define ONTOBundle      [NSBundle bundleWithPath:ONTOBundle_Path]
+
+#define ONTOHeight [UIScreen mainScreen].bounds.size.height
+#define ONTOWidth  [UIScreen mainScreen].bounds.size.width
+
 #define ONTOIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define ONTOIsiPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
+#define ONTOIsiPhone6 (ONTOHeight == 667.0)
+
+#define DEFAULTONTID @"DEFAULTONTID"
+#define DEFAULTACCOUTNKEYSTORE @"DEFAULTACCOUTNKEYSTORE"
+#define ONTOLOADJSPRE  [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('polaris5.ont.io')" completionHandler:nil]
+#define ONTOLOADJS2 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setSocketPort('20335')" completionHandler:nil]
+#define ONTOLOADJS3 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setRestPort('20334')" completionHandler:nil]
+
 @interface ONTOBaseViewController : UIViewController
 
 - (void)setNavTitle:(NSString *)title;

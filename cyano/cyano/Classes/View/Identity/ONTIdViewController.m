@@ -7,16 +7,20 @@
 //
 
 #import "ONTIdViewController.h"
+#import "DAppViewController.h"
+#import "BrowserView.h"
 #import <Masonry.h>
-
 @interface ONTIdViewController ()
 <UITextFieldDelegate,UITextViewDelegate>
-@property(nonatomic,strong)UITextField * pswField;
-@property(nonatomic,strong)UITextField * pswConfirmField;
-@property(nonatomic,strong)UIButton    * sureBtn;
-@property(nonatomic,strong)UITextView  * textview;
-@property(nonatomic,strong)UIButton    * confirmBtn;
-@property(nonatomic,strong)UIView      * alertView;
+@property(nonatomic,strong)UIScrollView * scrollView;
+@property(nonatomic,strong)UITextField  * pswField;
+@property(nonatomic,strong)UITextField  * pswConfirmField;
+@property(nonatomic,strong)UIButton     * sureBtn;
+@property(nonatomic,strong)UITextView   * textview;
+@property(nonatomic,strong)UIButton     * confirmBtn;
+@property(nonatomic,strong)UIView       * alertView;
+@property(nonatomic, strong) BrowserView *browserView;
+@property(nonatomic,strong)MBProgressHUD *hub;
 
 @end
 
@@ -32,20 +36,35 @@
     [self createUI];
 }
 -(void)createUI{
+    [self.view addSubview:self.browserView];
+    
+    _scrollView = [[UIScrollView alloc]init];
+    _scrollView.showsVerticalScrollIndicator = NO;
+    _scrollView.scrollEnabled = YES;
+    _scrollView.userInteractionEnabled = YES;
+    _scrollView.pagingEnabled = NO;
+    _scrollView.canCancelContentTouches = YES;
+    [self.view addSubview:_scrollView];
+    
+    UITapGestureRecognizer
+    *tapGesture = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hiddenAlert)];
+    tapGesture.cancelsTouchesInView = YES;
+    [_scrollView addGestureRecognizer:tapGesture];
+    
     UIImageView * topImage = [[UIImageView alloc]init];
     topImage.image = [UIImage imageNamed:@"ONTOLogo" inBundle:ONTOBundle compatibleWithTraitCollection:nil];
-    [self.view addSubview:topImage];
+    [_scrollView addSubview:topImage];
     
     UILabel * OntPsw = [[UILabel alloc]init];
     OntPsw.text = @"ONT ID Password";
     [OntPsw changeSpace:0 wordSpace:1];
     OntPsw.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-    [self.view addSubview:OntPsw];
+    [_scrollView addSubview:OntPsw];
     
     UIButton * pswInfoBtn = [[UIButton alloc]init];
     [pswInfoBtn setImage:[UIImage imageNamed:@"ONTOBlueInfo" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [pswInfoBtn addTarget:self action:@selector(showInfo) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:pswInfoBtn];
+    [_scrollView addSubview:pswInfoBtn];
     
     _pswField = [[UITextField alloc]init];
     _pswField.placeholder = @"6 digits";
@@ -53,46 +72,49 @@
     _pswField.keyboardType = UIKeyboardTypeNumberPad;
     _pswField.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
     _pswField.textColor = [UIColor colorWithHexString:@"#6E6F70"];
-    [self.view addSubview:_pswField];
+    [_pswField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
+    [_scrollView addSubview:_pswField];
     
     UIView * line = [[UIView alloc]init];
     line.backgroundColor = [UIColor colorWithHexString:@"#DDDDDD"];
-    [self.view addSubview:line];
+    [_scrollView addSubview:line];
     
     UIButton * showPswBtn = [[UIButton alloc]init];
     [showPswBtn setImage:[UIImage imageNamed:@"ONTOEyeclose" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [showPswBtn setImage:[UIImage imageNamed:@"ONTOEyeopen" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
     showPswBtn.selected = NO;
-    [self.view addSubview:showPswBtn];
+    [showPswBtn addTarget:self action:@selector(showPSW:) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:showPswBtn];
     
     UILabel * OntConfirmPsw = [[UILabel alloc]init];
     OntConfirmPsw.text = @"Confirm Password";
     [OntConfirmPsw changeSpace:0 wordSpace:1];
     OntConfirmPsw.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
-    [self.view addSubview:OntConfirmPsw];
+    [_scrollView addSubview:OntConfirmPsw];
     
     _pswConfirmField = [[UITextField alloc]init];
     _pswConfirmField.placeholder = @"Re-enter password";
     _pswConfirmField.secureTextEntry = YES;
     _pswConfirmField.keyboardType = UIKeyboardTypeNumberPad;
     _pswConfirmField.font = [UIFont systemFontOfSize:14 weight:UIFontWeightMedium];
+    [_pswConfirmField addTarget:self action:@selector(textFieldDidChange:) forControlEvents:UIControlEventEditingChanged];
     _pswConfirmField.textColor = [UIColor colorWithHexString:@"#6E6F70"];
-    [self.view addSubview:_pswConfirmField];
+    [_scrollView addSubview:_pswConfirmField];
     
     UIView * line1 = [[UIView alloc]init];
     line1.backgroundColor = [UIColor colorWithHexString:@"#DDDDDD"];
-    [self.view addSubview:line1];
+    [_scrollView addSubview:line1];
     
     _sureBtn = [[UIButton alloc]init];
     [_sureBtn setImage:[UIImage imageNamed:@"ONTOunselect" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
     [_sureBtn setImage:[UIImage imageNamed:@"ONTOSelected" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateSelected];
     _sureBtn.selected = NO;
     [_sureBtn addTarget:self action:@selector(agreeBtn) forControlEvents:UIControlEventTouchUpInside];
-    [self.view addSubview:_sureBtn];
+    [_scrollView addSubview:_sureBtn];
     
     _textview = [[UITextView alloc] init];
     [self protocolIsSelect:NO];
-    [self.view addSubview:_textview];
+    [_scrollView addSubview:_textview];
     
     _confirmBtn = [[UIButton alloc]init];
     [_confirmBtn setTitle:@"VERIFY YOUR IDENTITY" forState:UIControlStateNormal];
@@ -100,9 +122,11 @@
     _confirmBtn.backgroundColor = [UIColor colorWithHexString:@"#9B9B9B"];
     _confirmBtn.titleLabel.font = [UIFont systemFontOfSize:18 weight:UIFontWeightBold];
     _confirmBtn.layer.cornerRadius = 0.5;
-    [_confirmBtn.titleLabel changeSpace:0 wordSpace:1];
+    [_confirmBtn.titleLabel changeSpace:0 wordSpace:0.5];
     _confirmBtn.selected = NO;
-    [self.view addSubview:_confirmBtn];
+    _confirmBtn.userInteractionEnabled = NO;
+    [_confirmBtn addTarget:self action:@selector(createOntId) forControlEvents:UIControlEventTouchUpInside];
+    [_scrollView addSubview:_confirmBtn];
     
     UIButton * alertBtn = [[UIButton alloc]init];
     [alertBtn setImage:[UIImage imageNamed:@"ONTOBlackInfo" inBundle:ONTOBundle compatibleWithTraitCollection:nil] forState:UIControlStateNormal];
@@ -111,13 +135,13 @@
     alertBtn.titleEdgeInsets = UIEdgeInsetsMake(alertBtn.frame.size.height-alertBtn.imageView.frame.size.height-alertBtn.imageView.frame.origin.y, -alertBtn.imageView.frame.size.width +10, 0, 0);
     alertBtn.titleLabel.font = [UIFont systemFontOfSize:12 weight:UIFontWeightMedium];
     alertBtn.titleLabel.numberOfLines = 0;
-    [self.view addSubview:alertBtn];
+    [_scrollView addSubview:alertBtn];
     
     _alertView = [[UIView alloc]init];
     _alertView.layer.cornerRadius = 3;
     _alertView.backgroundColor = [UIColor blackColor];
     _alertView.hidden = YES;
-    [self.view addSubview:_alertView];
+    [_scrollView addSubview:_alertView];
     
     UILabel * alertInfo = [[UILabel alloc]init];
     alertInfo.textColor = [UIColor whiteColor];
@@ -126,9 +150,18 @@
     alertInfo.text = @"ONT ID password is used to protect your identity information.\nONTO does not save your password, nor help you recover your passord.\nPlease remember it carefully";
     [_alertView addSubview:alertInfo];
     
+    [_scrollView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.top.right.equalTo(self.view);
+        if (ONTOIsiPhoneX) {
+            make.bottom.equalTo(self.view).offset(-34);
+        }else{
+            make.bottom.equalTo(self.view);
+        }
+    }];
+    
     [topImage mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
-        make.top.equalTo(self.view).offset(30);
+        make.top.equalTo(self.scrollView).offset(30);
         make.width.height.mas_offset(100);
     }];
     
@@ -182,7 +215,6 @@
         make.left.equalTo(OntPsw);
         make.right.equalTo(self.view).offset(-20);
         make.top.equalTo(OntConfirmPsw.mas_bottom).offset(14);
-        make.height.mas_offset(25);
     }];
     
     [line1 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -205,15 +237,29 @@
         make.top.equalTo(self.sureBtn).offset(-5);
     }];
     
+    [self.view layoutIfNeeded];
+    
     [_confirmBtn mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(58);
-        make.right.equalTo(self.view).offset(-58);
-        make.height.mas_offset(60);
-        if (ONTOIsiPhoneX) {
-            make.bottom.equalTo(self.view).offset(-34 - 40);
+        if (ONTOIsiPhone5) {
+            make.left.equalTo(self.view).offset(48);
+            make.right.equalTo(self.view).offset(-48);
         }else{
-            make.bottom.equalTo(self.view).offset(-40);
+            make.left.equalTo(self.view).offset(58);
+            make.right.equalTo(self.view).offset(-58);
         }
+        make.height.mas_offset(60);
+        if (ONTOIsiPhone5) {
+            make.top.equalTo(self.sureBtn.mas_bottom).offset(143);
+        } else if (ONTOIsiPhoneX) {
+            CGFloat h = ONTOHeight - self.sureBtn.origin.y - 22 - 88 - 34 - 100;
+            make.top.equalTo(self.sureBtn.mas_bottom).offset(h);
+        }else{
+            CGFloat h = ONTOHeight - self.sureBtn.origin.y - 22 - 64 -100;
+            make.top.equalTo(self.sureBtn.mas_bottom).offset(h);
+        }
+        
+        make.bottom.equalTo(self.scrollView).offset(-40);
+        
     }];
     
     [alertBtn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -223,21 +269,32 @@
     }];
     
 }
+
+-(void)showPSW:(UIButton*)btn{
+    [self.pswField resignFirstResponder];
+    [self.pswConfirmField resignFirstResponder];
+    if (!btn.selected) {
+        self.pswField.secureTextEntry =NO;
+        self.pswConfirmField.secureTextEntry =NO;
+    }else{
+        self.pswField.secureTextEntry =YES;
+        self.pswConfirmField.secureTextEntry =YES;
+    }
+    btn.selected =!btn.selected;
+}
 -(void)createNav{
     self.view.backgroundColor = [UIColor whiteColor];
     self.tabBarController.tabBar.hidden = YES;
     [self setTitle:@"ONT ID"];
-    [self setNavLeftImageIcon:[UIImage imageNamed:@"BackWhite"] Title:@""];
     [self setNavLeftImageIcon:[UIImage imageNamed:@"ONTOBack" inBundle:ONTOBundle compatibleWithTraitCollection:nil] Title:@""];
-    [self setNavRightImageIcon:[UIImage imageNamed:@"ONTODot" inBundle:ONTOBundle compatibleWithTraitCollection:nil] Title:@""];
 }
 - (void)protocolIsSelect:(BOOL)select {
     NSMutableAttributedString *attributedString = [[NSMutableAttributedString alloc] initWithString:@"I agreed with Terms of Service and Privacy Policy."];
     [attributedString addAttribute:NSLinkAttributeName
-                             value:@"zhifubao://"
+                             value:@"Terms://"
                              range:[[attributedString string] rangeOfString:@"Terms of Service"]];
     [attributedString addAttribute:NSLinkAttributeName
-                             value:@"weixin://"
+                             value:@"Privacy://"
                              range:[[attributedString string] rangeOfString:@"Privacy Policy"]];
     UIImage *image = select ==  YES? [UIImage imageNamed:@"ONTOSelected" inBundle:ONTOBundle compatibleWithTraitCollection:nil]:[UIImage imageNamed:@"ONTOunselect" inBundle:ONTOBundle compatibleWithTraitCollection:nil];
     CGSize size = CGSizeMake(0, 0);
@@ -268,25 +325,6 @@
     _textview.scrollEnabled = NO;
   
 }
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
-    
-    if ([[URL scheme] isEqualToString:@"zhifubao"]) {
-        NSLog(@"111");
-//        WebIdentityViewController *vc = [[WebIdentityViewController alloc]init];
-//        vc.proction = APPTERMS;
-//
-//        [self.navigationController pushViewController:vc animated:YES];
-        return NO;
-    } else if ([[URL scheme] isEqualToString:@"weixin"]) {
-        NSLog(@"222");
-//        WebIdentityViewController *vc = [[WebIdentityViewController alloc]init];
-//        vc.proction = APPPRIVACY;
-//
-//        [self.navigationController pushViewController:vc animated:YES];
-        return NO;
-    }
-    return YES;
-}
 -(void)showInfo{
     self.alertView.hidden =NO;
     [_pswField resignFirstResponder];
@@ -294,6 +332,116 @@
 }
 -(void)agreeBtn{
     _sureBtn.selected = !_sureBtn.selected;
+    if (_sureBtn.selected && _pswField.text.length>0 && _pswConfirmField.text.length>0) {
+        _confirmBtn.backgroundColor = [UIColor blackColor];
+        _confirmBtn.userInteractionEnabled = YES;
+    }else{
+        _confirmBtn.backgroundColor = [UIColor colorWithHexString:@"#9B9B9B"];
+        _confirmBtn.userInteractionEnabled = NO;
+    }
+
+}
+-(void)createOntId{
+    if (self.pswField.text.length < 6||self.pswConfirmField.text.length < 6 ) {
+        
+        [Common showToast:@"6 digits"];
+        return;
+    }
+    if (!_sureBtn.selected) {
+        [Common showToast:@"Please check box"];
+        return;
+    }
+    if ([self.pswConfirmField.text isEqualToString:self.pswField.text]) {
+        [self toCreateONTId];
+    }else{
+        [Common showToast:@"The passwords do not match"];
+    }
+}
+-(void)toCreateONTId{
+    _hub=[ToastUtil showMessage:@"" toView:nil];
+    NSString * jsStr = jsStr = [NSString stringWithFormat:@"Ont.SDK.createIdentity('%@','%@','%@','%@','%@','createIdentity')",
+                                @"",
+                                self.pswField.text,
+                                @"ATGJSGzm2poCB8N44BgrAccJcZ64MFf187",
+                                @"500",
+                                @"20000"];
+    ONTOLOADJSPRE;
+    ONTOLOADJS2;
+    ONTOLOADJS3;
+    __weak typeof(self) weakSelf = self;
+    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    [self.browserView setCallbackPrompt:^(NSString * prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+- (void)handlePrompt:(NSString *)prompt{
+    
+    
+    NSArray *promptArray = [prompt componentsSeparatedByString:@"params="];
+    NSString *resultStr = promptArray[1];
+    
+    id obj = [NSJSONSerialization JSONObjectWithData:[resultStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+    // 密码解密回调处理
+    
+    if ([prompt hasPrefix:@"createIdentity"]) {
+        
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            [_hub hideAnimated:YES];
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            [Common showToast:errorStr];
+            return;
+        }else{
+            NSMutableString *str=[obj valueForKey:@"result"];
+            NSDictionary *dict = [Common dictionaryWithJsonString:[str stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+            [[NSUserDefaults standardUserDefaults] setObject:dict[@"ontid"] forKey:DEFAULTONTID];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString * exportAccountToQrcode1 = [NSString stringWithFormat:@"Ont.SDK.exportIdentityToQrcode('%@','exportAccountToQrcode')",[Common dictionaryToJson:dict]];
+            [self.browserView.wkWebView evaluateJavaScript:[exportAccountToQrcode1 stringByReplacingOccurrencesOfString:@"\n" withString:@""] completionHandler:nil];
+        }
+        
+    }else if ([prompt hasPrefix:@"exportAccountToQrcode"]){
+        [_hub hideAnimated:YES];
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            [Common showToast:errorStr];
+        }else{
+            [[NSUserDefaults standardUserDefaults] setObject:obj forKey:DEFAULTACCOUTNKEYSTORE];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+        }
+        // TODO
+    }
+    
+}
+- (void)textFieldDidChange:(UITextField *)textField{
+    if (_sureBtn.selected && _pswField.text.length>0 && _pswConfirmField.text.length>0) {
+        _confirmBtn.backgroundColor = [UIColor blackColor];
+        _confirmBtn.userInteractionEnabled = YES;
+    }else{
+        _confirmBtn.backgroundColor = [UIColor colorWithHexString:@"#9B9B9B"];
+        _confirmBtn.userInteractionEnabled = NO;
+    }
+    if (textField.text.length > 6) {
+        
+        textField.text = [textField.text substringToIndex:6];
+        
+    }
+    
+    
+}
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+    
+    if ([[URL scheme] isEqualToString:@"Terms"]) {
+        DAppViewController * vc = [[DAppViewController alloc]init];
+        vc.dappUrl = @"https://onto.app/terms";
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    } else if ([[URL scheme] isEqualToString:@"Privacy"]) {
+        DAppViewController * vc = [[DAppViewController alloc]init];
+        vc.dappUrl = @"https://onto.app/privacy";
+        [self.navigationController pushViewController:vc animated:YES];
+        return NO;
+    }
+    return YES;
 }
 - (void)touchesBegan:(NSSet<UITouch *> *)touches withEvent:(UIEvent *)event{
     self.alertView.hidden =YES;
@@ -305,6 +453,23 @@
 - (void)keyboardWillShow:(NSNotification *)notification
 {
     self.alertView.hidden =YES;
+}
+-(void)hiddenAlert{
+    self.alertView.hidden =YES;
+    [_pswField resignFirstResponder];
+    [_pswConfirmField resignFirstResponder];
+}
+- (BrowserView *)browserView {
+    if (!_browserView) {
+        _browserView = [[BrowserView alloc] initWithFrame:CGRectZero];
+        __weak typeof(self) weakSelf = self;
+        [_browserView setCallbackPrompt:^(NSString *prompt) {
+            [weakSelf handlePrompt:prompt];
+        }];
+        [_browserView setCallbackJSFinish:^{
+        }];
+    }
+    return _browserView;
 }
 /*
 #pragma mark - Navigation
