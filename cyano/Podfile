@@ -17,7 +17,7 @@ target 'cyano' do
   pod 'SVProgressHUD'
   pod 'SDCycleScrollView', '~> 1.75'
   
-
+  
 
 end
 

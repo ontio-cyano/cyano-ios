@@ -225,6 +225,7 @@
     [_walletView addSubview:receiveButton];
     
     UIButton * recordButton = [[UIButton alloc]init];
+//    [recordButton setImage:[UIImage imageNamed:@"record"] forState:UIControlStateNormal];
     [recordButton setTitle:@"RECORD" forState:UIControlStateNormal];
     [recordButton setTitleColor:BLUELB forState:UIControlStateNormal];
     recordButton.backgroundColor = BUTTONBACKCOLOR;
@@ -307,21 +308,21 @@
     
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.walletView).offset(20*SCALE_W);
-        make.width.mas_offset(100*SCALE_W);
+        make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
         make.top.equalTo(topView.mas_bottom).offset(5);
     }];
     
     [receiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sendButton.mas_right).offset(5*SCALE_W);
-        make.width.mas_offset(100*SCALE_W);
+        make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
         make.top.equalTo(topView.mas_bottom).offset(5);
     }];
     
     [recordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(receiveButton.mas_right).offset(5*SCALE_W);
-        make.width.mas_offset(100*SCALE_W);
+        make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
         make.top.equalTo(topView.mas_bottom).offset(5);
     }];
@@ -406,6 +407,8 @@
     
     [alertLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
+        make.left.equalTo(self.view).offset(20*SCALE_W);
+        make.right.equalTo(self.view).offset(-20*SCALE_W);
         make.top.equalTo(nameLB.mas_bottom).offset(20*SCALE_W);
     }];
     

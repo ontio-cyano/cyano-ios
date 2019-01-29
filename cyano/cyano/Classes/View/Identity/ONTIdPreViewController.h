@@ -9,6 +9,6 @@
 #import "ONTOBaseViewController.h"
 
 @interface ONTIdPreViewController : ONTOBaseViewController
-
+@property(nonatomic,strong)NSDictionary * walletDic;
 @end
 

@@ -44,7 +44,9 @@
 }
 
 -(void)setURL:(NSString *)urlString{
+    
     [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: urlString]]];
+    [self addSubview:self.wkWebView];
 }
 - (void)setupPostMessageScript {
     
@@ -54,7 +56,10 @@
     "if (typeof targetOrigin !== 'undefined') {"
     "window.originalPostMessage(message, targetOrigin, transfer);"
     "}"
-    "};";
+    "};var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
     
     
     
@@ -139,6 +144,7 @@
     }
 }
 
+
 #pragma mark handleMessage
 // DApp 网页回调处理
 - (void)handleMessage:(NSString *)prompt {
@@ -155,6 +161,14 @@
         if ([resultDic[@"action"] isEqualToString:@"authentication"]) {
             if (_authenticationCallback) {
                 _authenticationCallback(resultDic);
+            }
+        }else if ([resultDic[@"action"] isEqualToString:@"authorization"]) {
+            if (_authorizationCallback) {
+                _authorizationCallback(resultDic);
+            }
+        }else if ([resultDic[@"action"] isEqualToString:@"getIdentity"]) {
+            if (_getIdentityCallback) {
+                _getIdentityCallback(resultDic);
             }
         }
     }

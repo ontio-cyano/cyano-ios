@@ -36,10 +36,10 @@
     }
     CusNavigationController*nc1=[[CusNavigationController alloc]initWithRootViewController:vc1];
     
-    if (vc2==nil) {
-        vc2=[[IdentityViewController alloc]init];
-    }
-    CusNavigationController*nc2=[[CusNavigationController alloc]initWithRootViewController:vc2];
+//    if (vc2==nil) {
+//        vc2=[[IdentityViewController alloc]init];
+//    }
+//    CusNavigationController*nc2=[[CusNavigationController alloc]initWithRootViewController:vc2];
     
     if (vc3==nil) {
         vc3=[[DiscoverViewController alloc]init];
@@ -49,13 +49,13 @@
         vc4=[[MineViewController alloc]init];
     }
     CusNavigationController*nc4=[[CusNavigationController alloc]initWithRootViewController:vc4];
-    self.viewControllers=@[nc1,nc2,nc3,nc4];
+    self.viewControllers=@[nc1,nc3,nc4];
 }
 
 -(void)createTabBarItem{
-    NSArray*selectImage=@[@"Me_A-b",@"Me_ID-B",@"findBlack",@"more_selected"];
-    NSArray*UnselectImage=@[@"Me_A",@"Me_ID",@"find",@"more_unselected"];
-    NSArray*UnselectImageTitle=@[@"Asset",@"Ont id",@"DApp",@"Setting"];
+    NSArray*selectImage=@[@"Me_A-b",@"findBlack",@"more_selected"];//@"Me_ID-B"
+    NSArray*UnselectImage=@[@"Me_A",@"find",@"more_unselected"];//,@"Me_ID"
+    NSArray*UnselectImageTitle=@[@"Asset",@"DApp",@"Setting"];//@"Ont id"
     for (int i=0; i<self.tabBar.items.count;i++) {
         self.tabBar.hidden = NO;
         UITabBarItem*item=self.tabBar.items[i];

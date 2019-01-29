@@ -21,6 +21,7 @@
         [self addSubview:_nameLB];
         
         _tokenImageView = [[UIImageView alloc]init];
+        _tokenImageView.image = [UIImage imageNamed:@"token"];
         [self addSubview:_tokenImageView];
         
         _amountLB = [[UILabel alloc]init];
@@ -34,7 +35,8 @@
         [_tokenImageView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.centerY.equalTo(self);
             make.left.equalTo(self).offset(20);
-            make.width.height.mas_offset(25);
+            make.width.mas_offset(30);
+            make.height.mas_offset(30);
         }];
         
         [_nameLB mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -58,7 +60,8 @@
 }
 -(void)reloadCellByDic:(NSDictionary*)dic {
     _nameLB.text = dic[@"Symbol"];
-    [_tokenImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"Logo"]]];
+
+    [_tokenImageView sd_setImageWithURL:[NSURL URLWithString:dic[@"Logo"]] placeholderImage:[UIImage imageNamed:@"token"]];
 }
 - (void)setSelected:(BOOL)selected animated:(BOOL)animated {
     [super setSelected:selected animated:animated];

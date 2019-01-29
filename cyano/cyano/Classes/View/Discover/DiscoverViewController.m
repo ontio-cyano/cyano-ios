@@ -35,7 +35,7 @@
 
 - (void)createUI{
     
-    [self setNavTitle:@"发现"];
+    [self setNavTitle:@"DApp"];
     
     [self.view addSubview:self.collectionView];
     [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {

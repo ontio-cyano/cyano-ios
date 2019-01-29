@@ -9,6 +9,8 @@
 #import "ONTIdPreViewController.h"
 #import "ONTIdViewController.h"
 #import "ONTIdImportViewController.h"
+#import "PasswordSheet.h"
+#import "ONTOSDKViewController.h"
 @interface ONTIdPreViewController ()
 @property(nonatomic,strong)UIScrollView * scrollView;
 @end
@@ -17,6 +19,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    if ([self.walletDic isKindOfClass:[NSDictionary class]] && self.walletDic[@"address"] && self.walletDic[@"key"]) {
+        
+    }else{
+        [Common showToast:@"Wallet format error"];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+        return;
+    }
     [self createNav];
     [self createUI];
 }
@@ -65,7 +74,7 @@
     importONTId.layer.borderColor = [[UIColor blackColor]CGColor];
     importONTId.layer.borderWidth = 1;
     [importONTId addTarget:self action:@selector(importONTId) forControlEvents:UIControlEventTouchUpInside];
-    [_scrollView addSubview:importONTId];
+//    [_scrollView addSubview:importONTId];
     
     UILabel * bottomLB = [[UILabel alloc]init];
     bottomLB.text = @"Powered by Ontology Blockchain";
@@ -107,24 +116,24 @@
         make.height.mas_offset(60);
     }];
     
-    [importONTId mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.equalTo(self.view).offset(58);
-        make.right.equalTo(self.view).offset(-58);
-        make.top.equalTo(createONTId.mas_bottom).offset(30);
-        make.height.mas_offset(60);
-    }];
+//    [importONTId mas_makeConstraints:^(MASConstraintMaker *make) {
+//        make.left.equalTo(self.view).offset(58);
+//        make.right.equalTo(self.view).offset(-58);
+//        make.top.equalTo(createONTId.mas_bottom).offset(30);
+//        make.height.mas_offset(60);
+//    }];
     [self.view layoutIfNeeded];
     
     [bottomLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
         if (ONTOIsiPhone5) {
-            make.top.equalTo(importONTId.mas_bottom).offset(83);
+            make.top.equalTo(createONTId.mas_bottom).offset(83 +90);
         } else if (ONTOIsiPhoneX) {
-            CGFloat h = ONTOHeight - importONTId.origin.y - 60 - 64 - 34 - 50;
-            make.top.equalTo(importONTId.mas_bottom).offset(h);
+            CGFloat h = ONTOHeight - createONTId.origin.y - 60 - 64 - 34 - 50;
+            make.top.equalTo(createONTId.mas_bottom).offset(h);
         }else{
-            CGFloat h = ONTOHeight - importONTId.origin.y - 60 - 64 - 50;
-            make.top.equalTo(importONTId.mas_bottom).offset(h);
+            CGFloat h = ONTOHeight - createONTId.origin.y - 60 - 64 - 50;
+            make.top.equalTo(createONTId.mas_bottom).offset(h);
         }
        
         make.bottom.equalTo(self.scrollView).offset(-30);
@@ -137,18 +146,26 @@
     self.tabBarController.tabBar.hidden = YES;
     [self setTitle:@"ONT ID"];
     [self setNavLeftImageIcon:[UIImage imageNamed:@"ONTOBack" inBundle:ONTOBundle compatibleWithTraitCollection:nil] Title:@""];
-//    [self setNavRightImageIcon:[UIImage imageNamed:@"ONTODot" inBundle:ONTOBundle compatibleWithTraitCollection:nil] Title:@""];
 }
 -(void)navLeftAction{
     [self.navigationController popViewControllerAnimated:YES];
 }
 -(void)createONTId{
-    ONTIdViewController * vc = [[ONTIdViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    ONTIdViewController * vc = [[ONTIdViewController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
+    PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:_walletDic action:@"createOntid" message:nil];
+    sheetV.callback = ^(NSString *WIFString ) {
+        ONTOSDKViewController * vc = [[ONTOSDKViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    UIWindow * window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
+    [window addSubview:sheetV];
+    [window makeKeyAndVisible];
+    
 }
 -(void)importONTId{
-    ONTIdImportViewController * vc = [[ONTIdImportViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
+//    ONTIdImportViewController * vc = [[ONTIdImportViewController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
 }
 /*
 #pragma mark - Navigation

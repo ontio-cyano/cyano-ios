@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		18008BDB21FAEBEC00C0F126 /* ONTOAuthSDKViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18008BDA21FAEBEC00C0F126 /* ONTOAuthSDKViewController.m */; };
 		1804C62921D21A540059C905 /* ExportWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804C62821D21A540059C905 /* ExportWalletViewController.m */; };
 		1804C62C21D22C490059C905 /* ImportWalletViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804C62B21D22C490059C905 /* ImportWalletViewController.m */; };
 		1820472F21EDDCF30079F7F7 /* ONTIdViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1820472E21EDDCF30079F7F7 /* ONTIdViewController.m */; };
@@ -26,6 +27,8 @@
 		1854544E21E4728200F18919 /* ExportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854544D21E4728200F18919 /* ExportIdentityViewController.m */; };
 		1862E60A21E6F66B008B83BC /* DDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862E60921E6F66B008B83BC /* DDOViewController.m */; };
 		1866C08E21F566C800BA723D /* ONTOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866C08D21F566C800BA723D /* ONTOBaseViewController.m */; };
+		186FFE172200365100C2C32B /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FFE162200365100C2C32B /* SettingCell.m */; };
+		186FFE1A2200420B00C2C32B /* WalletManageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FFE192200420B00C2C32B /* WalletManageViewController.m */; };
 		18724FED21E5C74F004FF337 /* TokensCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18724FEC21E5C74F004FF337 /* TokensCell.m */; };
 		1873B39C21D0817400B2373F /* SGQRCode.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 1873B38E21D0817400B2373F /* SGQRCode.bundle */; };
 		1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */ = {isa = PBXBuildFile; fileRef = 1873B39021D0817400B2373F /* UIImage+SGImageSize.m */; };
@@ -40,12 +43,17 @@
 		1875263821C77FAF00AADDB7 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875263721C77FAF00AADDB7 /* main.m */; };
 		1875264221C77FB000AADDB7 /* cyanoTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264121C77FB000AADDB7 /* cyanoTests.m */; };
 		1875264D21C77FB000AADDB7 /* cyanoUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875264C21C77FB000AADDB7 /* cyanoUITests.m */; };
+		187AF9B321F8586900CD2390 /* PasswordSheet.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AF9B221F8586900CD2390 /* PasswordSheet.m */; };
+		187AF9B621F8591900CD2390 /* LKLPayCodeTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AF9B421F8591900CD2390 /* LKLPayCodeTextField.m */; };
+		187AF9B921F8598800CD2390 /* LKLForbidPasteTextField.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AF9B721F8598800CD2390 /* LKLForbidPasteTextField.m */; };
+		187AF9BC21F859F200CD2390 /* LKLPayCodeCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 187AF9BB21F859F200CD2390 /* LKLPayCodeCollectionViewCell.m */; };
 		1880DFCF21E8688C0084EDB8 /* libPods-cyano.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 1880DFCE21E8688C0084EDB8 /* libPods-cyano.a */; };
 		1883881921CCE915000CADFB /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1875262921C77FAE00AADDB7 /* AppDelegate.m */; };
 		18838C0C21CBA95000D52A1F /* BackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18838C0A21CBA94F00D52A1F /* BackView.m */; };
 		1885540121CD098B009356EE /* DAppViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1885540021CD098B009356EE /* DAppViewController.m */; };
 		1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */; };
 		1895C0DF21CFCE3200F884BD /* SendViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1895C0DE21CFCE3200F884BD /* SendViewController.m */; };
+		189930C521FF0327004FBCAB /* ONTIdExportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 189930C421FF0327004FBCAB /* ONTIdExportViewController.m */; };
 		18B69FD321CB43E6008B0AFB /* libSafeKeyBoardSDk.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */; };
 		18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */ = {isa = PBXBuildFile; fileRef = 18B69FD121CB43E6008B0AFB /* GTMBase64.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		18B69FD521CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18B69FD221CB43E6008B0AFB /* BangcleSafeKeyBoard.bundle */; };
@@ -61,6 +69,8 @@
 		18CAA82121F5BBF70025DB56 /* ONTIdImportViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAA82021F5BBF70025DB56 /* ONTIdImportViewController.m */; };
 		18CAA82521F5C11A0025DB56 /* UITextView+Placeholder.m in Sources */ = {isa = PBXBuildFile; fileRef = 18CAA82321F5C1190025DB56 /* UITextView+Placeholder.m */; };
 		18E5A1CF21EDE60600DF0219 /* cyano.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 18E5A1CE21EDE60600DF0219 /* cyano.bundle */; };
+		18E7E2AA2200493F00135646 /* WalletCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7E2A92200493F00135646 /* WalletCell.m */; };
+		18E7E2AD22004CA600135646 /* WalletManageDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18E7E2AC22004CA600135646 /* WalletManageDetailViewController.m */; };
 		18EB777821E5D7720066422B /* Oep4TokensViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EB777721E5D7720066422B /* Oep4TokensViewController.m */; };
 		18F719A521C9E85900762870 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F719A321C9E85900762870 /* BaseViewController.m */; };
 		18F719A921C9E88E00762870 /* Common.m in Sources */ = {isa = PBXBuildFile; fileRef = 18F719A821C9E88D00762870 /* Common.m */; };
@@ -125,6 +135,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		18008BD921FAEBEC00C0F126 /* ONTOAuthSDKViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ONTOAuthSDKViewController.h; sourceTree = "<group>"; };
+		18008BDA21FAEBEC00C0F126 /* ONTOAuthSDKViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ONTOAuthSDKViewController.m; sourceTree = "<group>"; };
 		1804C62721D21A540059C905 /* ExportWalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportWalletViewController.h; sourceTree = "<group>"; };
 		1804C62821D21A540059C905 /* ExportWalletViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportWalletViewController.m; sourceTree = "<group>"; };
 		1804C62A21D22C490059C905 /* ImportWalletViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ImportWalletViewController.h; sourceTree = "<group>"; };
@@ -163,6 +175,10 @@
 		1862E60921E6F66B008B83BC /* DDOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDOViewController.m; sourceTree = "<group>"; };
 		1866C08C21F566C800BA723D /* ONTOBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ONTOBaseViewController.h; sourceTree = "<group>"; };
 		1866C08D21F566C800BA723D /* ONTOBaseViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ONTOBaseViewController.m; sourceTree = "<group>"; };
+		186FFE152200365100C2C32B /* SettingCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SettingCell.h; sourceTree = "<group>"; };
+		186FFE162200365100C2C32B /* SettingCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SettingCell.m; sourceTree = "<group>"; };
+		186FFE182200420B00C2C32B /* WalletManageViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletManageViewController.h; sourceTree = "<group>"; };
+		186FFE192200420B00C2C32B /* WalletManageViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletManageViewController.m; sourceTree = "<group>"; };
 		18724FEB21E5C74F004FF337 /* TokensCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TokensCell.h; sourceTree = "<group>"; };
 		18724FEC21E5C74F004FF337 /* TokensCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TokensCell.m; sourceTree = "<group>"; };
 		1873B38D21D0817400B2373F /* SGQRCode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SGQRCode.h; sourceTree = "<group>"; };
@@ -193,6 +209,14 @@
 		1875264821C77FB000AADDB7 /* cyanoUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = cyanoUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		1875264C21C77FB000AADDB7 /* cyanoUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = cyanoUITests.m; sourceTree = "<group>"; };
 		1875264E21C77FB000AADDB7 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		187AF9B121F8586900CD2390 /* PasswordSheet.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PasswordSheet.h; sourceTree = "<group>"; };
+		187AF9B221F8586900CD2390 /* PasswordSheet.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PasswordSheet.m; sourceTree = "<group>"; };
+		187AF9B421F8591900CD2390 /* LKLPayCodeTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKLPayCodeTextField.m; sourceTree = "<group>"; };
+		187AF9B521F8591900CD2390 /* LKLPayCodeTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKLPayCodeTextField.h; sourceTree = "<group>"; };
+		187AF9B721F8598800CD2390 /* LKLForbidPasteTextField.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKLForbidPasteTextField.m; sourceTree = "<group>"; };
+		187AF9B821F8598800CD2390 /* LKLForbidPasteTextField.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKLForbidPasteTextField.h; sourceTree = "<group>"; };
+		187AF9BA21F859F100CD2390 /* LKLPayCodeCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LKLPayCodeCollectionViewCell.h; sourceTree = "<group>"; };
+		187AF9BB21F859F200CD2390 /* LKLPayCodeCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LKLPayCodeCollectionViewCell.m; sourceTree = "<group>"; };
 		1880DFCE21E8688C0084EDB8 /* libPods-cyano.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; path = "libPods-cyano.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		18838C0A21CBA94F00D52A1F /* BackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BackView.m; sourceTree = "<group>"; };
 		18838C0B21CBA95000D52A1F /* BackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BackView.h; sourceTree = "<group>"; };
@@ -202,6 +226,8 @@
 		1886F5ED21CCF7B900F3055A /* DiscoverViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DiscoverViewController.m; sourceTree = "<group>"; };
 		1895C0DD21CFCE3200F884BD /* SendViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SendViewController.h; sourceTree = "<group>"; };
 		1895C0DE21CFCE3200F884BD /* SendViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SendViewController.m; sourceTree = "<group>"; };
+		189930C321FF0327004FBCAB /* ONTIdExportViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ONTIdExportViewController.h; sourceTree = "<group>"; };
+		189930C421FF0327004FBCAB /* ONTIdExportViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ONTIdExportViewController.m; sourceTree = "<group>"; };
 		18B69FCB21CB43E6008B0AFB /* libSafeKeyBoardSDk.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libSafeKeyBoardSDk.a; sourceTree = "<group>"; };
 		18B69FCE21CB43E6008B0AFB /* GTMBase64.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GTMBase64.h; sourceTree = "<group>"; };
 		18B69FCF21CB43E6008B0AFB /* HYKeyboard.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HYKeyboard.h; sourceTree = "<group>"; };
@@ -230,6 +256,10 @@
 		18CAA82321F5C1190025DB56 /* UITextView+Placeholder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITextView+Placeholder.m"; sourceTree = "<group>"; };
 		18CAA82421F5C1190025DB56 /* UITextView+Placeholder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITextView+Placeholder.h"; sourceTree = "<group>"; };
 		18E5A1CE21EDE60600DF0219 /* cyano.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; path = cyano.bundle; sourceTree = "<group>"; };
+		18E7E2A82200493F00135646 /* WalletCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletCell.h; sourceTree = "<group>"; };
+		18E7E2A92200493F00135646 /* WalletCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletCell.m; sourceTree = "<group>"; };
+		18E7E2AB22004CA600135646 /* WalletManageDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = WalletManageDetailViewController.h; sourceTree = "<group>"; };
+		18E7E2AC22004CA600135646 /* WalletManageDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = WalletManageDetailViewController.m; sourceTree = "<group>"; };
 		18EB777621E5D7720066422B /* Oep4TokensViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Oep4TokensViewController.h; sourceTree = "<group>"; };
 		18EB777721E5D7720066422B /* Oep4TokensViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Oep4TokensViewController.m; sourceTree = "<group>"; };
 		18F719A321C9E85900762870 /* BaseViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BaseViewController.m; sourceTree = "<group>"; };
@@ -476,6 +506,8 @@
 				1851FC7821DCB79500CF8EDE /* IdentityViewController.m */,
 				183F10EC21F716B6004DEFD0 /* ONTOSDKViewController.h */,
 				183F10ED21F716B6004DEFD0 /* ONTOSDKViewController.m */,
+				18008BD921FAEBEC00C0F126 /* ONTOAuthSDKViewController.h */,
+				18008BDA21FAEBEC00C0F126 /* ONTOAuthSDKViewController.m */,
 				1851FC7021DCA27300CF8EDE /* CreateIdentityViewController.h */,
 				1851FC7121DCA27300CF8EDE /* CreateIdentityViewController.m */,
 				1851FC7321DCA28300CF8EDE /* ImportIdentityViewController.h */,
@@ -488,6 +520,8 @@
 				1820472E21EDDCF30079F7F7 /* ONTIdViewController.m */,
 				18CAA81F21F5BBF70025DB56 /* ONTIdImportViewController.h */,
 				18CAA82021F5BBF70025DB56 /* ONTIdImportViewController.m */,
+				189930C321FF0327004FBCAB /* ONTIdExportViewController.h */,
+				189930C421FF0327004FBCAB /* ONTIdExportViewController.m */,
 				1866C08C21F566C800BA723D /* ONTOBaseViewController.h */,
 				1866C08D21F566C800BA723D /* ONTOBaseViewController.m */,
 				18CAA81921F5AABD0025DB56 /* AlertButton.h */,
@@ -536,6 +570,14 @@
 				1854544D21E4728200F18919 /* ExportIdentityViewController.m */,
 				1828E47D21D471E6001E506E /* ChangeNodeViewController.h */,
 				1828E47E21D471E6001E506E /* ChangeNodeViewController.m */,
+				186FFE182200420B00C2C32B /* WalletManageViewController.h */,
+				186FFE192200420B00C2C32B /* WalletManageViewController.m */,
+				18E7E2AB22004CA600135646 /* WalletManageDetailViewController.h */,
+				18E7E2AC22004CA600135646 /* WalletManageDetailViewController.m */,
+				186FFE152200365100C2C32B /* SettingCell.h */,
+				186FFE162200365100C2C32B /* SettingCell.m */,
+				18E7E2A82200493F00135646 /* WalletCell.h */,
+				18E7E2A92200493F00135646 /* WalletCell.m */,
 			);
 			path = Mine;
 			sourceTree = "<group>";
@@ -639,6 +681,14 @@
 				18F719AA21C9E92800762870 /* Network */,
 				18F719A721C9E88D00762870 /* Common.h */,
 				18F719A821C9E88D00762870 /* Common.m */,
+				187AF9B121F8586900CD2390 /* PasswordSheet.h */,
+				187AF9B221F8586900CD2390 /* PasswordSheet.m */,
+				187AF9B521F8591900CD2390 /* LKLPayCodeTextField.h */,
+				187AF9B421F8591900CD2390 /* LKLPayCodeTextField.m */,
+				187AF9B821F8598800CD2390 /* LKLForbidPasteTextField.h */,
+				187AF9B721F8598800CD2390 /* LKLForbidPasteTextField.m */,
+				187AF9BA21F859F100CD2390 /* LKLPayCodeCollectionViewCell.h */,
+				187AF9BB21F859F200CD2390 /* LKLPayCodeCollectionViewCell.m */,
 				18F719B421C9E9B200762870 /* UIButton+Block.h */,
 				18F719B321C9E9B200762870 /* UIButton+Block.m */,
 				18F71A3721CA3F2A00762870 /* UITextField+LKLUITextField.h */,
@@ -978,6 +1028,7 @@
 				1804C62921D21A540059C905 /* ExportWalletViewController.m in Sources */,
 				184A8C4C21DDB041002A82D3 /* PrivateAppViewController.m in Sources */,
 				18F71A0621C9EBC500762870 /* EasyTextTypes.m in Sources */,
+				186FFE1A2200420B00C2C32B /* WalletManageViewController.m in Sources */,
 				18F719F721C9EBC500762870 /* EasyAlertTypes.m in Sources */,
 				18F71A3D21CA471400762870 /* BrowserView.m in Sources */,
 				18C2588B21CA8A250095B77D /* SendConfirmView.m in Sources */,
@@ -988,6 +1039,7 @@
 				18BBE81321D505DF003CA72C /* CyanoWebView.m in Sources */,
 				18F71A2321C9F96D00762870 /* MineViewController.m in Sources */,
 				1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */,
+				18E7E2AA2200493F00135646 /* WalletCell.m in Sources */,
 				18F71A0021C9EBC500762870 /* EasyTextGlobalConfig.m in Sources */,
 				18F71A2F21CA201B00762870 /* CusNavigationController.m in Sources */,
 				1875263821C77FAF00AADDB7 /* main.m in Sources */,
@@ -1001,6 +1053,7 @@
 				1873B39F21D0817400B2373F /* SGQRCodeScanningView.m in Sources */,
 				18F71A0321C9EBC500762870 /* UIView+EasyShowExt.m in Sources */,
 				18C2588F21CA8AA30095B77D /* PwdEnterView.m in Sources */,
+				189930C521FF0327004FBCAB /* ONTIdExportViewController.m in Sources */,
 				1873B39D21D0817400B2373F /* UIImage+SGImageSize.m in Sources */,
 				18F719FF21C9EBC500762870 /* EasyAlertView.m in Sources */,
 				18F719FC21C9EBC500762870 /* EasyShowLabel.m in Sources */,
@@ -1011,14 +1064,18 @@
 				18CAA82521F5C11A0025DB56 /* UITextView+Placeholder.m in Sources */,
 				18B69FD421CB43E6008B0AFB /* GTMBase64.m in Sources */,
 				18F71A0921C9EBC500762870 /* EasyAlertGlobalConfig.m in Sources */,
+				187AF9B321F8586900CD2390 /* PasswordSheet.m in Sources */,
 				18F719F621C9EBC500762870 /* EasyTextConfig.m in Sources */,
 				18F719FD21C9EBC500762870 /* EasyLoadingConfig.m in Sources */,
+				187AF9BC21F859F200CD2390 /* LKLPayCodeCollectionViewCell.m in Sources */,
 				18F719BB21C9EA2200762870 /* UILabel+changeSpace.m in Sources */,
+				187AF9B921F8598800CD2390 /* LKLForbidPasteTextField.m in Sources */,
 				1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */,
 				1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */,
 				18F719F821C9EBC500762870 /* EasyTextView.m in Sources */,
 				1820472F21EDDCF30079F7F7 /* ONTIdViewController.m in Sources */,
 				18CAA82121F5BBF70025DB56 /* ONTIdImportViewController.m in Sources */,
+				186FFE172200365100C2C32B /* SettingCell.m in Sources */,
 				1873B3A021D0817400B2373F /* SGQRCodeScanManager.m in Sources */,
 				18402BE121CF20580093BF2A /* ReceiveViewController.m in Sources */,
 				1883881921CCE915000CADFB /* AppDelegate.m in Sources */,
@@ -1026,8 +1083,10 @@
 				18F71A0721C9EBC500762870 /* EasyAlertConfig.m in Sources */,
 				18EB777821E5D7720066422B /* Oep4TokensViewController.m in Sources */,
 				18F71A0A21C9EBC500762870 /* EasyEmptyTypes.m in Sources */,
+				18E7E2AD22004CA600135646 /* WalletManageDetailViewController.m in Sources */,
 				18F719C021C9EA3300762870 /* UIButton+EnlargeTouchArea.m in Sources */,
 				18F719F521C9EBC500762870 /* EasyLoadingTypes.m in Sources */,
+				187AF9B621F8591900CD2390 /* LKLPayCodeTextField.m in Sources */,
 				18F71A0121C9EBC500762870 /* EasyLoadingView.m in Sources */,
 				1866C08E21F566C800BA723D /* ONTOBaseViewController.m in Sources */,
 				18F719F921C9EBC500762870 /* EasyEmptyConfig.m in Sources */,
@@ -1048,6 +1107,7 @@
 				18CAA81E21F5B5590025DB56 /* ONTIdPreViewController.m in Sources */,
 				18F71A3921CA3F2B00762870 /* UITextField+LKLUITextField.m in Sources */,
 				18F719FE21C9EBC500762870 /* EasyAlertItem.m in Sources */,
+				18008BDB21FAEBEC00C0F126 /* ONTOAuthSDKViewController.m in Sources */,
 				1885540121CD098B009356EE /* DAppViewController.m in Sources */,
 				1854544E21E4728200F18919 /* ExportIdentityViewController.m in Sources */,
 			);

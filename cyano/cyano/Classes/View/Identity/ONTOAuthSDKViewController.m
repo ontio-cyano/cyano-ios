@@ -1,22 +1,22 @@
 //
-//  ONTOSDKViewController.m
+//  ONTOAuthSDKViewController.m
 //  cyano
 //
-//  Created by Apple on 2019/1/22.
+//  Created by Apple on 2019/1/25.
 //  Copyright © 2019 LR. All rights reserved.
 //
 
-#import "ONTOSDKViewController.h"
+#import "ONTOAuthSDKViewController.h"
+
 #import "ONTIdWebView.h"
 #import "PasswordSheet.h"
-#import "ONTIdExportViewController.h"
-@interface ONTOSDKViewController ()
+@interface ONTOAuthSDKViewController ()
 @property (strong, nonatomic) ONTIdWebView *webView;
 @property (strong, nonatomic) UIProgressView *progressView;
 @property(nonatomic,strong)UIWindow         *window;
 @end
 
-@implementation ONTOSDKViewController
+@implementation ONTOAuthSDKViewController
 
 - (void)dealloc
 {
@@ -48,7 +48,7 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.left.equalTo(self.view);
     }];
-    NSString * urlStr =[NSString stringWithFormat:@"http://192.168.50.123:8082/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
+    NSString * urlStr = @"https://auth.ont.io/#/";//[NSString stringWithFormat:@"http://192.168.50.123:8080/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
     [self.webView setURL:urlStr];
     // Progress
     [self layoutProgressView];
@@ -64,10 +64,10 @@
         NSArray * allSubaction = @[@"getRegistryOntidTx",@"submit"];
         NSInteger index = [allSubaction indexOfObject:subaction];
         switch (index) {
-            case 0:
+                case 0:
                 [weakSelf getRegistryOntidTxRequest:callbackDic];
                 break;
-            case 1:
+                case 1:
                 [weakSelf submitRequest:callbackDic];
                 break;
             default:
@@ -78,48 +78,56 @@
     [self.webView setAuthorizationCallback:^(NSDictionary *callbackDic) {
         NSDictionary * params = callbackDic[@"params"];
         NSString * subaction = params[@"subaction"];
-        NSArray * allSubaction = @[@"exportOntid",@"deleteOntid",@"decryptClaim",@"getAuthorizationInfo"];
+        NSArray * allSubaction = @[@"exportOntid",@"deleteOntid",@"decryptClaim",@"getAuthorizationInfo",@"requestAuthorization"];
         NSInteger index = [allSubaction indexOfObject:subaction];
         switch (index) {
-            case 0:
+                case 0:
                 [weakSelf exportOntidRequest:callbackDic];
                 break;
-            case 1:
+                case 1:
                 [weakSelf deleteOntidRequest:callbackDic];
                 break;
-            case 2:
+                case 2:
                 [weakSelf decryptClaimRequest:callbackDic];
                 break;
-            case 3:
+                case 3:
                 [weakSelf getAuthorizationInfoRequest:callbackDic];
+                break;
+                case 4:
+                [weakSelf requestAuthorizationRequest:callbackDic];
                 break;
             default:
                 break;
         }
     }];
+     
+     [self.webView setGetIdentityCallback:^(NSDictionary *callbackDic) {
+         [weakSelf getIdentityRequest:callbackDic];
+        
+     }];
 }
 
 -(void)getRegistryOntidTxRequest:(NSDictionary*)callbackDic{
-    NSString * registryOntidTx;
-    if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
-        registryOntidTx = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX];
-    }else{
-        registryOntidTx = @"";
-    }
-    NSDictionary *params = @{
-                             @"action":@"authentication",
-                             @"version":callbackDic[@"version"],
-                             @"result":
-                                 @{
-                                     @"subaction":@"getRegistryOntidTx",
-                                     @"ontid":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
-                                     @"registryOntidTx":registryOntidTx
-                                     },
-                             @"id":callbackDic[@"id"],
-                             @"error":@0,
-                             @"desc":@"SUCCESS",
-                             };
-    [self.webView sendMessageToWeb:params];
+//    NSString * registryOntidTx;
+//    if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
+//        registryOntidTx = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX];
+//    }else{
+//        registryOntidTx = @"";
+//    }
+//    NSDictionary *params = @{
+//                             @"action":@"authentication",
+//                             @"version":callbackDic[@"version"],
+//                             @"result":
+//                                 @{
+//                                     @"subaction":@"getRegistryOntidTx",
+//                                     @"ontid":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
+//                                     @"registryOntidTx":registryOntidTx
+//                                     },
+//                             @"id":callbackDic[@"id"],
+//                             @"error":@0,
+//                             @"desc":@"SUCCESS",
+//                             };
+//    [self.webView sendMessageToWeb:params];
 }
 
 -(void)submitRequest:(NSDictionary*)callbackDic{
@@ -137,21 +145,16 @@
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"exportOntid" message:nil];
     sheetV.callback = ^(NSString *WIFString ) {
-//        [self setNavTitle:@"EXPORT ONT ID"];
-//        NSDictionary *params = @{
-//                                 @"action":@"authorization",
-//                                 @"version":callbackDic[@"version"],
-//                                 @"result":WIFString,
-//                                 @"id":callbackDic[@"id"],
-//                                 @"error":@0,
-//                                 @"desc":@"SUCCESS",
-//                                 };
-//        [self.webView sendMessageToWeb:params];
-        
-        ONTIdExportViewController * vc = [[ONTIdExportViewController alloc]init];
-        vc.WIFString = WIFString;
-        [self.navigationController pushViewController:vc animated:YES];
-        
+        [self setNavTitle:@"EXPORT ONT ID"];
+        NSDictionary *params = @{
+                                 @"action":@"authorization",
+                                 @"version":callbackDic[@"version"],
+                                 @"result":WIFString,
+                                 @"id":callbackDic[@"id"],
+                                 @"error":@0,
+                                 @"desc":@"SUCCESS",
+                                 };
+        [self.webView sendMessageToWeb:params];
     };
     _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
     [_window addSubview:sheetV];
@@ -194,16 +197,48 @@
     [_window makeKeyAndVisible];
 }
 
+-(void)getIdentityRequest:(NSDictionary*)callbackDic{
+    NSDictionary *params = @{
+                             @"action":@"getIdentity",
+                             @"version":callbackDic[@"version"],
+                             @"result":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    [self.webView sendMessageToWeb:params];
+}
 -(void)getAuthorizationInfoRequest:(NSDictionary*)callbackDic{
-//    NSDictionary *params = @{
-//                             @"action":@"authorization",
-//                             @"version":callbackDic[@"version"],
-//                             @"result":@"getAuthorizationInfo",
-//                             @"id":callbackDic[@"id"],
-//                             @"error":@0,
-//                             @"desc":@"SUCCESS",
-//                             };
-//    [self.webView sendMessageToWeb:params];
+    NSDictionary * resultDic = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDAUTHINFO];
+    NSDictionary * resultParams = resultDic[@"params"];
+    NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:resultParams];
+    resultParamsChange[@"subaction"] = @"getAuthorizationInfo";
+    NSDictionary *params = @{
+                             @"action":@"authorization",
+                             @"version":callbackDic[@"version"],
+                             @"result":resultParamsChange,
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    [self.webView sendMessageToWeb:params];
+}
+
+-(void)requestAuthorizationRequest:(NSDictionary*)callbackDic{
+    [[NSUserDefaults standardUserDefaults]setObject:callbackDic forKey:ONTIDAUTHINFO];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+     
+    self.webView = [[ONTIdWebView alloc] init];
+    [self.view addSubview:self.webView];
+    [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.top.right.bottom.left.equalTo(self.view);
+    }];
+    NSString * urlStr = @"https://auth.ont.io/#/authHome";
+    [self.webView setURL:urlStr];
+    
+    // Progress
+    [self layoutProgressView];
+    [self initHandler];
 }
 
 #pragma mark - Progress
@@ -244,13 +279,13 @@
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
 /*
-#pragma mark - Navigation
-
-// In a storyboard-based application, you will often want to do a little preparation before navigation
-- (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
-    // Get the new view controller using [segue destinationViewController].
-    // Pass the selected object to the new view controller.
-}
-*/
+ #pragma mark - Navigation
+ 
+ // In a storyboard-based application, you will often want to do a little preparation before navigation
+ - (void)prepareForSegue:(UIStoryboardSegue *)segue sender:(id)sender {
+ // Get the new view controller using [segue destinationViewController].
+ // Pass the selected object to the new view controller.
+ }
+ */
 
 @end

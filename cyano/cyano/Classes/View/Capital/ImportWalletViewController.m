@@ -172,7 +172,12 @@
         make.left.equalTo(self.view).offset(58*SCALE_W);
         make.right.equalTo(self.view).offset(-58*SCALE_W);
         make.height.mas_offset(60*SCALE_W);
-        make.bottom.equalTo(self.view).offset(-60*SCALE_W);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.view).offset(-34 - 40);
+        }else{
+            make.bottom.equalTo(self.view).offset(- 40);
+            
+        }
     }];
 }
 -(void)toImportWallet{

@@ -93,6 +93,8 @@
     
     [alertLB mas_makeConstraints:^(MASConstraintMaker *make) {
         make.centerX.equalTo(self.view);
+        make.left.equalTo(self.view).offset(10*SCALE_W);
+        make.right.equalTo(self.view).offset(-10*SCALE_W);
         make.top.equalTo(self.view).offset(40*SCALE_W);
     }];
     
@@ -126,17 +128,28 @@
     }];
     
     [signButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bottomV).offset(-60*SCALE_W);
         make.width.mas_offset(140*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
         make.right.equalTo(bottomV.mas_centerX).offset(-2*SCALE_W);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(bottomV).offset(-34 - 40);
+        }else{
+            make.bottom.equalTo(bottomV).offset(- 40);
+            
+        }
     }];
     
     [cancelButton mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.bottom.equalTo(bottomV).offset(-60*SCALE_W);
         make.width.mas_offset(140*SCALE_W);
         make.height.mas_offset(50*SCALE_W);
         make.left.equalTo(bottomV.mas_centerX).offset(2*SCALE_W);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(bottomV).offset(-34 - 40);
+        }else{
+            make.bottom.equalTo(bottomV).offset(- 40);
+            
+        }
+        
     }];
     
 }

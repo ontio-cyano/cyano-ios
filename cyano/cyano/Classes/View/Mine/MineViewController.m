@@ -11,6 +11,10 @@
 #import "SendConfirmView.h"
 #import "ChangeNodeViewController.h"
 #import "ExportIdentityViewController.h"
+#import "SettingCell.h"
+#import "ONTOAuthSDKViewController.h"
+#import "ONTIdPreViewController.h"
+#import "WalletManageViewController.h"
 @interface MineViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UITableView * tableView;
@@ -192,60 +196,92 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
+    return 3;
 }
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 50*SCALE_W;
+    return 70*SCALE_W;
 }
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    UITableViewCell * cell =[tableView dequeueReusableCellWithIdentifier:@"cellID"];
+    SettingCell * cell =[tableView dequeueReusableCellWithIdentifier:@"cellID"];
     if (cell ==nil) {
-        cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
+        cell = [[SettingCell alloc]initWithStyle:UITableViewCellStyleDefault reuseIdentifier:@"cellID"];
         cell.selectionStyle =UITableViewCellSelectionStyleNone;
         
-        UIView *line = [[UIView alloc]init];
-        line.backgroundColor = BUTTONBACKCOLOR  ;
-        [cell.contentView addSubview:line];
-        
-        [line mas_makeConstraints:^(MASConstraintMaker *make) {
-            make.left.equalTo(cell.contentView).offset(10*SCALE_W);
-            make.right.equalTo(cell.contentView).offset(-10*SCALE_W);
-            make.bottom.equalTo(cell.contentView.mas_bottom).offset(-1);
-            make.height.mas_offset(1);
-        }];
+//        UIView *line = [[UIView alloc]init];
+//        line.backgroundColor = BUTTONBACKCOLOR  ;
+//        [cell.contentView addSubview:line];
+//
+//        [line mas_makeConstraints:^(MASConstraintMaker *make) {
+//            make.left.equalTo(cell.contentView).offset(10*SCALE_W);
+//            make.right.equalTo(cell.contentView).offset(-10*SCALE_W);
+//            make.bottom.equalTo(cell.contentView.mas_bottom).offset(-1);
+//            make.height.mas_offset(1);
+//        }];
         
     }
+//    if (indexPath.row == 0) {
+//        cell.textLabel.text = @"SELECT NODE";
+//    }else if (indexPath.row ==1){
+//        cell.textLabel.text = @"CLEAR WALLET";
+//    }else if (indexPath.row ==2){
+//        cell.textLabel.text = @"EXPORT WALLET";
+//    }else if (indexPath.row ==3){
+//        cell.textLabel.text = @"CLEAR IDENTITY";
+//    }else if (indexPath.row ==4){
+//        cell.textLabel.text = @"EXPORT IDENTITY";
+//    }
     if (indexPath.row == 0) {
-        cell.textLabel.text = @"SELECT NODE";
-    }else if (indexPath.row ==1){
-        cell.textLabel.text = @"CLEAR WALLET";
-    }else if (indexPath.row ==2){
-        cell.textLabel.text = @"EXPORT WALLET";
-    }else if (indexPath.row ==3){
-        cell.textLabel.text = @"CLEAR IDENTITY";
-    }else if (indexPath.row ==4){
-        cell.textLabel.text = @"EXPORT IDENTITY";
+        cell.nameLB.text = @"ONT ID Manage";
+        cell.ImageView.image = [UIImage imageNamed:@"Me_ID"];
+    }else if (indexPath.row == 1){
+        cell.nameLB.text = @"Wallet Manage";
+        cell.ImageView.image = [UIImage imageNamed:@"Me_A"];
+    }else{
+        cell.nameLB.text = @"Net Setting";
+        cell.ImageView.image = [UIImage imageNamed:@"设置"];
     }
-    cell.textLabel.font = [UIFont systemFontOfSize:16 weight:UIFontWeightMedium];
-    cell.textLabel.textColor = BLUELB;
     return cell;
 }
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+//    if (indexPath.row == 0) {
+//        ChangeNodeViewController * vc = [[ChangeNodeViewController alloc]init];
+//        [self.navigationController pushViewController:vc animated:YES];
+//
+//    }else if (indexPath.row == 1){
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ASSET_ACCOUNT];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ALLASSET_ACCOUNT];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }else if (indexPath.row == 2){
+//        [self toExportWallet];
+//    }else if (indexPath.row == 3){
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:APP_ACCOUNT];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+//    }else if (indexPath.row == 4){
+//        [self toExportIdentity];
+//    }
     if (indexPath.row == 0) {
+        NSString * ontIdString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
+        if ([Common isBlankString:ontIdString]) {
+            // 传入钱包字典
+            NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+            if (!jsonStr) {
+                [Common showToast:@"No Wallet"];
+                return;
+            }
+            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+            ONTIdPreViewController * vc = [[ONTIdPreViewController alloc]init];
+            vc.walletDic = dict;
+            [self.navigationController pushViewController:vc animated:YES];
+        }else{
+            ONTOAuthSDKViewController * vc= [[ONTOAuthSDKViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
+    }else if (indexPath.row == 1){
+        WalletManageViewController * vc = [[WalletManageViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }else{
         ChangeNodeViewController * vc = [[ChangeNodeViewController alloc]init];
         [self.navigationController pushViewController:vc animated:YES];
-        
-    }else if (indexPath.row == 1){
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ASSET_ACCOUNT];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ALLASSET_ACCOUNT];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }else if (indexPath.row == 2){
-        [self toExportWallet];
-    }else if (indexPath.row == 3){
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:APP_ACCOUNT];
-        [[NSUserDefaults standardUserDefaults] synchronize];
-    }else if (indexPath.row == 4){
-        [self toExportIdentity];
     }
 }
 -(void)toExportIdentity{

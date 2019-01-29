@@ -10,6 +10,7 @@
 #import "UITextView+Placeholder.h"
 #import "BrowserView.h"
 #import "DAppViewController.h"
+#import "ONTOSDKViewController.h"
 @interface ONTIdImportViewController ()
 <UITextFieldDelegate,UITextViewDelegate>
 @property(nonatomic,strong)UIScrollView * scrollView;
@@ -277,6 +278,7 @@
             NSMutableString *str=[obj valueForKey:@"result"];
             NSDictionary *dict = [Common dictionaryWithJsonString:[str stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
             [[NSUserDefaults standardUserDefaults] setObject:dict[@"ontid"] forKey:DEFAULTONTID];
+            [[NSUserDefaults standardUserDefaults] setObject:dict forKey:DEFAULTIDENTITY];
             [[NSUserDefaults standardUserDefaults] synchronize];
             NSString * exportAccountToQrcode1 = [NSString stringWithFormat:@"Ont.SDK.exportIdentityToQrcode('%@','exportAccountToQrcode')",[Common dictionaryToJson:dict]];
             [self.browserView.wkWebView evaluateJavaScript:[exportAccountToQrcode1 stringByReplacingOccurrencesOfString:@"\n" withString:@""] completionHandler:nil];
@@ -291,6 +293,8 @@
             [[NSUserDefaults standardUserDefaults] synchronize];
         }
         // TODO
+        ONTOSDKViewController * vc= [[ONTOSDKViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
     }
 }
 -(void)createNav{

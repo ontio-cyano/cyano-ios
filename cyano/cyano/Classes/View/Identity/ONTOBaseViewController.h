@@ -19,8 +19,12 @@
 #define ONTOIsiPhone5 ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(640, 1136), [[UIScreen mainScreen] currentMode].size) : NO)
 #define ONTOIsiPhone6 (ONTOHeight == 667.0)
 
+#define ONTIDTX @"ONTIDTX"
 #define DEFAULTONTID @"DEFAULTONTID"
 #define DEFAULTACCOUTNKEYSTORE @"DEFAULTACCOUTNKEYSTORE"
+#define DEFAULTIDENTITY @"DEFAULTIDENTITY"
+#define ONTIDAUTHINFO @"ONTIDAUTHINFO"
+
 #define ONTOLOADJSPRE  [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('polaris5.ont.io')" completionHandler:nil]
 #define ONTOLOADJS2 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setSocketPort('20335')" completionHandler:nil]
 #define ONTOLOADJS3 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setRestPort('20334')" completionHandler:nil]

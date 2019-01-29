@@ -13,6 +13,8 @@
 #import "ONTIdViewController.h"
 #import "ONTIdPreViewController.h"
 #import "ONTOSDKViewController.h"
+#import "ONTOAuthSDKViewController.h"
+#
 @interface IdentityViewController ()
 <UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong)UIView  * bgView;
@@ -40,6 +42,8 @@
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :
                                                                           [UIColor colorWithHexString:@"#ffffff"],
                                                                       NSFontAttributeName : [UIFont systemFontOfSize:18 weight:UIFontWeightMedium]}];
+  
+    
     NSString *str =  [[NSUserDefaults standardUserDefaults] objectForKey:APP_ACCOUNT];
     if(str == nil){
         _bgView.hidden = NO;
@@ -247,11 +251,34 @@
     }
     
     [actionButon handleControlEvent:UIControlEventTouchUpInside withBlock:^{
-        ONTIdPreViewController * vc = [[ONTIdPreViewController alloc]init];
-        [self.navigationController pushViewController:vc animated:YES];
+        if (section == 0) {
+//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTONTID];
+//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:ONTIDTX];
+//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTACCOUTNKEYSTORE];
+//            [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTIDENTITY];
+//            [[NSUserDefaults standardUserDefaults] synchronize];
+            NSString * ontIdString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
+            if ([Common isBlankString:ontIdString]) {
+                // 传入钱包字典
+                NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
+                if (!jsonStr) {
+                    [Common showToast:@"No Wallet"];
+                    return;
+                }
+                NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+                ONTIdPreViewController * vc = [[ONTIdPreViewController alloc]init];
+                vc.walletDic = dict;
+                [self.navigationController pushViewController:vc animated:YES];
+            }else{
+                ONTOSDKViewController * vc= [[ONTOSDKViewController alloc]init];
+                [self.navigationController pushViewController:vc animated:YES];
+            }
+        }else{
+            ONTOAuthSDKViewController * vc= [[ONTOAuthSDKViewController alloc]init];
+            [self.navigationController pushViewController:vc animated:YES];
+        }
         
-//        ONTOSDKViewController * vc= [[ONTOSDKViewController alloc]init];
-//        [self.navigationController pushViewController:vc animated:YES];
+        
 //        NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];
 //        if (jsonStr) {
 //            NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
