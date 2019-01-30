@@ -11,6 +11,7 @@
 @interface PasswordSheet : UIView
 -(instancetype)initWithTitle:(NSString*)title selectedDic:(NSDictionary*)selectedDic action:(NSString*)action message:(NSArray*)message;
 @property (nonatomic, copy) void (^callback)(NSString *);
+@property (nonatomic, strong) void (^errorCallback)(NSDictionary * errorInfo);
 - (void)show;
 - (void)dismiss;
 @end

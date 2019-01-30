@@ -7,7 +7,7 @@
 //
 
 #import "ONTOAuthSDKViewController.h"
-
+#import "ONTIdExportViewController.h"
 #import "ONTIdWebView.h"
 #import "PasswordSheet.h"
 @interface ONTOAuthSDKViewController ()
@@ -145,17 +145,31 @@
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"exportOntid" message:nil];
     sheetV.callback = ^(NSString *WIFString ) {
-        [self setNavTitle:@"EXPORT ONT ID"];
-        NSDictionary *params = @{
-                                 @"action":@"authorization",
-                                 @"version":callbackDic[@"version"],
-                                 @"result":WIFString,
-                                 @"id":callbackDic[@"id"],
-                                 @"error":@0,
-                                 @"desc":@"SUCCESS",
-                                 };
-        [self.webView sendMessageToWeb:params];
+//        [self setNavTitle:@"EXPORT ONT ID"];
+//        NSDictionary *params = @{
+//                                 @"action":@"authorization",
+//                                 @"version":callbackDic[@"version"],
+//                                 @"result":WIFString,
+//                                 @"id":callbackDic[@"id"],
+//                                 @"error":@0,
+//                                 @"desc":@"SUCCESS",
+//                                 };
+//        [self.webView sendMessageToWeb:params];
+        ONTIdExportViewController * vc = [[ONTIdExportViewController alloc]init];
+        vc.WIFString = WIFString;
+        [self.navigationController pushViewController:vc animated:YES];
     };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        NSDictionary *errorParams = @{@"action":callbackDic[@"action"],
+                                  @"error": errorInfo[@"error"],
+                                  @"desc": @"ERROR",
+                                  @"result":errorInfo[@"result"],
+                                  @"id":callbackDic[@"id"],
+                                  @"version":callbackDic[@"version"]
+                                  };
+        [self.webView sendMessageToWeb:errorParams];
+    };
+    
     _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
     [_window addSubview:sheetV];
     [_window makeKeyAndVisible];
@@ -170,6 +184,16 @@
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTIDENTITY];
         [[NSUserDefaults standardUserDefaults] synchronize];
         [self.navigationController popToRootViewControllerAnimated:YES];
+    };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        NSDictionary *errorParams = @{@"action":callbackDic[@"action"],
+                                      @"error": errorInfo[@"error"],
+                                      @"desc": @"ERROR",
+                                      @"result":errorInfo[@"result"],
+                                      @"id":callbackDic[@"id"],
+                                      @"version":callbackDic[@"version"]
+                                      };
+        [self.webView sendMessageToWeb:errorParams];
     };
     _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
     [_window addSubview:sheetV];
@@ -191,6 +215,16 @@
                                  @"desc":@"SUCCESS",
                                  };
         [self.webView sendMessageToWeb:params];
+    };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        NSDictionary *errorParams = @{@"action":callbackDic[@"action"],
+                                      @"error": errorInfo[@"error"],
+                                      @"desc": @"ERROR",
+                                      @"result":errorInfo[@"result"],
+                                      @"id":callbackDic[@"id"],
+                                      @"version":callbackDic[@"version"]
+                                      };
+        [self.webView sendMessageToWeb:errorParams];
     };
     _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
     [_window addSubview:sheetV];

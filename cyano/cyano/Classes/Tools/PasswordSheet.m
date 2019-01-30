@@ -236,6 +236,9 @@
             [_hub hideAnimated:YES];
             _pwdString = @"";
             [_textF clearKeyCode];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
             [Common showToast:@"Password error!"];
             
         }else{
@@ -296,6 +299,9 @@
         [_hub hideAnimated:YES];
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
             [Common showToast:errorStr];
         }else{
             [self dismiss];
@@ -308,6 +314,9 @@
         [_hub hideAnimated:YES];
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
             [Common showToast:errorStr];
         }else{
             [self dismiss];
@@ -327,6 +336,9 @@
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             [_hub hideAnimated:YES];
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
             [Common showToast:errorStr];
         }else{
             NSMutableString *str=[obj valueForKey:@"result"];
@@ -341,6 +353,9 @@
         [_hub hideAnimated:YES];
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
             [Common showToast:errorStr];
         }else{
             [[NSUserDefaults standardUserDefaults] setObject:obj forKey:DEFAULTACCOUTNKEYSTORE];
