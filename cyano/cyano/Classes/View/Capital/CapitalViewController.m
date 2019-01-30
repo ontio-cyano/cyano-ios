@@ -306,37 +306,52 @@
         make.top.equalTo(self.ongNumLB.mas_bottom).offset(10*SCALE_W);
     }];
     
+    
+    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.right.equalTo(self.view);
+        make.top.equalTo(topView.mas_bottom).offset(5);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34 - 50*SCALE_W - 5);
+        }else{
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 50*SCALE_W - 5);
+        }
+    }];
+    
     [sendButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(self.walletView).offset(20*SCALE_W);
         make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
-        make.top.equalTo(topView.mas_bottom).offset(5);
+//        make.top.equalTo(self.table.mas_bottom).offset(5);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34 - 5 );
+        }else{
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 5 );
+        }
     }];
-    
+
     [receiveButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(sendButton.mas_right).offset(5*SCALE_W);
         make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
-        make.top.equalTo(topView.mas_bottom).offset(5);
+//        make.top.equalTo(topView.mas_bottom).offset(5);
+        if (KIsiPhoneX) {
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34 - 5);
+        }else{
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 5);
+        }
     }];
-    
+
     [recordButton mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.equalTo(receiveButton.mas_right).offset(5*SCALE_W);
         make.width.mas_offset((SYSWidth - 50*SCALE_W)/3);
         make.height.mas_offset(50*SCALE_W);
-        make.top.equalTo(topView.mas_bottom).offset(5);
-    }];
-    
-    [_tableView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.right.equalTo(self.view);
-        make.top.equalTo(sendButton.mas_bottom).offset(5);
+//        make.top.equalTo(topView.mas_bottom).offset(5);
         if (KIsiPhoneX) {
-            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34);
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49 - 34- 5 );
         }else{
-            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49);
+            make.bottom.equalTo(self.walletView.mas_bottom).offset(-49- 5 );
         }
     }];
-    
 }
 - (void)createEmptyWalletV{
     _bgView = [[UIView alloc]init];
