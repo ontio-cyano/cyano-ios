@@ -248,6 +248,7 @@
     NSString * ONTIDString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
     if (!ONTIDString) {
         [Common showToast:@"No ONTID"];
+        [self emptyInfo:@"no ontid" resultDic:callbackDic];
         return;
     }
     NSDictionary *params = @{
@@ -258,6 +259,26 @@
                              @"error":@0,
                              @"desc":@"SUCCESS",
                              };
+    [self.webView sendMessageToWeb:params];
+}
+-(void)emptyInfo:(NSString*)emptyString resultDic:(NSDictionary*)dic{
+    NSString * idStr = @"";
+    if (dic[@"id"]) {
+        idStr = dic[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (dic[@"version"]) {
+        versionStr = dic[@"version"];
+    }
+    NSDictionary *params = @{@"action":dic[@"action"],
+                              @"error": emptyString,
+                              @"desc": @"ERROR",
+                              @"result":@"",
+                              @"id":idStr,
+                              @"version":versionStr
+                              };
+    
+    
     [self.webView sendMessageToWeb:params];
 }
 #pragma mark - Progress

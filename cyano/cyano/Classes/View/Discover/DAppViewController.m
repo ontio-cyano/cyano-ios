@@ -456,6 +456,7 @@
     if (invokeConfig[@"payer"]) {
         if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
             [Common showToast:@"No Wallet"];
+            [self emptyInfo:@"no wallet" resultDic:resultDic];
             return;
         }
     }
@@ -472,6 +473,7 @@
     if (invokeConfig[@"payer"]) {
         if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
             [Common showToast:@"No Wallet"];
+            [self emptyInfo:@"no wallet" resultDic:resultDic];
             return;
         }
     }
@@ -490,6 +492,7 @@
     if (invokeConfig[@"payer"]) {
         if (![invokeConfig[@"payer"] isEqualToString:self.defaultWalletDic[@"address"]]) {
             [Common showToast:@"No Wallet"];
+            [self emptyInfo:@"no wallet" resultDic:resultDic];
             return;
         }
     }
@@ -552,6 +555,30 @@
                               @"error": dic[@"error"],
                               @"desc": @"ERROR",
                               @"result":dic[@"result"],
+                              @"id":idStr,
+                              @"version":versionStr
+                              };
+    
+    
+    NSString *jsonString = [Common dictionaryToJson:nParams];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
+-(void)emptyInfo:(NSString*)emptyString resultDic:(NSDictionary*)dic{
+    NSString * idStr = @"";
+    if (dic[@"id"]) {
+        idStr = dic[@"id"];
+    }
+    NSString * versionStr = @"";
+    if (dic[@"version"]) {
+        versionStr = dic[@"version"];
+    }
+    NSDictionary *nParams = @{@"action":dic[@"action"],
+                              @"error": emptyString,
+                              @"desc": @"ERROR",
+                              @"result":@"",
                               @"id":idStr,
                               @"version":versionStr
                               };
@@ -673,6 +700,7 @@
     NSString * ONTIDString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
     if (!ONTIDString) {
         [Common showToast:@"No ONTID"];
+        [self emptyInfo:@"no ontid" resultDic:callbackDic];
         return;
     }
     NSDictionary *params = @{
