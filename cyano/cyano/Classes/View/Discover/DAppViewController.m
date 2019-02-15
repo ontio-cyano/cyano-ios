@@ -670,6 +670,11 @@
 }
 
 -(void)getIdentityRequest:(NSDictionary*)callbackDic{
+    NSString * ONTIDString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
+    if (!ONTIDString) {
+        [Common showToast:@"No ONTID"];
+        return;
+    }
     NSDictionary *params = @{
                              @"action":@"authentication",
                              @"version":callbackDic[@"version"],
