@@ -32,7 +32,7 @@
     
     NSString * defaultNode = [[NSUserDefaults standardUserDefaults] valueForKey:TESTNETADDR];
     if (!defaultNode) {
-        [[NSUserDefaults standardUserDefaults]setValue:@"dappnode1.ont.io" forKey:TESTNETADDR];
+        [[NSUserDefaults standardUserDefaults]setValue:@"polaris5.ont.io" forKey:TESTNETADDR];
     }
     NSString * CapitalUrl = [[NSUserDefaults standardUserDefaults] valueForKey:CAPITALURI];
     if (!CapitalUrl) {
