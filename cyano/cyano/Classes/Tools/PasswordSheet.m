@@ -28,7 +28,8 @@
 @property (nonatomic, strong) UIView    *bgView;
 @property (nonatomic, strong) UIView    *maskView;
 @property (nonatomic, strong) UIWindow  *window;
-@property (nonatomic, strong) LKLPayCodeTextField * textF;
+//@property (nonatomic, strong) LKLPayCodeTextField * textF;
+@property (nonatomic, strong) UITextField * textF;
 @property (nonatomic, copy)   NSString  *title;
 @property (nonatomic, strong) BrowserView      *browserView;
 @property (nonatomic, copy)   NSString * pwdString;
@@ -96,14 +97,19 @@
     [_bgView addSubview:confirmBtn];
     
     __weak __typeof(self)weakSelf = self;
-    _textF = [[LKLPayCodeTextField alloc]initWithFrame:CGRectMake(20*SCALE_W, 100*SCALE_W, SYSWidth -40*SCALE_W, 50*SCALE_W)];
-    _textF.isShowTrueCode = NO;
-    _textF.isPSW = YES;
-    _textF.finishedBlock = ^(NSString *payCodeString) {
-        weakSelf.pwdString = payCodeString;
-    };
+    _textF = [[UITextField alloc]initWithFrame:CGRectMake(20*SCALE_W, 100*SCALE_W, SYSWidth -40*SCALE_W, 50*SCALE_W)];
+    [_textF becomeFirstResponder];
+    _textF.secureTextEntry = YES;
+//    _textF.isShowTrueCode = NO;
+//    _textF.isPSW = YES;
+//    _textF.finishedBlock = ^(NSString *payCodeString) {
+//        weakSelf.pwdString = payCodeString;
+//    };
     [_bgView addSubview:_textF];
     
+    UIView *textLine = [[UIView alloc]initWithFrame:CGRectMake(20*SCALE_W, 150*SCALE_W, SYSWidth-40*SCALE_W, 1)];
+    textLine.backgroundColor = [UIColor colorWithHexString:@"#E2EAF2"];
+    [_bgView addSubview:textLine];
     [confirmBtn handleControlEvent:UIControlEventTouchUpInside withBlock:^{
         if ([weakSelf.actionString isEqualToString:@"createOntid"]) {
             [weakSelf loadCreateIdJS];
@@ -197,7 +203,7 @@
     return _browserView;
 }
 - (void)loadJS{
-    if ([_pwdString isEqualToString:@""]) {
+    if ([_textF.text isEqualToString:@""]) {
         return;
     }
     NSDictionary* defaultDic  = self.sDic;
@@ -205,7 +211,7 @@
     NSDictionary* detailDic = controlsArr[0];
     [_hub hideAnimated:YES];
     _hub=[ToastUtil showMessage:@"" toView:nil];
-    NSString*  jsStr =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",detailDic[@"key"],_pwdString,detailDic[@"address"],detailDic[@"salt"]];
+    NSString*  jsStr =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",detailDic[@"key"],_textF.text,detailDic[@"address"],detailDic[@"salt"]];
     
     ONTOLOADJSPRE;
     ONTOLOADJS2;
@@ -214,12 +220,12 @@
     
 }
 -(void)loadCreateIdJS{
-    if ([_pwdString isEqualToString:@""]) {
+    if ([_textF.text isEqualToString:@""]) {
         return;
     }
     [_hub hideAnimated:YES];
     _hub=[ToastUtil showMessage:@"" toView:nil];
-    NSString*  jsStr =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",self.sDic[@"key"],[Common transferredMeaning:_pwdString],self.sDic[@"address"],self.sDic[@"salt"]];
+    NSString*  jsStr =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",self.sDic[@"key"],[Common transferredMeaning:_textF.text],self.sDic[@"address"],self.sDic[@"salt"]];
     
     ONTOLOADJSPRE;
     ONTOLOADJS2;
@@ -234,8 +240,8 @@
         
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             [_hub hideAnimated:YES];
-            _pwdString = @"";
-            [_textF clearKeyCode];
+            _textF.text = @"";
+//            [_textF clearKeyCode];
             if (_errorCallback) {
                 _errorCallback(obj);
             }
@@ -245,7 +251,7 @@
             if ([self.actionString isEqualToString:@"exportOntid"]) {
                 NSArray * controls = self.sDic[@"controls"];
                 NSDictionary * dic = controls[0];
-                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.exportWifPrivakeKey('%@','%@','%@','%@','exportWifByIdentity')",dic[@"key"],[Common transferredMeaning:_pwdString],dic[@"address"],dic[@"salt"]];
+                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.exportWifPrivakeKey('%@','%@','%@','%@','exportWifByIdentity')",dic[@"key"],[Common transferredMeaning:_textF.text],dic[@"address"],dic[@"salt"]];
                 ONTOLOADJSPRE;
                 ONTOLOADJS2;
                 ONTOLOADJS3;
@@ -269,7 +275,7 @@
                     eciesDecrypt2 = self.message[2];
                 }
              
-                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.eciesDecrypt('%@','%@','%@','%@','%@','%@','%@','eciesDecrypt')",dic[@"key"],[Common transferredMeaning:_pwdString],dic[@"address"],dic[@"salt"],eciesDecrypt2,eciesDecrypt1,eciesDecrypt0];
+                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.eciesDecrypt('%@','%@','%@','%@','%@','%@','%@','eciesDecrypt')",dic[@"key"],[Common transferredMeaning:_textF.text],dic[@"address"],dic[@"salt"],eciesDecrypt2,eciesDecrypt1,eciesDecrypt0];
                 ONTOLOADJSPRE;
                 ONTOLOADJS2;
                 ONTOLOADJS3;
@@ -287,7 +293,7 @@
                 NSString * ss = [NSString stringWithFormat:@"%@",mutStr];
                 [self.browserView.wkWebView evaluateJavaScript:ss completionHandler:nil];
             }else if ([self.actionString isEqualToString:@"createOntid"]){
-                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.exportWifPrivakeKey('%@','%@','%@','%@','exportWifPrivakeKey')",self.sDic[@"key"],[Common transferredMeaning:_pwdString],self.sDic[@"address"],self.sDic[@"salt"]];
+                NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.exportWifPrivakeKey('%@','%@','%@','%@','exportWifPrivakeKey')",self.sDic[@"key"],[Common transferredMeaning:_textF.text],self.sDic[@"address"],self.sDic[@"salt"]];
                 
                 ONTOLOADJSPRE;
                 ONTOLOADJS2;
@@ -327,7 +333,7 @@
     }else if ([prompt hasPrefix:@"exportWifPrivakeKey"] ){
         NSLog(@"exportWifPrivakeKey=%@",obj);
         NSDictionary * result = obj[@"result"];
-        NSString *jsStr = [NSString stringWithFormat:@"Ont.SDK.importIdentityWithWifOffChain('%@','%@','%@','importIdentityWithWif')",@"",result[@"wif"],[Common transferredMeaning:self.pwdString]];
+        NSString *jsStr = [NSString stringWithFormat:@"Ont.SDK.importIdentityWithWifOffChain('%@','%@','%@','importIdentityWithWif')",@"",result[@"wif"],[Common transferredMeaning:_textF.text]];
         ONTOLOADJSPRE;
         ONTOLOADJS2;
         ONTOLOADJS3;
@@ -372,7 +378,7 @@
 
 #pragma mark - 消失视图
 -(void)dismissScreenBgView{
-    [_textF.textField resignFirstResponder];
+    [_textF resignFirstResponder];
     [self performSelector:@selector(dismiss) withObject:nil afterDelay:0.3];
     
 }

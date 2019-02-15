@@ -18,6 +18,9 @@
 @property (nonatomic, copy) void(^getAccountCallback)(NSDictionary *);
 @property (nonatomic, copy) void(^invokeReadCallback)(NSDictionary *);
 @property (nonatomic, copy) void(^invokePasswordFreeCallback)(NSDictionary *);
+@property (nonatomic, copy) void(^authenticationCallback)(NSDictionary *);
+@property (nonatomic, copy) void(^authorizationCallback)(NSDictionary *);
+@property (nonatomic, copy) void(^getIdentityCallback)(NSDictionary *);
 -(void)setURL:(NSString*)urlString;
 -(void)sendMessageToWeb:(NSDictionary*)dic;
 @end

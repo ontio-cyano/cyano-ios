@@ -7,7 +7,15 @@
 //
 
 #import "BaseViewController.h"
+#define ONTIDTX @"ONTIDTX"
+#define DEFAULTONTID @"DEFAULTONTID"
+#define DEFAULTACCOUTNKEYSTORE @"DEFAULTACCOUTNKEYSTORE"
+#define DEFAULTIDENTITY @"DEFAULTIDENTITY"
+#define ONTIDAUTHINFO @"ONTIDAUTHINFO"
 
+#define ONTOLOADJSPRE  [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setServerNode('polaris5.ont.io')" completionHandler:nil]
+#define ONTOLOADJS2 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setSocketPort('20335')" completionHandler:nil]
+#define ONTOLOADJS3 [self.browserView.wkWebView evaluateJavaScript:@"Ont.SDK.setRestPort('20334')" completionHandler:nil]
 
 @interface DAppViewController : BaseViewController
 @property (nonatomic,strong) NSDictionary * defaultWalletDic;

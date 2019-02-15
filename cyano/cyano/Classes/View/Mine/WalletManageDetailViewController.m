@@ -75,9 +75,19 @@
         }else{
             [self.sendConfirmV dismiss];
             if (self.isDelete) {
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:ASSET_ACCOUNT];
-                [[NSUserDefaults standardUserDefaults] removeObjectForKey:ALLASSET_ACCOUNT];
+                [_hub hideAnimated:YES];
+                NSArray *allArray = [[NSUserDefaults standardUserDefaults] valueForKey:ALLASSET_ACCOUNT];
+                NSMutableArray *newArray = [NSMutableArray array];
+                [newArray addObjectsFromArray:allArray];//[[NSMutableArray alloc] initWithArray:allArray];
+                for (NSDictionary* dic in newArray) {
+                    if ([dic[@"address"]isEqualToString:_walletDic[@"address"]]) {
+                        [newArray removeObject:dic];
+                        break;
+                    }
+                }
+                [[NSUserDefaults standardUserDefaults] setObject:newArray forKey:ALLASSET_ACCOUNT];
                 [[NSUserDefaults standardUserDefaults] synchronize];
+                
                 [self.navigationController popViewControllerAnimated:YES];
                 return;
             }

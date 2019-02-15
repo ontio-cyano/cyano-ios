@@ -54,7 +54,7 @@
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(getNetWork) name:GETNETNOTIFICATION object:nil];
     [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(nonNetWork) name:NONNETNOTIFICATION object:nil];
     
-//    [self.navigationController.navigationBar setBackgroundImage:[UIImage new] forBarMetrics:UIBarMetricsDefault];
+    [self.navigationController.navigationBar setBackgroundImage:[UIImage imageWithColor:BLUELB] forBarPosition:UIBarPositionAny barMetrics:UIBarMetricsDefault];
     [self.navigationController.navigationBar setShadowImage:[UIImage new]];
     [self.navigationController.navigationBar setTitleTextAttributes:@{NSForegroundColorAttributeName :
                                                                           [UIColor colorWithHexString:@"#ffffff"],

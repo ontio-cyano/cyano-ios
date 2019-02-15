@@ -48,7 +48,7 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.left.equalTo(self.view);
     }];
-    NSString * urlStr = @"https://auth.ont.io/#/";//[NSString stringWithFormat:@"http://192.168.50.123:8080/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
+    NSString * urlStr = [NSString stringWithFormat:@"https://auth.ont.io/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
     [self.webView setURL:urlStr];
     // Progress
     [self layoutProgressView];
@@ -61,7 +61,7 @@
     [self.webView setAuthenticationCallback:^(NSDictionary * callbackDic) {
         NSDictionary * params = callbackDic[@"params"];
         NSString * subaction = params[@"subaction"];
-        NSArray * allSubaction = @[@"getRegistryOntidTx",@"submit"];
+        NSArray * allSubaction = @[@"getRegistryOntidTx",@"submit",@"getIdentity"];
         NSInteger index = [allSubaction indexOfObject:subaction];
         switch (index) {
                 case 0:
@@ -69,6 +69,9 @@
                 break;
                 case 1:
                 [weakSelf submitRequest:callbackDic];
+                break;
+                case 2:
+                [weakSelf getIdentityRequest:callbackDic];
                 break;
             default:
                 break;
@@ -108,26 +111,26 @@
 }
 
 -(void)getRegistryOntidTxRequest:(NSDictionary*)callbackDic{
-//    NSString * registryOntidTx;
-//    if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
-//        registryOntidTx = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX];
-//    }else{
-//        registryOntidTx = @"";
-//    }
-//    NSDictionary *params = @{
-//                             @"action":@"authentication",
-//                             @"version":callbackDic[@"version"],
-//                             @"result":
-//                                 @{
-//                                     @"subaction":@"getRegistryOntidTx",
-//                                     @"ontid":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
-//                                     @"registryOntidTx":registryOntidTx
-//                                     },
-//                             @"id":callbackDic[@"id"],
-//                             @"error":@0,
-//                             @"desc":@"SUCCESS",
-//                             };
-//    [self.webView sendMessageToWeb:params];
+    NSString * registryOntidTx;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
+        registryOntidTx = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX];
+    }else{
+        registryOntidTx = @"";
+    }
+    NSDictionary *params = @{
+                             @"action":@"authentication",
+                             @"version":callbackDic[@"version"],
+                             @"result":
+                                 @{
+                                     @"subaction":@"getRegistryOntidTx",
+                                     @"ontid":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
+                                     @"registryOntidTx":registryOntidTx
+                                     },
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    [self.webView sendMessageToWeb:params];
 }
 
 -(void)submitRequest:(NSDictionary*)callbackDic{
@@ -145,16 +148,6 @@
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"exportOntid" message:nil];
     sheetV.callback = ^(NSString *WIFString ) {
-//        [self setNavTitle:@"EXPORT ONT ID"];
-//        NSDictionary *params = @{
-//                                 @"action":@"authorization",
-//                                 @"version":callbackDic[@"version"],
-//                                 @"result":WIFString,
-//                                 @"id":callbackDic[@"id"],
-//                                 @"error":@0,
-//                                 @"desc":@"SUCCESS",
-//                                 };
-//        [self.webView sendMessageToWeb:params];
         ONTIdExportViewController * vc = [[ONTIdExportViewController alloc]init];
         vc.WIFString = WIFString;
         [self.navigationController pushViewController:vc animated:YES];
@@ -233,7 +226,7 @@
 
 -(void)getIdentityRequest:(NSDictionary*)callbackDic{
     NSDictionary *params = @{
-                             @"action":@"getIdentity",
+                             @"action":@"authentication",
                              @"version":callbackDic[@"version"],
                              @"result":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
                              @"id":callbackDic[@"id"],

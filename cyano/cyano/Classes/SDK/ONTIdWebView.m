@@ -156,7 +156,6 @@
     
     NSString *base64decodeString = [self stringEncodeBase64:resultStr];
     NSDictionary *resultDic = [self dictionaryWithJsonString:[base64decodeString stringByRemovingPercentEncoding]];
-    NSLog(@"resultDic=%@",resultDic);
     if (resultDic[@"action"]) {
         if ([resultDic[@"action"] isEqualToString:@"authentication"]) {
             if (_authenticationCallback) {

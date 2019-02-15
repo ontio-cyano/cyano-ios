@@ -48,7 +48,7 @@
     [self.webView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.top.right.bottom.left.equalTo(self.view);
     }];
-    NSString * urlStr =[NSString stringWithFormat:@"http://192.168.50.123:8082/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
+    NSString * urlStr =[NSString stringWithFormat:@"https://auth.ont.io/#/mgmtHome?ontid=%@",[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID]];
     [self.webView setURL:urlStr];
     // Progress
     [self layoutProgressView];

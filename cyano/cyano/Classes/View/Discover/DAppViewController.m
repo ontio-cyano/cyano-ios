@@ -13,6 +13,8 @@
 #import "BrowserView.h"
 #import "InfoAlert.h"
 #import <JavaScriptCore/JavaScriptCore.h>
+#import "ONTIdExportViewController.h"
+#import "PasswordSheet.h"
 @interface DAppViewController ()<WKUIDelegate, WKNavigationDelegate, WKScriptMessageHandler> {
     WKWebView      *webView;
     UIButton       *promptButton;
@@ -185,7 +187,10 @@
     "if (typeof targetOrigin !== 'undefined') {"
     "window.originalPostMessage(message, targetOrigin, transfer);"
     "}"
-    "};";
+    "};var script = document.createElement('meta');"
+    "script.name = 'viewport';"
+    "script.content=\"width=device-width, initial-scale=1.0,maximum-scale=1.0, minimum-scale=1.0, user-scalable=no\";"
+    "document.getElementsByTagName('head')[0].appendChild(script);";
     
     
     
@@ -320,6 +325,16 @@
         if ([self.promptDic[@"action"] isEqualToString:@"getAccount"]){
             [self getAccount:self.promptDic];
             return;
+        }else if ([resultDic[@"action"] isEqualToString:@"authentication"]) {
+            [self authenticationRequest:resultDic];
+            return;
+        }else if ([resultDic[@"action"] isEqualToString:@"authorization"]) {
+            [self authorizationRequest:resultDic];
+            return;
+        }else if ([resultDic[@"action"] isEqualToString:@"getIdentity"]) {
+            [self getIdentityRequest:resultDic];
+            return;
+
         }
         __weak typeof(self) weakSelf = self;
         _InfoAlertV = [[InfoAlert alloc]initWithTitle:self.promptDic[@"action"] msgString:[self convertToJsonData:self.promptDic] buttonString:self.promptDic[@"action"] leftString:@""];
@@ -352,6 +367,57 @@
     }
     
 }
+// authentication
+- (void)authenticationRequest:(NSDictionary*)resultDic{
+    NSDictionary * params = resultDic[@"params"];
+    NSString * subaction = params[@"subaction"];
+    NSArray * allSubaction = @[@"getRegistryOntidTx",@"submit",@"getIdentity"];
+    NSInteger index = [allSubaction indexOfObject:subaction];
+    switch (index) {
+        case 0:
+            [self getRegistryOntidTxRequest:resultDic];
+            break;
+        case 1:
+            [self submitRequest:resultDic];
+            break;
+        case 2:
+            [self getIdentityRequest:resultDic];
+            break;
+        default:
+            break;
+    }
+}
+// authorization
+- (void)authorizationRequest:(NSDictionary*)resultDic{
+    NSDictionary * params = resultDic[@"params"];
+    NSString * subaction = params[@"subaction"];
+    NSArray * allSubaction = @[@"exportOntid",@"deleteOntid",@"decryptClaim",@"getAuthorizationInfo",@"requestAuthorization"];
+    NSInteger index = [allSubaction indexOfObject:subaction];
+    switch (index) {
+        case 0:
+            [self exportOntidRequest:resultDic];
+            break;
+        case 1:
+            [self deleteOntidRequest:resultDic];
+            break;
+        case 2:
+            [self decryptClaimRequest:resultDic];
+            break;
+        case 3:
+            [self getAuthorizationInfoRequest:resultDic];
+            break;
+        case 4:
+            [self requestAuthorizationRequest:resultDic];
+            break;
+        default:
+            break;
+    }
+}
+//// getIdentity
+//- (void)getIdentityRequest:(NSDictionary*)resultDic{
+//
+//}
+
 // 登录
 - (void)loginRequest:(NSDictionary*)resultDic{
     self.sendConfirmV.paybyStr = @"";
@@ -497,6 +563,175 @@
     NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
     [self postMessage:jsStr];
 }
+-(void)getRegistryOntidTxRequest:(NSDictionary*)callbackDic{
+    NSString * registryOntidTx;
+    if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
+        registryOntidTx = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX];
+    }else{
+        registryOntidTx = @"";
+    }
+    NSDictionary *params = @{
+                             @"action":@"authentication",
+                             @"version":callbackDic[@"version"],
+                             @"result":
+                                 @{
+                                     @"subaction":@"getRegistryOntidTx",
+                                     @"ontid":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
+                                     @"registryOntidTx":registryOntidTx
+                                     },
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    NSString *jsonString = [Common dictionaryToJson:params];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
+
+-(void)submitRequest:(NSDictionary*)callbackDic{
+    NSDictionary *params = @{
+                             @"action":@"authentication",
+                             @"version":callbackDic[@"version"],
+                             @"result":@1,
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    NSString *jsonString = [Common dictionaryToJson:params];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
+
+-(void)exportOntidRequest:(NSDictionary*)callbackDic{
+    NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
+    PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"exportOntid" message:nil];
+    sheetV.callback = ^(NSString *WIFString ) {
+        ONTIdExportViewController * vc = [[ONTIdExportViewController alloc]init];
+        vc.WIFString = WIFString;
+        [self.navigationController pushViewController:vc animated:YES];
+    };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        [self errorSend:errorInfo];
+    };
+    
+    _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
+    [_window addSubview:sheetV];
+    [_window makeKeyAndVisible];
+}
+-(void)deleteOntidRequest:(NSDictionary*)callbackDic{
+    NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
+    PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"deleteOntid" message:nil];
+    sheetV.callback = ^(NSString *str ) {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTONTID];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ONTIDTX];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTACCOUTNKEYSTORE];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTIDENTITY];
+        [[NSUserDefaults standardUserDefaults] synchronize];
+        [self.navigationController popToRootViewControllerAnimated:YES];
+    };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        [self errorSend:errorInfo];
+    };
+    _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
+    [_window addSubview:sheetV];
+    [_window makeKeyAndVisible];
+}
+
+-(void)decryptClaimRequest:(NSDictionary*)callbackDic{
+    NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
+    NSDictionary * params = callbackDic[@"params"];
+    NSArray * message = params[@"message"];
+    PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"decryptClaim" message:message];
+    sheetV.callback = ^(NSString *str ) {
+        NSDictionary *params = @{
+                                 @"action":@"authorization",
+                                 @"version":callbackDic[@"version"],
+                                 @"result":str,
+                                 @"id":callbackDic[@"id"],
+                                 @"error":@0,
+                                 @"desc":@"SUCCESS",
+                                 };
+        NSString *jsonString = [Common dictionaryToJson:params];
+        NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        NSString *base64String = [Common base64EncodeString:encodedURL];
+        NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+        [self postMessage:jsStr];
+    };
+    sheetV.errorCallback = ^(NSDictionary *errorInfo) {
+        [self errorSend:errorInfo];
+    };
+    _window = [[[UIApplication sharedApplication]windows] objectAtIndex:1];
+    [_window addSubview:sheetV];
+    [_window makeKeyAndVisible];
+}
+
+-(void)getIdentityRequest:(NSDictionary*)callbackDic{
+    NSDictionary *params = @{
+                             @"action":@"authentication",
+                             @"version":callbackDic[@"version"],
+                             @"result":[[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID],
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    NSString *jsonString = [Common dictionaryToJson:params];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
+-(void)getAuthorizationInfoRequest:(NSDictionary*)callbackDic{
+    NSDictionary * resultDic = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDAUTHINFO];
+    NSDictionary * resultParams = resultDic[@"params"];
+    NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:resultParams];
+    resultParamsChange[@"subaction"] = @"getAuthorizationInfo";
+    NSDictionary *params = @{
+                             @"action":@"authorization",
+                             @"version":callbackDic[@"version"],
+                             @"result":resultParamsChange,
+                             @"id":callbackDic[@"id"],
+                             @"error":@0,
+                             @"desc":@"SUCCESS",
+                             };
+    NSString *jsonString = [Common dictionaryToJson:params];
+    NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+    NSString *base64String = [Common base64EncodeString:encodedURL];
+    NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+    [self postMessage:jsStr];
+}
+
+-(void)requestAuthorizationRequest:(NSDictionary*)callbackDic{
+    [[NSUserDefaults standardUserDefaults]setObject:callbackDic forKey:ONTIDAUTHINFO];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    
+    WKWebViewConfiguration *config = [[WKWebViewConfiguration alloc] init];
+    config.preferences = [[WKPreferences alloc]init];
+    config.preferences.minimumFontSize = 10;
+    config.preferences.javaScriptEnabled = YES;
+    config.preferences.javaScriptCanOpenWindowsAutomatically = YES;
+    config.userContentController = [[WKUserContentController alloc]init];
+    config.processPool = [[WKProcessPool alloc]init];
+    [webView removeFromSuperview];
+    webView = [[WKWebView alloc] initWithFrame:CGRectZero configuration:config];
+    
+    [webView.configuration.userContentController addScriptMessageHandler:self name:@"JSCallback"];
+    
+    webView.UIDelegate = self;
+    webView.navigationDelegate = self;
+    [self.view addSubview:webView];
+    [webView mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.equalTo(self.view);
+        make.right.equalTo(self.view);
+        make.top.equalTo(self.view);
+        make.bottom.equalTo(self.view);
+    }];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://auth.ont.io/#/authHome"]]];
+}
+
 // TS SDK 回调处理
 - (void)handlePrompt:(NSString *)prompt{
     
@@ -570,7 +805,7 @@
                 versionStr = self.promptDic[@"version"];
             }
             NSDictionary *result =@{@"type": @"account",
-                                    @"publicKey":self.defaultWalletDic[@"publicKey"],
+                                    @"publickey":self.defaultWalletDic[@"publicKey"],
                                     @"address": self.defaultWalletDic[@"address"],
                                     @"message":params[@"message"] ,
                                     @"signature":obj[@"result"],
