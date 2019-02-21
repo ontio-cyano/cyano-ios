@@ -17,6 +17,7 @@
         
         
         [self addSubview:self.wkWebView];
+        
         [self.wkWebView mas_makeConstraints:^(MASConstraintMaker *make) {
             make.top.right.bottom.left.equalTo(self);
         }];
@@ -46,7 +47,8 @@
 -(void)setURL:(NSString *)urlString{
     
     [_wkWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString: urlString]]];
-    [self addSubview:self.wkWebView];
+    
+//    [self addSubview:self.wkWebView];
 }
 - (void)setupPostMessageScript {
     

@@ -37,6 +37,23 @@
         };
         prompt('hexAddress?params='+JSON.stringify(obj))
     }
+   
+   function getONTIdTx(payer,privateKey,publicKey,ontid,gasPrice,gasLimit){
+       const addr = new Ont.Crypto.Address(payer);
+       const pubKey = new Ont.Crypto.PublicKey(publicKey);
+       const pkey = new Ont.Crypto.PrivateKey(privateKey)
+       const tx =  new Ont.OntidContract.buildRegisterOntidTx(ontid, pubKey, gasPrice, gasLimit,addr);
+       Ont.TransactionBuilder.signTransaction(tx, pkey);
+       const ss = tx.serialize()
+       const txHash = Ont.utils.reverseHex(tx.getSignContent())
+       const obj = {
+           error: 0,
+           result: ss,
+           txHash:txHash
+       };
+       prompt('getONTIdTx?params='+JSON.stringify(obj))
+   }
+       
    function transfer(from,to, dragonId,privateKey) {
        const contract = '609cd49a9b15009ff2f3a1998f87b8212b8f6afb';
        const contractAddr = new Ont.Crypto.Address(Ont.utils.reverseHex(contract));
@@ -111,7 +128,6 @@
        };
        prompt('addSign?params='+JSON.stringify(obj))
    }
-  
   
    function toHexFromSignString(signString){
        const sig= Crypto.Signature.deserializePgp(signString)

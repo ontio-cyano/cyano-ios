@@ -38,6 +38,7 @@
 @property (nonatomic, assign) BOOL isCheckLogin;
 @property (nonatomic, strong) NSDictionary      *sDic;
 @property (nonatomic, copy)   NSString  *actionString;
+@property (nonatomic, copy)   NSString  *keyString;
 @property (nonatomic, strong) NSArray   *message;
 @end
 
@@ -248,6 +249,7 @@
             [Common showToast:@"Password error!"];
             
         }else{
+            self.keyString = obj[@"result"];
             if ([self.actionString isEqualToString:@"exportOntid"]) {
                 NSArray * controls = self.sDic[@"controls"];
                 NSDictionary * dic = controls[0];
@@ -349,11 +351,17 @@
         }else{
             NSMutableString *str=[obj valueForKey:@"result"];
             NSDictionary *dict = [Common dictionaryWithJsonString:[str stringByReplacingOccurrencesOfString:@"\n" withString:@""]];
+            NSLog(@"---=%@",dict);
             [[NSUserDefaults standardUserDefaults] setObject:dict[@"ontid"] forKey:DEFAULTONTID];
             [[NSUserDefaults standardUserDefaults] setObject:dict forKey:DEFAULTIDENTITY];
             [[NSUserDefaults standardUserDefaults] synchronize];
+            
             NSString * exportAccountToQrcode1 = [NSString stringWithFormat:@"Ont.SDK.exportIdentityToQrcode('%@','exportAccountToQrcode')",[Common dictionaryToJson:dict]];
             [self.browserView.wkWebView evaluateJavaScript:[exportAccountToQrcode1 stringByReplacingOccurrencesOfString:@"\n" withString:@""] completionHandler:nil];
+            
+            NSDictionary * subDic = dict[@"controls"][0];
+            NSString * getONTIdTx = [NSString stringWithFormat:@"getONTIdTx('%@','%@','%@','%@','%@','%@')",@"ATGJSGzm2poCB8N44BgrAccJcZ64MFf187",self.keyString,subDic[@"publicKey"],dict[@"ontid"],@"500",@"20000"];
+            [self.browserView.wkWebView evaluateJavaScript:getONTIdTx completionHandler:nil];
         }
     }else if ([prompt hasPrefix:@"exportAccountToQrcode"] ){
         [_hub hideAnimated:YES];
@@ -370,6 +378,18 @@
             if (_callback) {
                 _callback(obj[@"result"]);
             }
+        }
+    }else if ([prompt hasPrefix:@"getONTIdTx"] ){
+        NSLog(@"%@",prompt);
+        if ([[obj valueForKey:@"error"] integerValue] > 0) {
+            NSString * errorStr = [NSString stringWithFormat:@"%@:%@",@"System error",obj[@"error"]];
+            if (_errorCallback) {
+                _errorCallback(obj);
+            }
+            [Common showToast:errorStr];
+        }else{
+            [[NSUserDefaults standardUserDefaults] setObject:obj[@"result"] forKey:ONTIDTX];
+            [[NSUserDefaults standardUserDefaults] synchronize];
         }
     }
    

@@ -260,6 +260,12 @@
 //        [self toExportIdentity];
 //    }
     if (indexPath.row == 0) {
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTONTID];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:ONTIDTX];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTACCOUTNKEYSTORE];
+//        [[NSUserDefaults standardUserDefaults] removeObjectForKey:DEFAULTIDENTITY];
+//        [[NSUserDefaults standardUserDefaults] synchronize];
+        
         NSString * ontIdString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
         if ([Common isBlankString:ontIdString]) {
             // 传入钱包字典

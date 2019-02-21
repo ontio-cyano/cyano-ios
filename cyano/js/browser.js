@@ -77419,6 +77419,7 @@ class SDK {
         return obj;
     }
 
+  
     static importIdentityWithWallet(label, encryptedPrivateKey, password, address, salt, callback) {
         let obj;
         let identity = new _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"]();

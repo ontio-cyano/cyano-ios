@@ -194,6 +194,8 @@
 }
 
 -(void)decryptClaimRequest:(NSDictionary*)callbackDic{
+    
+    
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     NSDictionary * params = callbackDic[@"params"];
     NSArray * message = params[@"message"];

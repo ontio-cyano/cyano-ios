@@ -274,13 +274,17 @@
             [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[responseOriginal valueForKey:@"error"]]];
             return;
         }
-        
+        self.payDetailDic = responseOriginal;
         if ([responseOriginal isKindOfClass:[NSDictionary class]] && responseOriginal[@"params"]) {
             NSDictionary * paramsD = responseOriginal[@"params"];
             NSDictionary * invokeConfig = paramsD[@"invokeConfig"];
             if (!invokeConfig[@"payer"]) {
-                [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
-                return;
+                [self addPayer:responseOriginal];
+//                [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
+//                return;
+            }
+            if ([Common isBlankString:invokeConfig[@"payer"]]) {
+                [self addPayer:responseOriginal];
             }
             if (![self.defaultDic[@"address"] isEqualToString:invokeConfig[@"payer"]]) {
                 [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
@@ -288,7 +292,6 @@
             }
         }
         
-        self.payDetailDic = responseOriginal;
         self.sendConfirmV.paybyStr = @"";
         self.sendConfirmV.amountStr = @"";
         self.sendConfirmV.isWalletBack = YES;
@@ -298,6 +301,15 @@
         NSLog(@"222=%@",responseOriginal);
         [self.hub hideAnimated:YES];
     }];
+}
+-(void)addPayer:(NSDictionary*)dic{
+    NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:dic];
+    NSMutableDictionary * paramsD = [NSMutableDictionary dictionaryWithDictionary:resultParamsChange[@"params"]] ;
+    NSMutableDictionary * invokeConfig = [NSMutableDictionary dictionaryWithDictionary:paramsD[@"invokeConfig"]] ;
+    [invokeConfig setValue:self.defaultDic[@"address"] forKey:@"payer"];
+    paramsD[@"invokeConfig"] = invokeConfig;
+    resultParamsChange[@"params"] = paramsD;
+    self.payDetailDic = resultParamsChange;
 }
 -(void)configUI{
     [self.view addSubview:self.browserView];
