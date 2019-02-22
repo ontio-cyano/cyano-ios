@@ -618,6 +618,7 @@
                 [weakSelf handlePrompt:prompt];
         }];
     }else{
+        [_hub hideAnimated:YES];
         [Common showToast:@"Not enough ONG to make the transaction."];
     }
 }

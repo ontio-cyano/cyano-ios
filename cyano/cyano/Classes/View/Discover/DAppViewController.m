@@ -477,7 +477,8 @@
             return;
         }
     }
-    NSString *str = [self convertToJsonData:self.promptDic];
+    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+    NSString *str = [self convertToJsonData:tradeDic];
     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappInvokeReadTransaction('%@','makeDappTransaction')",str];
     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
     __weak typeof(self) weakSelf = self;
@@ -503,7 +504,8 @@
         self.sendConfirmV.isWalletBack = YES;
         [self.sendConfirmV show];
     }else{
-        NSString *str = [self convertToJsonData:self.promptDic];
+        NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+        NSString *str = [self convertToJsonData:tradeDic];
         NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,self.confirmSurePwd];
         [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
         __weak typeof(self) weakSelf = self;
@@ -797,7 +799,8 @@
                     }];
                     
                 }else if ([self.promptDic[@"action"] isEqualToString:@"invoke"]){
-                    NSString *str = [self convertToJsonData:self.promptDic];
+                    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+                    NSString *str = [self convertToJsonData:tradeDic];
                     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
                     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
                     __weak typeof(self) weakSelf = self;
@@ -807,7 +810,8 @@
                     
                     
                 }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
-                    NSString *str = [self convertToJsonData:self.promptDic];
+                    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+                    NSString *str = [self convertToJsonData:tradeDic];
                     self.confirmSurePwd = obj[@"result"];
                     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
                     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
@@ -1045,11 +1049,19 @@
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
+-(NSDictionary*)checkPayer:(NSDictionary*)dic{
+    NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:dic];
+    NSMutableDictionary * paramsD = [NSMutableDictionary dictionaryWithDictionary:resultParamsChange[@"params"]] ;
+    NSMutableDictionary * invokeConfig = [NSMutableDictionary dictionaryWithDictionary:paramsD[@"invokeConfig"]] ;
+    [invokeConfig setValue:self.defaultWalletDic[@"address"] forKey:@"payer"];
+    paramsD[@"invokeConfig"] = invokeConfig;
+    resultParamsChange[@"params"] = paramsD;
+    return resultParamsChange;
+}
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
-
 - (void)viewWillDisappear:(BOOL)animated {
     
     [super viewWillDisappear:animated];

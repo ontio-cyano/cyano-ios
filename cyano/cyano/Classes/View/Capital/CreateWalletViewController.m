@@ -210,6 +210,10 @@
 //        [Common showToast:@"Please enter 8-15 characters for password"];
 //        return;
 //    }
+    if ([Common isBlankString:self.pwdField.text] || [Common isBlankString:self.pwdAgainField.text]) {
+        [Common showToast:@"Please enter your password"];
+        return;
+    }
     if ([self.pwdField.text isEqualToString:self.pwdAgainField.text]) {
         [SVProgressHUD show];
        NSString * jsStr = [NSString stringWithFormat:@"Ont.SDK.createAccount('%@','%@','getAssetAccountDataStr')",@"",[Common transferredMeaning:self.pwdField.text]];
