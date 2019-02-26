@@ -77414,12 +77414,10 @@ class SDK {
             result: identity.toJson()
         };
         if (callback) {
-          Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(obj), callback);
+            Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(obj), callback);
         }
         return obj;
     }
-
-  
     static importIdentityWithWallet(label, encryptedPrivateKey, password, address, salt, callback) {
         let obj;
         let identity = new _identity__WEBPACK_IMPORTED_MODULE_7__["Identity"]();
@@ -78445,16 +78443,32 @@ class SDK {
             return result;
         });
     }
+
     static makeDappTransaction(jsonString, fromkey, callback) {
        const fromprivate = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](fromkey);
 
        var jsonObj = JSON.parse(jsonString);
-      const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
-       const signContent = txs[0].getSignContent();
+       var txs;
+       var ss;
+       var txHash;
+       try {
+           txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
+          const signContent = txs[0].getSignContent();
 
-       Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_21__["signTransaction"])(txs[0], fromprivate);
-       const ss = txs[0].serialize()
-       const txHash = Object(_utils__WEBPACK_IMPORTED_MODULE_22__["reverseHex"])(txs[0].getSignContent())
+          Object(_transaction_transactionBuilder__WEBPACK_IMPORTED_MODULE_21__["signTransaction"])(txs[0], fromprivate);
+           ss = txs[0].serialize()
+           txHash = Object(_utils__WEBPACK_IMPORTED_MODULE_22__["reverseHex"])(txs[0].getSignContent())
+       }catch (err) {
+            const result = {
+                error: _error__WEBPACK_IMPORTED_MODULE_6__["ERROR_CODE"].INVALID_PARAMS,
+                result: ''
+            };
+            if (callback) {
+                Object(_utils__WEBPACK_IMPORTED_MODULE_22__["sendBackResult2Native"])(JSON.stringify(result), callback);
+            }
+            return result;
+        }
+       
        
        const obj = {
            error: 0,
@@ -78468,7 +78482,9 @@ class SDK {
             return result;
        
    }
-   static makeDappInvokeReadTransaction(jsonString, callback) {
+   
+
+    static makeDappInvokeReadTransaction(jsonString, callback) {
        var jsonObj = JSON.parse(jsonString);
        const txs = Ont.TransactionBuilder.makeTransactionsByJson(jsonObj);
        const ss = txs[0].serialize()
@@ -78482,7 +78498,6 @@ class SDK {
             return result;
        
    }
-
 
 
     static sendTransactionWithWebsocket(txData, callback) {
@@ -78697,7 +78712,7 @@ class SDK {
         password = '';
         return result;
     }
-    static eciesDecrypt(encryptedPrivateKey, password, address, salt, cipherIv, cipherOut, cipherMsg, callback) {
+    static eciesDecrypt(encryptedPrivateKey, password, address, salt, cipher, callback) {
         password = this.transformPassword(password);
         const encryptedPrivateKeyObj = new _crypto__WEBPACK_IMPORTED_MODULE_5__["PrivateKey"](encryptedPrivateKey);
         let pri;
@@ -78713,8 +78728,9 @@ class SDK {
             return result;
         }
         const ins = new _crypto_Ecies__WEBPACK_IMPORTED_MODULE_24__["Ecies"]();
+        const cipherContent = cipher.split('.');
         ins.setKeyPair(pri.key);
-        const plainBuffer = ins.dec(cipherIv, cipherOut, cipherMsg, 32);
+        const plainBuffer = ins.dec(cipherContent[0], cipherContent[1], cipherContent[2], 32);
         const plain = plainBuffer.toString('utf8');
         const obj = {
             error: 0,
@@ -82797,7 +82813,7 @@ class Transaction {
 /*!***********************************************!*\
   !*** ./src/transaction/transactionBuilder.ts ***!
   \***********************************************/
-/*! exports provided: Default_params, signTransaction, signTransactionAsync, addSign, signTx, makeNativeContractTx, makeInvokeTransaction, makeDeployCodeTransaction, buildTxParam, buildRpcParam, buildRestfulParam, sendRawTxRestfulUrl, transferStringParameter, transformMapParameter, transformArrayParameter, transformParameter, buildParamsByJson, makeTransactionsByJson */
+/*! exports provided: Default_params, signTransaction, signTransactionAsync, addSign, signTx, makeNativeContractTx, makeInvokeTransaction, makeDeployCodeTransaction, buildTxParam, buildRpcParam, buildRestfulParam, sendRawTxRestfulUrl, transferStringParameter, transformMapParameter, transformArrayParameter, transformParameter, buildParamsByJson, makeTransactionsByJson, buildNativeTxFromJson */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -82820,21 +82836,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "transformParameter", function() { return transformParameter; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildParamsByJson", function() { return buildParamsByJson; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "makeTransactionsByJson", function() { return makeTransactionsByJson; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "buildNativeTxFromJson", function() { return buildNativeTxFromJson; });
 /* harmony import */ var _common_fixed64__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../common/fixed64 */ "./src/common/fixed64.ts");
 /* harmony import */ var _consts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../consts */ "./src/consts.ts");
 /* harmony import */ var _crypto__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../crypto */ "./src/crypto/index.ts");
-/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../error */ "./src/error.ts");
-/* harmony import */ var _smartcontract_abi_abiFunction__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../smartcontract/abi/abiFunction */ "./src/smartcontract/abi/abiFunction.ts");
-/* harmony import */ var _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../smartcontract/abi/parameter */ "./src/smartcontract/abi/parameter.ts");
-/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../utils */ "./src/utils.ts");
-/* harmony import */ var _opcode__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./opcode */ "./src/transaction/opcode.ts");
-/* harmony import */ var _payload_deployCode__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./payload/deployCode */ "./src/transaction/payload/deployCode.ts");
-/* harmony import */ var _payload_invokeCode__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./payload/invokeCode */ "./src/transaction/payload/invokeCode.ts");
-/* harmony import */ var _program__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./program */ "./src/transaction/program.ts");
-/* harmony import */ var _scriptBuilder__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./scriptBuilder */ "./src/transaction/scriptBuilder.ts");
-/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./transaction */ "./src/transaction/transaction.ts");
-/* harmony import */ var _transfer__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./transfer */ "./src/transaction/transfer.ts");
-/* harmony import */ var _txSignature__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./txSignature */ "./src/transaction/txSignature.ts");
+/* harmony import */ var _crypto_PublicKey__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../crypto/PublicKey */ "./src/crypto/PublicKey.ts");
+/* harmony import */ var _error__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../error */ "./src/error.ts");
+/* harmony import */ var _smartcontract_abi_abiFunction__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../smartcontract/abi/abiFunction */ "./src/smartcontract/abi/abiFunction.ts");
+/* harmony import */ var _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../smartcontract/abi/parameter */ "./src/smartcontract/abi/parameter.ts");
+/* harmony import */ var _smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../smartcontract/nativevm/ontAssetTxBuilder */ "./src/smartcontract/nativevm/ontAssetTxBuilder.ts");
+/* harmony import */ var _smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../smartcontract/nativevm/ontidContractTxBuilder */ "./src/smartcontract/nativevm/ontidContractTxBuilder.ts");
+/* harmony import */ var _utils__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../utils */ "./src/utils.ts");
+/* harmony import */ var _opcode__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./opcode */ "./src/transaction/opcode.ts");
+/* harmony import */ var _payload_deployCode__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./payload/deployCode */ "./src/transaction/payload/deployCode.ts");
+/* harmony import */ var _payload_invokeCode__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ./payload/invokeCode */ "./src/transaction/payload/invokeCode.ts");
+/* harmony import */ var _program__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./program */ "./src/transaction/program.ts");
+/* harmony import */ var _scriptBuilder__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ./scriptBuilder */ "./src/transaction/scriptBuilder.ts");
+/* harmony import */ var _transaction__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ./transaction */ "./src/transaction/transaction.ts");
+/* harmony import */ var _transfer__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ./transfer */ "./src/transaction/transfer.ts");
+/* harmony import */ var _txSignature__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./txSignature */ "./src/transaction/txSignature.ts");
 /*
  * Copyright (C) 2018 The ontology Authors
  * This file is part of The ontology library.
@@ -82852,6 +82872,9 @@ __webpack_require__.r(__webpack_exports__);
  * You should have received a copy of the GNU Lesser General Public License
  * along with The ontology.  If not, see <http://www.gnu.org/licenses/>.
  */
+
+
+
 
 
 
@@ -82886,7 +82909,7 @@ const Default_params = {
  * @param schema Signature Schema to use
  */
 const signTransaction = (tx, privateKey, schema) => {
-    const signature = _txSignature__WEBPACK_IMPORTED_MODULE_14__["TxSignature"].create(tx, privateKey, schema);
+    const signature = _txSignature__WEBPACK_IMPORTED_MODULE_17__["TxSignature"].create(tx, privateKey, schema);
     tx.sigs = [signature];
 };
 /**
@@ -82900,7 +82923,7 @@ const signTransaction = (tx, privateKey, schema) => {
  * @param schema Signature Schema to use
  */
 const signTransactionAsync = async (tx, privateKey, schema) => {
-    const signature = await _txSignature__WEBPACK_IMPORTED_MODULE_14__["TxSignature"].createAsync(tx, privateKey, schema);
+    const signature = await _txSignature__WEBPACK_IMPORTED_MODULE_17__["TxSignature"].createAsync(tx, privateKey, schema);
     tx.sigs = [signature];
 };
 /**
@@ -82914,15 +82937,15 @@ const signTransactionAsync = async (tx, privateKey, schema) => {
  * @param schema Signature Schema to use
  */
 const addSign = (tx, privateKey, schema) => {
-    const signature = _txSignature__WEBPACK_IMPORTED_MODULE_14__["TxSignature"].create(tx, privateKey, schema);
+    const signature = _txSignature__WEBPACK_IMPORTED_MODULE_17__["TxSignature"].create(tx, privateKey, schema);
     tx.sigs.push(signature);
 };
 const equalPks = (pks1, pks2) => {
     if (pks1 === pks2) {
         return true;
     }
-    pks1.sort(_program__WEBPACK_IMPORTED_MODULE_10__["comparePublicKeys"]);
-    pks2.sort(_program__WEBPACK_IMPORTED_MODULE_10__["comparePublicKeys"]);
+    pks1.sort(_program__WEBPACK_IMPORTED_MODULE_13__["comparePublicKeys"]);
+    pks2.sort(_program__WEBPACK_IMPORTED_MODULE_13__["comparePublicKeys"]);
     if (pks1.length !== pks2.length) {
         return false;
     }
@@ -82950,7 +82973,7 @@ const signTx = (tx, M, pubKeys, privateKey, scheme) => {
         tx.sigs = [];
     } else {
         if (tx.sigs.length > _consts__WEBPACK_IMPORTED_MODULE_1__["TX_MAX_SIG_SIZE"] || M > pubKeys.length || M <= 0 || pubKeys.length === 0) {
-            throw _error__WEBPACK_IMPORTED_MODULE_3__["ERROR_CODE"].INVALID_PARAMS;
+            throw _error__WEBPACK_IMPORTED_MODULE_4__["ERROR_CODE"].INVALID_PARAMS;
         }
         // tslint:disable-next-line:prefer-for-of
         for (let i = 0; i < tx.sigs.length; i++) {
@@ -82964,7 +82987,7 @@ const signTx = (tx, M, pubKeys, privateKey, scheme) => {
             }
         }
     }
-    const sig = new _txSignature__WEBPACK_IMPORTED_MODULE_14__["TxSignature"]();
+    const sig = new _txSignature__WEBPACK_IMPORTED_MODULE_17__["TxSignature"]();
     sig.M = M;
     sig.pubKeys = pubKeys;
     sig.sigData = [privateKey.sign(tx, scheme).serializeHex()];
@@ -82982,20 +83005,20 @@ const signTx = (tx, M, pubKeys, privateKey, scheme) => {
 function makeNativeContractTx(funcName, params, contractAddr, gasPrice, gasLimit, payer) {
     let code = '';
     code += params;
-    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["pushHexString"])(Object(_utils__WEBPACK_IMPORTED_MODULE_6__["str2hexstr"])(funcName));
-    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["pushHexString"])(contractAddr.serialize());
-    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["pushInt"])(0);
-    code += Object(_utils__WEBPACK_IMPORTED_MODULE_6__["num2hexstring"])(_opcode__WEBPACK_IMPORTED_MODULE_7__["default"].SYSCALL);
-    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["pushHexString"])(Object(_utils__WEBPACK_IMPORTED_MODULE_6__["str2hexstr"])(_consts__WEBPACK_IMPORTED_MODULE_1__["NATIVE_INVOKE_NAME"]));
-    const payload = new _payload_invokeCode__WEBPACK_IMPORTED_MODULE_9__["default"]();
+    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["pushHexString"])(Object(_utils__WEBPACK_IMPORTED_MODULE_9__["str2hexstr"])(funcName));
+    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["pushHexString"])(contractAddr.serialize());
+    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["pushInt"])(0);
+    code += Object(_utils__WEBPACK_IMPORTED_MODULE_9__["num2hexstring"])(_opcode__WEBPACK_IMPORTED_MODULE_10__["default"].SYSCALL);
+    code += Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["pushHexString"])(Object(_utils__WEBPACK_IMPORTED_MODULE_9__["str2hexstr"])(_consts__WEBPACK_IMPORTED_MODULE_1__["NATIVE_INVOKE_NAME"]));
+    const payload = new _payload_invokeCode__WEBPACK_IMPORTED_MODULE_12__["default"]();
     payload.code = code;
     let tx;
     if (funcName === 'transfer' || funcName === 'transferFrom') {
-        tx = new _transfer__WEBPACK_IMPORTED_MODULE_13__["Transfer"]();
+        tx = new _transfer__WEBPACK_IMPORTED_MODULE_16__["Transfer"]();
     } else {
-        tx = new _transaction__WEBPACK_IMPORTED_MODULE_12__["Transaction"]();
+        tx = new _transaction__WEBPACK_IMPORTED_MODULE_15__["Transaction"]();
     }
-    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_12__["TxType"].Invoke;
+    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_15__["TxType"].Invoke;
     tx.payload = payload;
     if (gasLimit) {
         tx.gasLimit = new _common_fixed64__WEBPACK_IMPORTED_MODULE_0__["default"](gasLimit);
@@ -83018,18 +83041,18 @@ function makeNativeContractTx(funcName, params, contractAddr, gasPrice, gasLimit
  * @param payer Address to pay for gas
  */
 const makeInvokeTransaction = (funcName, params, contractAddr, gasPrice, gasLimit, payer) => {
-    const tx = new _transaction__WEBPACK_IMPORTED_MODULE_12__["Transaction"]();
-    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_12__["TxType"].Invoke;
+    const tx = new _transaction__WEBPACK_IMPORTED_MODULE_15__["Transaction"]();
+    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_15__["TxType"].Invoke;
     let args = '';
     if (typeof params === 'string') {
         args = params;
     } else {
-        const abiFunc = new _smartcontract_abi_abiFunction__WEBPACK_IMPORTED_MODULE_4__["default"](funcName, '', params);
-        args = Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["serializeAbiFunction"])(abiFunc);
+        const abiFunc = new _smartcontract_abi_abiFunction__WEBPACK_IMPORTED_MODULE_5__["default"](funcName, '', params);
+        args = Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["serializeAbiFunction"])(abiFunc);
     }
-    let code = args + Object(_utils__WEBPACK_IMPORTED_MODULE_6__["num2hexstring"])(_opcode__WEBPACK_IMPORTED_MODULE_7__["default"].APPCALL);
+    let code = args + Object(_utils__WEBPACK_IMPORTED_MODULE_9__["num2hexstring"])(_opcode__WEBPACK_IMPORTED_MODULE_10__["default"].APPCALL);
     code += contractAddr.serialize();
-    const payload = new _payload_invokeCode__WEBPACK_IMPORTED_MODULE_9__["default"]();
+    const payload = new _payload_invokeCode__WEBPACK_IMPORTED_MODULE_12__["default"]();
     payload.code = code;
     tx.payload = payload;
     if (gasLimit) {
@@ -83057,7 +83080,7 @@ const makeInvokeTransaction = (funcName, params, contractAddr, gasPrice, gasLimi
  * @param payer Address to pay for gas
  */
 function makeDeployCodeTransaction(code, name = '', codeVersion = '1.0', author = '', email = '', desp = '', needStorage = true, gasPrice, gasLimit, payer) {
-    const dc = new _payload_deployCode__WEBPACK_IMPORTED_MODULE_8__["default"]();
+    const dc = new _payload_deployCode__WEBPACK_IMPORTED_MODULE_11__["default"]();
     dc.author = author;
     // const vmCode = new VmCode();
     // vmCode.code = code;
@@ -83069,10 +83092,10 @@ function makeDeployCodeTransaction(code, name = '', codeVersion = '1.0', author 
     dc.email = email;
     dc.name = name;
     dc.needStorage = needStorage;
-    const tx = new _transaction__WEBPACK_IMPORTED_MODULE_12__["Transaction"]();
+    const tx = new _transaction__WEBPACK_IMPORTED_MODULE_15__["Transaction"]();
     tx.version = 0x00;
     tx.payload = dc;
-    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_12__["TxType"].Deploy;
+    tx.type = _transaction__WEBPACK_IMPORTED_MODULE_15__["TxType"].Deploy;
     // gas
     // if (DEFAULT_GAS_LIMIT === Number(0)) {
     //     tx.gasPrice = new Fixed64();
@@ -83147,9 +83170,9 @@ function transferStringParameter(value) {
     if (strs.length !== 2) {
         throw new Error('Invalid parameter. ' + value);
     }
-    const p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', strs[0], strs[1]);
-    if (p.type === _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Address) {
-        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].ByteArray;
+    const p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', strs[0], strs[1]);
+    if (p.type === _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Address) {
+        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].ByteArray;
         p.value = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](p.value).serialize();
     }
     return p;
@@ -83159,13 +83182,13 @@ function transformMapParameter(value) {
     for (const k of Object.keys(value)) {
         const v = value[k];
         if (typeof v === 'number') {
-            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Integer, v);
+            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Integer, v);
         } else if (typeof v === 'boolean') {
-            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Boolean, v);
+            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Boolean, v);
         } else if (Array.isArray(v)) {
-            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Array, transformArrayParameter(v));
+            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Array, transformArrayParameter(v));
         } else if (typeof v === 'object') {
-            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Map, transformMapParameter(v));
+            map[k] = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Map, transformMapParameter(v));
         } else if (typeof v === 'string') {
             map[k] = transferStringParameter(v);
         }
@@ -83175,16 +83198,16 @@ function transformMapParameter(value) {
 function transformArrayParameter(val) {
     const list = [];
     for (const v of val) {
-        let p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].ByteArray, v);
+        let p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"]('', _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].ByteArray, v);
         if (typeof v === 'number') {
-            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Integer;
+            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Integer;
         } else if (typeof v === 'boolean') {
-            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Boolean;
+            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Boolean;
         } else if (Array.isArray(v)) {
-            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Array;
+            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Array;
             p.value = transformArrayParameter(v);
         } else if (typeof v === 'object') {
-            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Map;
+            p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Map;
             p.value = transformMapParameter(v);
         } else if (typeof v === 'string') {
             p = transferStringParameter(v);
@@ -83196,18 +83219,18 @@ function transformArrayParameter(val) {
 function transformParameter(arg) {
     const name = arg.name;
     const value = arg.value;
-    let p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["Parameter"](name, _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].ByteArray, value);
+    let p = new _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["Parameter"](name, _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].ByteArray, value);
     if (typeof value === 'number') {
-        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Integer;
+        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Integer;
         p.value = Number(value);
     } else if (typeof value === 'boolean') {
-        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Boolean;
+        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Boolean;
         p.value = Boolean(value);
     } else if (Array.isArray(value)) {
-        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Array;
+        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Array;
         p.value = transformArrayParameter(value);
     } else if (typeof value === 'object') {
-        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_5__["ParameterType"].Map;
+        p.type = _smartcontract_abi_parameter__WEBPACK_IMPORTED_MODULE_6__["ParameterType"].Map;
         p.value = transformMapParameter(value);
     } else if (typeof value === 'string') {
         p = transferStringParameter(value);
@@ -83220,7 +83243,7 @@ function buildParamsByJson(json) {
     for (const obj of functions) {
         const { operation, args } = obj;
         const list = [];
-        list.push(Object(_utils__WEBPACK_IMPORTED_MODULE_6__["str2hexstr"])(operation));
+        list.push(Object(_utils__WEBPACK_IMPORTED_MODULE_9__["str2hexstr"])(operation));
         const temp = [];
         for (const arg of args) {
             temp.push(transformParameter(arg));
@@ -83246,18 +83269,53 @@ function makeTransactionsByJson(json) {
     if (!contractHash) {
         throw new Error('Invalid parameter. The contractHash can not be empty.');
     }
-    const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_6__["reverseHex"])(contractHash));
+    const contractAddr = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](Object(_utils__WEBPACK_IMPORTED_MODULE_9__["reverseHex"])(contractHash));
     payer = payer ? new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](payer) : null;
     gasPrice = gasPrice + '' || '500';
     gasLimit = gasLimit + '' || '200000';
-    const parameters = buildParamsByJson(invokeConfig);
     const txList = [];
-    for (const list of parameters) {
-        const params = Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_11__["createCodeParamsScript"])(list);
-        const tx = makeInvokeTransaction('', params, contractAddr, gasPrice, gasLimit, payer);
+    if (contractHash.indexOf('00000000000000000000000000000000000000') > -1) {
+        // native contract
+        const tx = buildNativeTxFromJson(invokeConfig);
         txList.push(tx);
+    } else {
+        const parameters = buildParamsByJson(invokeConfig);
+        for (const list of parameters) {
+            const params = Object(_scriptBuilder__WEBPACK_IMPORTED_MODULE_14__["createCodeParamsScript"])(list);
+            const tx = makeInvokeTransaction('', params, contractAddr, gasPrice, gasLimit, payer);
+            txList.push(tx);
+        }
     }
     return txList;
+}
+function buildNativeTxFromJson(json) {
+    const funcArgs = json.functions[0];
+    const args = funcArgs.args;
+    if (json.contractHash.indexOf('02') > -1 || json.contractHash.indexOf('01') > -1) {
+        // ONT ONG contract
+        const tokenType = json.contractHash.indexOf('02') > -1 ? 'ONG' : 'ONT';
+        if (funcArgs.operation === 'transfer') {
+            const from = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](args[0].value.split(':')[1]);
+            const to = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](args[1].value.split(':')[1]);
+            const amount = args[2].value.split(':')[1] + ''; // convert to string
+            const payer = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](json.payer);
+            const tx = Object(_smartcontract_nativevm_ontAssetTxBuilder__WEBPACK_IMPORTED_MODULE_7__["makeTransferTx"])(tokenType, from, to, amount, json.gasPrice, json.gasLimit, payer);
+            return tx;
+        }
+    } else if (json.contractHash.indexOf('03') > -1) {
+        // ONT ID contract
+        if (funcArgs.operation === 'regIDWithPublicKey') {
+            const ontid = args[0].value.substr(args[0].value.indexOf(':') + 1);
+            const pk = new _crypto_PublicKey__WEBPACK_IMPORTED_MODULE_3__["PublicKey"](args[1].value.split(':')[1]);
+            const payer = new _crypto__WEBPACK_IMPORTED_MODULE_2__["Address"](json.payer);
+            const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_8__["buildRegisterOntidTx"])(ontid, pk, json.gasPrice, json.gasLimit, payer);
+            return tx;
+        } else if (funcArgs.operation === 'getDDO') {
+            const ontid = args[0].value.substr(args[0].value.indexOf(':') + 1);
+            const tx = Object(_smartcontract_nativevm_ontidContractTxBuilder__WEBPACK_IMPORTED_MODULE_8__["buildGetDDOTx"])(ontid);
+            return tx;
+        }
+    }
 }
 
 /***/ }),

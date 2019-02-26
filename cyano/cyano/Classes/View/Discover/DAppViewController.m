@@ -138,7 +138,8 @@
 
 // 加载网页
 - (void)loadWeb {
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dappUrl]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.50.123:8081"]]];
+//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dappUrl]]];
 }
 
 //将NSString转换成十六进制的字符串则可使用如下方式:
@@ -477,7 +478,11 @@
             return;
         }
     }
-    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+    NSDictionary * tradeDic = [self checkPayer:resultDic];
+    if (tradeDic == nil) {
+        [self emptyInfo:@"no wallet" resultDic:resultDic];
+        return;
+    }
     NSString *str = [self convertToJsonData:tradeDic];
     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappInvokeReadTransaction('%@','makeDappTransaction')",str];
     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
@@ -504,7 +509,11 @@
         self.sendConfirmV.isWalletBack = YES;
         [self.sendConfirmV show];
     }else{
-        NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+        NSDictionary * tradeDic = [self checkPayer:resultDic];
+        if (tradeDic == nil) {
+            [self emptyInfo:@"no wallet" resultDic:resultDic];
+            return;
+        }
         NSString *str = [self convertToJsonData:tradeDic];
         NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,self.confirmSurePwd];
         [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
@@ -800,6 +809,10 @@
                     
                 }else if ([self.promptDic[@"action"] isEqualToString:@"invoke"]){
                     NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+                    if (tradeDic == nil) {
+                        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
+                        return;
+                    }
                     NSString *str = [self convertToJsonData:tradeDic];
                     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
                     [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
@@ -811,6 +824,10 @@
                     
                 }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
                     NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+                    if (tradeDic == nil) {
+                        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
+                        return;
+                    }
                     NSString *str = [self convertToJsonData:tradeDic];
                     self.confirmSurePwd = obj[@"result"];
                     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
@@ -1053,10 +1070,24 @@
     NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:dic];
     NSMutableDictionary * paramsD = [NSMutableDictionary dictionaryWithDictionary:resultParamsChange[@"params"]] ;
     NSMutableDictionary * invokeConfig = [NSMutableDictionary dictionaryWithDictionary:paramsD[@"invokeConfig"]] ;
-    [invokeConfig setValue:self.defaultWalletDic[@"address"] forKey:@"payer"];
-    paramsD[@"invokeConfig"] = invokeConfig;
-    resultParamsChange[@"params"] = paramsD;
-    return resultParamsChange;
+    if (!invokeConfig[@"payer"]) {
+        [invokeConfig setValue:self.defaultWalletDic[@"address"] forKey:@"payer"];
+        paramsD[@"invokeConfig"] = invokeConfig;
+        resultParamsChange[@"params"] = paramsD;
+        return resultParamsChange;
+    }
+    if ([Common isBlankString:invokeConfig[@"payer"]]) {
+        [invokeConfig setValue:self.defaultWalletDic[@"address"] forKey:@"payer"];
+        paramsD[@"invokeConfig"] = invokeConfig;
+        resultParamsChange[@"params"] = paramsD;
+        return resultParamsChange;
+    }
+    if (![self.defaultWalletDic[@"address"] isEqualToString:invokeConfig[@"payer"]]) {
+        [Common showToast:@"There is no corresponding payment wallet, please add the wallet first."];
+        return nil;
+    }
+    return dic;
+    
 }
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
