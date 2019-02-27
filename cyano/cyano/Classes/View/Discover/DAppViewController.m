@@ -54,7 +54,7 @@
     self.progressView.backgroundColor = MainColor;
     self.progressView.tintColor = [UIColor colorWithHexString:@"#35BFDF"];
     
-    //设置进度条的高度，下面这句代码表示进度条的宽度变为原来的1倍，高度变为原来的1.5倍.
+    //Set the height of the progress bar. The following code indicates that the width of the progress bar has become 1 times the original and the height has become 1.5 times the original.
     self.progressView.transform = CGAffineTransformMakeScale(1.0f, 1.5f);
     [self.view addSubview:self.progressView];
     
@@ -71,9 +71,9 @@
         self.progressView.progress = webView.estimatedProgress;
         if (self.progressView.progress == 1) {
             /*
-             *添加一个简单的动画，将progressView的Height变为1.4倍，在开始加载网页的代理中会恢复为1.5倍
-             *动画时长0.25s，延时0.3s后开始动画
-             *动画结束后将progressView隐藏
+             *Add a simple animation that will increase the height of the progressView to 1.4 times and 1.5 times the number of agents that start loading the page.
+             *The animation duration is 0.25s, and the animation starts after 0.3s delay.
+             *Hide the progressView after the animation ends
              */
             __weak typeof(self) weakSelf = self;
             [UIView animateWithDuration:0.25f delay:0.3f options:UIViewAnimationOptionCurveEaseOut animations:^{
@@ -123,47 +123,26 @@
     }];
 }
 
-// 导航栏设置
+// Navigation bar settings
 - (void)configNav {
     [self setNavLeftImageIcon:[UIImage imageNamed:@"BackWhite"] Title:@""];
     
 }
 
-// 返回
+// back
 - (void)navLeftAction {
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:INVOKEPASSWORDFREE];
     [Common deleteEncryptedContent:INVOKEPASSWORDFREE];
     [self.navigationController popViewControllerAnimated:YES];
 }
 
-// 加载网页
+// Load webpage
 - (void)loadWeb {
-    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.50.123:8081"]]];
-//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dappUrl]]];
+//    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"http://192.168.50.123:8081"]]];
+    [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:_dappUrl]]];
 }
 
-//将NSString转换成十六进制的字符串则可使用如下方式:
-- (NSString *)convertStringToHexStr:(NSString *)str {
-    if (!str || [str length] == 0) {
-        return @"";
-    }
-    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
-    
-    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
-    
-    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
-        unsigned char *dataBytes = (unsigned char *) bytes;
-        for (NSInteger i = 0; i < byteRange.length; i++) {
-            NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
-            if ([hexStr length] == 2) {
-                [string appendString:hexStr];
-            } else {
-                [string appendFormat:@"0%@", hexStr];
-            }
-        }
-    }];
-    return string;
-}
+
 
 #pragma mark WKWebViewDelegate
 /**
@@ -538,6 +517,7 @@
     return _sendConfirmV;
 }
 
+// decryptEncryptedPrivateKey
 - (void)loadJS{
     NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.decryptEncryptedPrivateKey('%@','%@','%@','%@','decryptEncryptedPrivateKey')",self.defaultWalletDic[@"key"],[Common transferredMeaning:_confirmPwd],self.defaultWalletDic[@"address"],self.defaultWalletDic[@"salt"]];
     
@@ -552,7 +532,7 @@
     }];
     
 }
-// 错误信息上传
+// Error message upload
 -(void)errorSend:(NSDictionary*)dic{
     NSString * idStr = @"";
     if (self.promptDic[@"id"]) {
@@ -577,6 +557,7 @@
     NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
     [self postMessage:jsStr];
 }
+// send emptuInfo to web
 -(void)emptyInfo:(NSString*)emptyString resultDic:(NSDictionary*)dic{
     NSString * idStr = @"";
     if (dic[@"id"]) {
@@ -601,6 +582,8 @@
     NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
     [self postMessage:jsStr];
 }
+
+// getRegistryOntidTx
 -(void)getRegistryOntidTxRequest:(NSDictionary*)callbackDic{
     NSString * registryOntidTx;
     if ([[NSUserDefaults standardUserDefaults] valueForKey:ONTIDTX]) {
@@ -628,6 +611,7 @@
     [self postMessage:jsStr];
 }
 
+// submit
 -(void)submitRequest:(NSDictionary*)callbackDic{
     NSDictionary *params = @{
                              @"action":@"authentication",
@@ -644,6 +628,7 @@
     [self postMessage:jsStr];
 }
 
+// exportOntid
 -(void)exportOntidRequest:(NSDictionary*)callbackDic{
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"exportOntid" message:nil];
@@ -660,6 +645,8 @@
     [_window addSubview:sheetV];
     [_window makeKeyAndVisible];
 }
+
+// deleteOntid
 -(void)deleteOntidRequest:(NSDictionary*)callbackDic{
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     PasswordSheet* sheetV= [[PasswordSheet alloc]initWithTitle:@"Enter Your ONT ID Password" selectedDic:dic action:@"deleteOntid" message:nil];
@@ -679,6 +666,7 @@
     [_window makeKeyAndVisible];
 }
 
+// decryptClaim
 -(void)decryptClaimRequest:(NSDictionary*)callbackDic{
     NSDictionary * dic  = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTIDENTITY];
     NSDictionary * params = callbackDic[@"params"];
@@ -707,6 +695,7 @@
     [_window makeKeyAndVisible];
 }
 
+// getIdentity
 -(void)getIdentityRequest:(NSDictionary*)callbackDic{
     NSString * ONTIDString = [[NSUserDefaults standardUserDefaults] valueForKey:DEFAULTONTID];
     if (!ONTIDString) {
@@ -728,6 +717,7 @@
     NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
     [self postMessage:jsStr];
 }
+// getAuthorizationInfo
 -(void)getAuthorizationInfoRequest:(NSDictionary*)callbackDic{
     NSDictionary * resultDic = [[NSUserDefaults standardUserDefaults] valueForKey:ONTIDAUTHINFO];
     NSDictionary * resultParams = resultDic[@"params"];
@@ -748,6 +738,7 @@
     [self postMessage:jsStr];
 }
 
+// requestAuthorization
 -(void)requestAuthorizationRequest:(NSDictionary*)callbackDic{
     [[NSUserDefaults standardUserDefaults]setObject:callbackDic forKey:ONTIDAUTHINFO];
     [[NSUserDefaults standardUserDefaults] synchronize];
@@ -776,7 +767,7 @@
     [webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:@"https://auth.ont.io/#/authHome"]]];
 }
 
-// TS SDK 回调处理
+// TS SDK callback processing
 - (void)handlePrompt:(NSString *)prompt{
     
     
@@ -784,241 +775,290 @@
     NSString *resultStr = promptArray[1];
     
     id obj = [NSJSONSerialization JSONObjectWithData:[resultStr dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
-    // 密码解密回调处理
+    // Password decryption callback processing
     if ([prompt hasPrefix:@"decryptEncryptedPrivateKey"]) {
-        if ([[obj valueForKey:@"error"] integerValue] > 0) {
-            [_hub hideAnimated:YES];
-            self.confirmPwd = @"";
-            [self errorSend:obj];
-            [Common showToast:@"Password error"];
-            
-        }else{
-            if (self.promptDic[@"action"]) {
-                if ([self.promptDic[@"action"] isEqualToString:@"login"]) {
-                    
-                    // 对 message 签名
-                    NSDictionary *params = self.promptDic[@"params"];
-                    NSString *signStr =[Common hexStringFromString:params[@"message"]];
-                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.signDataHex('%@','%@','%@','%@','%@','newsignDataStrHex')",signStr,self.defaultWalletDic[@"key"],[Common base64EncodeString:_confirmPwd],self.defaultWalletDic[@"address"],self.defaultWalletDic[@"salt"]];
-                    
-                    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-                    __weak typeof(self) weakSelf = self;
-                    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
-                        [weakSelf handlePrompt:prompt];
-                    }];
-                    
-                }else if ([self.promptDic[@"action"] isEqualToString:@"invoke"]){
-                    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
-                    if (tradeDic == nil) {
-                        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
-                        return;
-                    }
-                    NSString *str = [self convertToJsonData:tradeDic];
-                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
-                    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-                    __weak typeof(self) weakSelf = self;
-                    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
-                        [weakSelf handlePrompt:prompt];
-                    }];
-                    
-                    
-                }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
-                    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
-                    if (tradeDic == nil) {
-                        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
-                        return;
-                    }
-                    NSString *str = [self convertToJsonData:tradeDic];
-                    self.confirmSurePwd = obj[@"result"];
-                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
-                    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-                    __weak typeof(self) weakSelf = self;
-                    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
-                        [weakSelf handlePrompt:prompt];
-                    }];
-                }
-            }
-        }
+        
+        [self decryptEncryptedPrivateKey:obj];
+        
     }else if ([prompt hasPrefix:@"newsignDataStrHex"]){
-        if ([[obj valueForKey:@"error"] integerValue] > 0) {
-            [_hub hideAnimated:YES];
-            [self errorSend:obj];
-             [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
-            
-        }else{
-            
-            [_hub hideAnimated:YES];
-            [self.sendConfirmV dismiss];
-            NSDictionary *params = self.promptDic[@"params"];
-            NSString * idStr = @"";
-            if (self.promptDic[@"id"]) {
-                idStr = self.promptDic[@"id"];
-            }
-            NSString * versionStr = @"";
-            if (self.promptDic[@"version"]) {
-                versionStr = self.promptDic[@"version"];
-            }
-            NSDictionary *result =@{@"type": @"account",
-                                    @"publickey":self.defaultWalletDic[@"publicKey"],
-                                    @"address": self.defaultWalletDic[@"address"],
-                                    @"message":params[@"message"] ,
-                                    @"signature":obj[@"result"],
-                                    };
-            NSDictionary *nParams = @{@"action":@"login",
-                                      @"version": @"v1.0.0",
-                                      @"error": @0,
-                                      @"desc": @"SUCCESS",
-                                      @"result":result,
-                                      @"id":idStr,
-                                      @"version":versionStr
-                                      };
-            
-            
-            NSString *jsonString = [Common dictionaryToJson:nParams];
-            NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            NSString *base64String = [Common base64EncodeString:encodedURL];
-            NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
-            [self postMessage:jsStr];
-        }
+        
+        [self newsignDataStrHex:obj];
+        
     }else if ([prompt hasPrefix:@"makeDappTransaction"]){
-        if ([[obj valueForKey:@"error"] integerValue] > 0) {
-            [_hub hideAnimated:YES];
-            [self errorSend:obj];
-            [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
-            
-        }else{
-            self.hashString = obj[@"result"];
-            NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.checkTransaction('%@','checkTrade')",obj[@"result"]];
-            
-            LOADJS1;
-            LOADJS2;
-            LOADJS3;
-            __weak typeof(self) weakSelf = self;
-            [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-            [self.browserView setCallbackPrompt:^(NSString * prompt) {
-                [weakSelf handlePrompt:prompt];
-            }];
-        }
+        
+        [self makeDappTransaction:obj];
+        
     }else if ([prompt hasPrefix:@"sendTransaction"]){
-        [_hub hideAnimated:YES];
-        if ([[obj valueForKey:@"error"] integerValue] == 0) {
-            [self.sendConfirmV dismiss];
-            NSDictionary * result = obj[@"result"];
-            NSDictionary *nParams ;
-            NSString * idStr = @"";
-            if (self.promptDic[@"id"]) {
-                idStr = self.promptDic[@"id"];
-            }
-            NSString * versionStr = @"";
-            if (self.promptDic[@"version"]) {
-                versionStr = self.promptDic[@"version"];
-            }
-            if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
-                nParams = @{@"action":@"invokePasswordFree",
-                                      @"version": @"v1.0.0",
-                                      @"error": @0,
-                                      @"desc": @"SUCCESS",
-                                      @"result":result[@"Result"],
-                                      @"id":idStr,
-                                      @"version":versionStr
-                                      };
-                [self toSaveInvokePasswordFreeInfo];
-            }else{
-                nParams = @{@"action":@"invoke",
-                            @"version": @"v1.0.0",
-                            @"error": @0,
-                            @"desc": @"SUCCESS",
-                            @"result":result[@"Result"],
-                            @"id":idStr,
-                            @"version":versionStr
-                            };
-            }
-            NSString *jsonString = [Common dictionaryToJson:nParams];
-            NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-            NSString *base64String = [Common base64EncodeString:encodedURL];
-            NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
-            [self postMessage:jsStr];
-            
-        } else {
-            if ([[obj valueForKey:@"error"] integerValue] > 0) {
-                [_hub hideAnimated:YES];
-                [self errorSend:obj];
-                [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
-                
-            }
-            
-        }
+        
+        [self toSendTransaction:obj];
+        
     }else if ([prompt hasPrefix:@"checkTrade"]){
+        
+        [self checkTrade:obj];
+        
+    }
+}
+
+// decryptEncryptedPrivateKey
+-(void)decryptEncryptedPrivateKey:(NSDictionary *)obj{
+    if ([[obj valueForKey:@"error"] integerValue] > 0) {
+        [_hub hideAnimated:YES];
+        self.confirmPwd = @"";
+        [self errorSend:obj];
+        [Common showToast:@"Password error"];
+        
+    }else{
+        if (self.promptDic[@"action"]) {
+            if ([self.promptDic[@"action"] isEqualToString:@"login"]) {
+                
+                [self actionLogin];
+                
+            }else if ([self.promptDic[@"action"] isEqualToString:@"invoke"]){
+                
+                [self actionInvoke: obj];
+                
+            }else if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+                
+                [self actionInvokePasswordFree:obj];
+            }
+        }
+    }
+}
+
+// action login
+- (void)actionLogin{
+    // Sign the message
+    NSDictionary *params = self.promptDic[@"params"];
+    NSString *signStr =[Common hexStringFromString:params[@"message"]];
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.signDataHex('%@','%@','%@','%@','%@','newsignDataStrHex')",signStr,self.defaultWalletDic[@"key"],[Common base64EncodeString:_confirmPwd],self.defaultWalletDic[@"address"],self.defaultWalletDic[@"salt"]];
+    
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+
+// avtion invoke
+- (void)actionInvoke:(NSDictionary*)obj{
+    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+    if (tradeDic == nil) {
+        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
+        return;
+    }
+    NSString *str = [self convertToJsonData:tradeDic];
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+
+// action invokePasswordFree
+- (void)actionInvokePasswordFree:(NSDictionary*)obj{
+    NSDictionary * tradeDic = [self checkPayer:self.promptDic];
+    if (tradeDic == nil) {
+        [self emptyInfo:@"no wallet" resultDic:self.promptDic];
+        return;
+    }
+    NSString *str = [self convertToJsonData:tradeDic];
+    self.confirmSurePwd = obj[@"result"];
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.makeDappTransaction('%@','%@','makeDappTransaction')",str,obj[@"result"]];
+    [APP_DELEGATE.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    __weak typeof(self) weakSelf = self;
+    [APP_DELEGATE.browserView setCallbackPrompt:^(NSString *prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+
+// newsignDataStrHex
+- (void)newsignDataStrHex:(NSDictionary*)obj{
+    if ([[obj valueForKey:@"error"] integerValue] > 0) {
+        [_hub hideAnimated:YES];
+        [self errorSend:obj];
+        [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+        
+    }else{
+        
+        [_hub hideAnimated:YES];
+        [self.sendConfirmV dismiss];
+        NSDictionary *params = self.promptDic[@"params"];
+        NSString * idStr = @"";
+        if (self.promptDic[@"id"]) {
+            idStr = self.promptDic[@"id"];
+        }
+        NSString * versionStr = @"";
+        if (self.promptDic[@"version"]) {
+            versionStr = self.promptDic[@"version"];
+        }
+        NSDictionary *result =@{@"type": @"account",
+                                @"publickey":self.defaultWalletDic[@"publicKey"],
+                                @"user": self.defaultWalletDic[@"address"],
+                                @"message":params[@"message"] ,
+                                @"signature":obj[@"result"],
+                                };
+        NSDictionary *nParams = @{@"action":@"login",
+                                  @"version": @"v1.0.0",
+                                  @"error": @0,
+                                  @"desc": @"SUCCESS",
+                                  @"result":result,
+                                  @"id":idStr,
+                                  @"version":versionStr
+                                  };
+        
+        
+        NSString *jsonString = [Common dictionaryToJson:nParams];
+        NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        NSString *base64String = [Common base64EncodeString:encodedURL];
+        NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+        [self postMessage:jsStr];
+    }
+}
+
+// makeDappTransaction
+- (void)makeDappTransaction:(NSDictionary*)obj{
+    if ([[obj valueForKey:@"error"] integerValue] > 0) {
+        [_hub hideAnimated:YES];
+        [self errorSend:obj];
+        [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+        
+    }else{
+        self.hashString = obj[@"result"];
+        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.checkTransaction('%@','checkTrade')",obj[@"result"]];
+        
+        LOADJS1;
+        LOADJS2;
+        LOADJS3;
+        __weak typeof(self) weakSelf = self;
+        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+        [self.browserView setCallbackPrompt:^(NSString * prompt) {
+            [weakSelf handlePrompt:prompt];
+        }];
+    }
+}
+
+// sendTransaction deal
+- (void)toSendTransaction:(NSDictionary*)obj{
+    [_hub hideAnimated:YES];
+    if ([[obj valueForKey:@"error"] integerValue] == 0) {
+        [self.sendConfirmV dismiss];
+        NSDictionary * result = obj[@"result"];
+        NSDictionary *nParams ;
+        NSString * idStr = @"";
+        if (self.promptDic[@"id"]) {
+            idStr = self.promptDic[@"id"];
+        }
+        NSString * versionStr = @"";
+        if (self.promptDic[@"version"]) {
+            versionStr = self.promptDic[@"version"];
+        }
+        if ([self.promptDic[@"action"] isEqualToString:@"invokePasswordFree"]){
+            nParams = @{@"action":@"invokePasswordFree",
+                        @"version": @"v1.0.0",
+                        @"error": @0,
+                        @"desc": @"SUCCESS",
+                        @"result":result[@"Result"],
+                        @"id":idStr,
+                        @"version":versionStr
+                        };
+            [self toSaveInvokePasswordFreeInfo];
+        }else{
+            nParams = @{@"action":@"invoke",
+                        @"version": @"v1.0.0",
+                        @"error": @0,
+                        @"desc": @"SUCCESS",
+                        @"result":result[@"Result"],
+                        @"id":idStr,
+                        @"version":versionStr
+                        };
+        }
+        NSString *jsonString = [Common dictionaryToJson:nParams];
+        NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+        NSString *base64String = [Common base64EncodeString:encodedURL];
+        NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+        [self postMessage:jsStr];
+        
+    } else {
         if ([[obj valueForKey:@"error"] integerValue] > 0) {
             [_hub hideAnimated:YES];
             [self errorSend:obj];
             [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
             
-        }else{
-            [_hub hideAnimated:YES];
-            if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
-                [self.sendConfirmV dismiss];
-                NSDictionary *result = obj[@"result"];
-                NSDictionary *nparams =result[@"Result"];
-                NSString * idStr = @"";
-                if (self.promptDic[@"id"]) {
-                    idStr = self.promptDic[@"id"];
-                }
-                NSString * versionStr = @"";
-                if (self.promptDic[@"version"]) {
-                    versionStr = self.promptDic[@"version"];
-                }
-                NSDictionary *params = @{@"action":@"invokeRead",
-                                         @"version":@"v1.0.0",
-                                         @"error":@0,
-                                         @"desc":@"SUCCESS",
-                                         @"result":nparams,
-                                         @"id":idStr,
-                                         @"version":versionStr
-                                         };
-                NSString *jsonString = [Common dictionaryToJson:params];
-                NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
-                NSString *base64String = [Common base64EncodeString:encodedURL];
-                NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
-                [self postMessage:jsStr];
-            }else{
-                
-                if (self.isFirst) {
-                    InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
-                    v.callback = ^(NSString *string) {
-                        self.hub=[ToastUtil showMessage:@"" toView:nil];
-                        NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
-                        LOADJS1;
-                        LOADJS2;
-                        LOADJS3;
-                        __weak typeof(self) weakSelf = self;
-                        [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-                        [self.browserView setCallbackPrompt:^(NSString * prompt) {
-                            [weakSelf handlePrompt:prompt];
-                        }];
-                    };
-                    v.callleftback = ^(NSString *string) {
-                        
-                        [self.sendConfirmV dismiss];
-                    };
-                    [v show];
-                }else{
-                    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
-                    LOADJS1;
-                    LOADJS2;
-                    LOADJS3;
-                    __weak typeof(self) weakSelf = self;
-                    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
-                    [self.browserView setCallbackPrompt:^(NSString * prompt) {
-                        [weakSelf handlePrompt:prompt];
-                    }];
-                }
-               
-            }
         }
         
     }
 }
+// sendTransaction
+- (void)sendTransaction{
+    NSString* jsStr  =  [NSString stringWithFormat:@"Ont.SDK.sendTransaction('%@','sendTransaction')",self.hashString];
+    LOADJS1;
+    LOADJS2;
+    LOADJS3;
+    __weak typeof(self) weakSelf = self;
+    [self.browserView.wkWebView evaluateJavaScript:jsStr completionHandler:nil];
+    [self.browserView setCallbackPrompt:^(NSString * prompt) {
+        [weakSelf handlePrompt:prompt];
+    }];
+}
+
+// checkTrade
+- (void)checkTrade:(NSDictionary*)obj{
+    if ([[obj valueForKey:@"error"] integerValue] > 0) {
+        [_hub hideAnimated:YES];
+        [self errorSend:obj];
+        [Common showToast:[NSString stringWithFormat:@"%@:%@",@"System error",[obj valueForKey:@"error"]]];
+        
+    }else{
+        [_hub hideAnimated:YES];
+        if ([self.promptDic[@"action"] isEqualToString:@"invokeRead"]){
+            [self.sendConfirmV dismiss];
+            NSDictionary *result = obj[@"result"];
+            NSDictionary *nparams =result[@"Result"];
+            NSString * idStr = @"";
+            if (self.promptDic[@"id"]) {
+                idStr = self.promptDic[@"id"];
+            }
+            NSString * versionStr = @"";
+            if (self.promptDic[@"version"]) {
+                versionStr = self.promptDic[@"version"];
+            }
+            NSDictionary *params = @{@"action":@"invokeRead",
+                                     @"version":@"v1.0.0",
+                                     @"error":@0,
+                                     @"desc":@"SUCCESS",
+                                     @"result":nparams,
+                                     @"id":idStr,
+                                     @"version":versionStr
+                                     };
+            NSString *jsonString = [Common dictionaryToJson:params];
+            NSString *encodedURL = [jsonString stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet URLQueryAllowedCharacterSet]];
+            NSString *base64String = [Common base64EncodeString:encodedURL];
+            NSString *jsStr = [NSString stringWithFormat:@"%@",base64String ];
+            [self postMessage:jsStr];
+        }else{
+            
+            if (self.isFirst) {
+                InfoAlert * v = [[InfoAlert alloc]initWithTitle:@"result of preboot execution" msgString:[self convertToJsonData:obj] buttonString:@"Send" leftString:@"Cancel"];
+                v.callback = ^(NSString *string) {
+                    self.hub=[ToastUtil showMessage:@"" toView:nil];
+                    [self sendTransaction];
+                };
+                v.callleftback = ^(NSString *string) {
+                    
+                    [self.sendConfirmV dismiss];
+                };
+                [v show];
+            }else{
+                [self sendTransaction];
+            }
+            
+        }
+    }
+}
+#pragma mark - 工具相关方法
+
+// SaveInvokePasswordFreeInfo
 -(void)toSaveInvokePasswordFreeInfo{
     NSDictionary * params = self.promptDic[@"params"];
     NSString *jsonString = [Common dictionaryToJson:params];
@@ -1044,6 +1084,7 @@
     [Common setEncryptedContent:self.confirmSurePwd WithKey:INVOKEPASSWORDFREE];
 }
 
+// Convert a dictionary to a Json string
 -(NSString *)convertToJsonData:(NSDictionary *)dict{
     
     NSError *error;
@@ -1066,6 +1107,8 @@
     [mutStr replaceOccurrencesOfString:@"\n" withString:@"" options:NSLiteralSearch range:range2];
     return mutStr;
 }
+
+// Check transaction payer
 -(NSDictionary*)checkPayer:(NSDictionary*)dic{
     NSMutableDictionary * resultParamsChange = [NSMutableDictionary dictionaryWithDictionary:dic];
     NSMutableDictionary * paramsD = [NSMutableDictionary dictionaryWithDictionary:resultParamsChange[@"params"]] ;
@@ -1089,6 +1132,30 @@
     return dic;
     
 }
+
+//Convert NSString to a hexadecimal string using the following:
+- (NSString *)convertStringToHexStr:(NSString *)str {
+    if (!str || [str length] == 0) {
+        return @"";
+    }
+    NSData *data = [str dataUsingEncoding:NSUTF8StringEncoding];
+    
+    NSMutableString *string = [[NSMutableString alloc] initWithCapacity:[data length]];
+    
+    [data enumerateByteRangesUsingBlock:^(const void *bytes, NSRange byteRange, BOOL *stop) {
+        unsigned char *dataBytes = (unsigned char *) bytes;
+        for (NSInteger i = 0; i < byteRange.length; i++) {
+            NSString *hexStr = [NSString stringWithFormat:@"%x", (dataBytes[i]) & 0xff];
+            if ([hexStr length] == 2) {
+                [string appendString:hexStr];
+            } else {
+                [string appendFormat:@"0%@", hexStr];
+            }
+        }
+    }];
+    return string;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
