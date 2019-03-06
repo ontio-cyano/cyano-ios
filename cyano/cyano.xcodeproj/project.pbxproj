@@ -25,6 +25,8 @@
 		1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7421DCA28300CF8EDE /* ImportIdentityViewController.m */; };
 		1851FC7921DCB79500CF8EDE /* IdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1851FC7821DCB79500CF8EDE /* IdentityViewController.m */; };
 		1854544E21E4728200F18919 /* ExportIdentityViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1854544D21E4728200F18919 /* ExportIdentityViewController.m */; };
+		18560B52222E594B00884129 /* UIViewController+IFStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = 18560B51222E594B00884129 /* UIViewController+IFStyle.m */; };
+		18560B55222E59EA00884129 /* UIViewController+BarItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 18560B54222E59EA00884129 /* UIViewController+BarItem.m */; };
 		1862E60A21E6F66B008B83BC /* DDOViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1862E60921E6F66B008B83BC /* DDOViewController.m */; };
 		1866C08E21F566C800BA723D /* ONTOBaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 1866C08D21F566C800BA723D /* ONTOBaseViewController.m */; };
 		186FFE172200365100C2C32B /* SettingCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 186FFE162200365100C2C32B /* SettingCell.m */; };
@@ -171,6 +173,10 @@
 		1851FC7821DCB79500CF8EDE /* IdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = IdentityViewController.m; sourceTree = "<group>"; };
 		1854544C21E4728200F18919 /* ExportIdentityViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExportIdentityViewController.h; sourceTree = "<group>"; };
 		1854544D21E4728200F18919 /* ExportIdentityViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExportIdentityViewController.m; sourceTree = "<group>"; };
+		18560B50222E594B00884129 /* UIViewController+IFStyle.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+IFStyle.h"; sourceTree = "<group>"; };
+		18560B51222E594B00884129 /* UIViewController+IFStyle.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+IFStyle.m"; sourceTree = "<group>"; };
+		18560B53222E59E900884129 /* UIViewController+BarItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIViewController+BarItem.h"; sourceTree = "<group>"; };
+		18560B54222E59EA00884129 /* UIViewController+BarItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+BarItem.m"; sourceTree = "<group>"; };
 		1862E60821E6F66B008B83BC /* DDOViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DDOViewController.h; sourceTree = "<group>"; };
 		1862E60921E6F66B008B83BC /* DDOViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DDOViewController.m; sourceTree = "<group>"; };
 		1866C08C21F566C800BA723D /* ONTOBaseViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ONTOBaseViewController.h; sourceTree = "<group>"; };
@@ -709,6 +715,10 @@
 				18F71A1921C9F30600762870 /* UIImage+MJ.m */,
 				18838C0B21CBA95000D52A1F /* BackView.h */,
 				18838C0A21CBA94F00D52A1F /* BackView.m */,
+				18560B53222E59E900884129 /* UIViewController+BarItem.h */,
+				18560B54222E59EA00884129 /* UIViewController+BarItem.m */,
+				18560B50222E594B00884129 /* UIViewController+IFStyle.h */,
+				18560B51222E594B00884129 /* UIViewController+IFStyle.m */,
 			);
 			path = Tools;
 			sourceTree = "<group>";
@@ -1049,6 +1059,7 @@
 				18259BB921CB8DBA00DB863E /* DAppCell.m in Sources */,
 				18F71A2021C9F95300762870 /* CapitalViewController.m in Sources */,
 				1886F5EE21CCF7B900F3055A /* DiscoverViewController.m in Sources */,
+				18560B52222E594B00884129 /* UIViewController+IFStyle.m in Sources */,
 				18BBE81821D5092F003CA72C /* RNJsWebView.m in Sources */,
 				1873B39F21D0817400B2373F /* SGQRCodeScanningView.m in Sources */,
 				18F71A0321C9EBC500762870 /* UIView+EasyShowExt.m in Sources */,
@@ -1072,6 +1083,7 @@
 				187AF9B921F8598800CD2390 /* LKLForbidPasteTextField.m in Sources */,
 				1873B39E21D0817400B2373F /* SGQRCodeHelperTool.m in Sources */,
 				1851FC7521DCA28300CF8EDE /* ImportIdentityViewController.m in Sources */,
+				18560B55222E59EA00884129 /* UIViewController+BarItem.m in Sources */,
 				18F719F821C9EBC500762870 /* EasyTextView.m in Sources */,
 				1820472F21EDDCF30079F7F7 /* ONTIdViewController.m in Sources */,
 				18CAA82121F5BBF70025DB56 /* ONTIdImportViewController.m in Sources */,

@@ -9,8 +9,12 @@
 #import "AppDelegate.h"
 #import "MainViewController.h"
 #import "IQKeyboardManager.h"
+#import "PaySureViewController.h"
+#import "OntoPayLoginViewController.h"
+#import "UIViewController+IFStyle.h"
 @interface AppDelegate ()
-
+@property (nonatomic, strong)NSMutableArray * walletArray;
+@property (nonatomic, strong)NSDictionary * payinfoDic;
 @end
 
 @implementation AppDelegate
@@ -54,6 +58,58 @@
     return YES;
 }
 
+- (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
+    
+    NSString * urlString = [url absoluteString];
+    if ([urlString hasPrefix:@"provide://com.github.cyano?data="] ) {
+        NSLog(@"urlString=%@",urlString);
+        NSArray * dataArr = [urlString componentsSeparatedByString:@"data="];
+        NSString *dataString = [Common stringEncodeBase64:dataArr[1]];
+        NSDictionary * dic = [Common dictionaryWithJsonString:dataString];
+        NSLog(@"paydic=%@",dic);
+        self.payinfoDic = dic;
+        self.walletArray = [NSMutableArray array];
+        if ([dic isKindOfClass:[NSDictionary class]] && dic[@"action"]) {
+            NSArray * arr = [[NSUserDefaults standardUserDefaults] valueForKey:ALLASSET_ACCOUNT];
+            if (arr.count == 0 || arr == nil) {
+                [Common showToast:Localized(@"NoWallet")];
+                return NO;
+            }else{
+                for (NSDictionary *  subDic in arr) {
+                    if (subDic[@"label"] != nil) {
+                        [self.walletArray addObject:subDic];
+                    }
+                }
+                if (self.walletArray.count == 0) {
+                    [Common showToast:Localized(@"NoWallet")];
+                    return NO;
+                }
+            }
+            if ([dic[@"action"] isEqualToString:@"login"]) {
+                OntoPayLoginViewController * vc =[[OntoPayLoginViewController alloc]init];
+                vc.walletArr = self.walletArray;
+                vc.payInfo = dic;
+                UIViewController* rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
+                [rootVC.myNavigationController pushViewController:vc animated:YES];
+                return YES;
+            }else if ([dic[@"action"] isEqualToString:@"invoke"]) {
+                NSString *jsonStr = [[NSUserDefaults standardUserDefaults] valueForKey:ASSET_ACCOUNT];;
+                NSDictionary *dict = [Common dictionaryWithJsonString:jsonStr];
+                
+                PaySureViewController * payVc = [[PaySureViewController alloc]init];
+                payVc.payinfoDic = dic;
+                payVc.defaultDic = dict;
+                payVc.dataArray = self.walletArray;
+                
+                UIViewController* rootVC = [[UIApplication sharedApplication].delegate window].rootViewController;
+                [rootVC.myNavigationController pushViewController:payVc animated:YES];
+                return YES;
+            }
+        }
+        
+    }
+    return YES;
+}
 - (void)monitorNetWorkStatus {
     //监测方法
     AFNetworkReachabilityManager *manger = [AFNetworkReachabilityManager sharedManager];

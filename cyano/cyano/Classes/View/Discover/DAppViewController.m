@@ -64,6 +64,7 @@
     [super viewWillAppear:animated];
     [[NSUserDefaults standardUserDefaults]removeObjectForKey:INVOKEPASSWORDFREE];
     [Common deleteEncryptedContent:INVOKEPASSWORDFREE];
+    [webView.configuration.userContentController removeScriptMessageHandlerForName:@"JSCallback"];
     [webView.configuration.userContentController addScriptMessageHandler:self name:@"JSCallback"];
 }
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSString *, id> *)change context:(void *)context {
