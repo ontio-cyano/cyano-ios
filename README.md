@@ -105,7 +105,7 @@ BOOL isCanOpen = [[UIApplication sharedApplication] canOpenURL:appUrl];
 if (!isCanOpen) {
    NSLog(@"Not installed cyano");
 }else{
-    // TODO Login
+    // TODO Invoke
 }
 ```
 
@@ -118,7 +118,7 @@ NSString *urlString = [NSString stringWithFormat:@"provide://com.github.cyano?
                                                    data=%@",base64];
 ```
 
-4、Login
+4、Invoke
 
 ```
 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] 
