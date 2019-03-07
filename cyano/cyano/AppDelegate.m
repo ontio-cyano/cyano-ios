@@ -61,7 +61,7 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
     
     NSString * urlString = [url absoluteString];
-    if ([urlString hasPrefix:@"provide://com.github.cyano?data="] ) {
+    if ([urlString hasPrefix:@"ont://com.github.cyano?data="] ) {
         NSLog(@"urlString=%@",urlString);
         NSArray * dataArr = [urlString componentsSeparatedByString:@"data="];
         NSString *dataString = [Common stringEncodeBase64:dataArr[1]];

@@ -27,7 +27,7 @@
 			<string>com.github.cyano</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>provide</string>
+				<string>ont</string>
 			</array>
 		</dict>
 	</array>

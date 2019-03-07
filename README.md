@@ -24,7 +24,7 @@ Add `query schemes` to the arousal project
   ```
   <key>LSApplicationQueriesSchemes</key> 
     <array> 
-    <string>provide</string> 
+    <string>ont</string> 
   </array>
   ```
 
@@ -51,7 +51,7 @@ Request data the same to [Cyano scan qrcode Login](https://github.com/ontio-cyan
 1、Check if cyano App is installed locally
 
 ```
-NSString *appUrl = [NSURL URLWithString:@"provide://com.github.cyano?data="];
+NSString *appUrl = [NSURL URLWithString:@"ont://com.github.cyano?data="];
 BOOL isCanOpen = [[UIApplication sharedApplication] canOpenURL:appUrl];
 if (!isCanOpen) {
    NSLog(@"Not installed cyano");
@@ -65,7 +65,7 @@ if (!isCanOpen) {
 3、Stitch base64 data into appUrl
 
 ```
-NSString *urlString = [NSString stringWithFormat:@"provide://com.github.cyano?   
+NSString *urlString = [NSString stringWithFormat:@"ont://com.github.cyano?   
                                                    data=%@",base64];
 ```
 
@@ -100,7 +100,7 @@ Request data the same to [Cyano scan qrcode Invoke](https://github.com/ontio-cya
 1、Check if cyano App is installed locally
 
 ```
-NSString *appUrl = [NSURL URLWithString:@"provide://com.github.cyano?data="];
+NSString *appUrl = [NSURL URLWithString:@"ont://com.github.cyano?data="];
 BOOL isCanOpen = [[UIApplication sharedApplication] canOpenURL:appUrl];
 if (!isCanOpen) {
    NSLog(@"Not installed cyano");
@@ -114,7 +114,7 @@ if (!isCanOpen) {
 3、Stitch base64 data into appUrl
 
 ```
-NSString *urlString = [NSString stringWithFormat:@"provide://com.github.cyano?   
+NSString *urlString = [NSString stringWithFormat:@"ont://com.github.cyano?   
                                                    data=%@",base64];
 ```
 
