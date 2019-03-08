@@ -61,12 +61,11 @@
 - (BOOL)application:(UIApplication *)app openURL:(NSURL *)url options:(NSDictionary<UIApplicationOpenURLOptionsKey,id> *)options{
     
     NSString * urlString = [url absoluteString];
-    if ([urlString hasPrefix:@"ont://com.github.cyano?data="] ) {
-        NSLog(@"urlString=%@",urlString);
-        NSArray * dataArr = [urlString componentsSeparatedByString:@"data="];
+    if ([urlString hasPrefix:@"ontprovider://ont.io?param="] ) {
+        NSArray * dataArr = [urlString componentsSeparatedByString:@"param="];
         NSString *dataString = [Common stringEncodeBase64:dataArr[1]];
-        NSDictionary * dic = [Common dictionaryWithJsonString:dataString];
-        NSLog(@"paydic=%@",dic);
+        NSString *decodeString = [self decodeString:dataString];
+        NSDictionary * dic = [Common dictionaryWithJsonString:decodeString];
         self.payinfoDic = dic;
         self.walletArray = [NSMutableArray array];
         if ([dic isKindOfClass:[NSDictionary class]] && dic[@"action"]) {
@@ -109,6 +108,16 @@
         
     }
     return YES;
+}
+//URLDEcode
+- (NSString *)decodeString:(NSString*)encodedString
+
+{
+    //NSString *decodedString = [encodedString stringByReplacingPercentEscapesUsingEncoding:NSUTF8StringEncoding ];
+    
+    NSString *decodedString  = (__bridge_transfer NSString *)CFURLCreateStringByReplacingPercentEscapesUsingEncoding(NULL,(__bridge CFStringRef)encodedString,CFSTR(""),CFStringConvertNSStringEncodingToEncoding(NSUTF8StringEncoding));
+    NSLog(@"%@",decodedString);
+    return decodedString;
 }
 - (void)monitorNetWorkStatus {
     //监测方法

@@ -24,7 +24,7 @@ Add `query schemes` to the arousal project
   ```
   <key>LSApplicationQueriesSchemes</key> 
     <array> 
-    <string>ont</string> 
+    <string>ontprovider</string> 
   </array>
   ```
 
@@ -51,7 +51,7 @@ Request data the same to [Cyano scan qrcode Login](https://github.com/ontio-cyan
 1、Check if cyano App is installed locally
 
 ```
-NSString *appUrl = [NSURL URLWithString:@"ont://com.github.cyano?data="];
+NSString *appUrl = [NSURL URLWithString:@"ontprovider://ont.io?param="];
 BOOL isCanOpen = [[UIApplication sharedApplication] canOpenURL:appUrl];
 if (!isCanOpen) {
    NSLog(@"Not installed cyano");
@@ -60,16 +60,20 @@ if (!isCanOpen) {
 }
 ```
 
-2、Convert Request data to base64
+2、Convert Request data to jsonString
 
-3、Stitch base64 data into appUrl
+3、UrlEncode on jsonString
+
+4、Convert UrlEncodeString to base64
+
+5、Stitch base64 data into appUrl
 
 ```
-NSString *urlString = [NSString stringWithFormat:@"ont://com.github.cyano?   
-                                                   data=%@",base64];
+NSString *urlString = [NSString stringWithFormat:@"ontprovider://ont.io? 
+                                                   param=%@",base64];
 ```
 
-4、Login
+6、Login
 
 ```
 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] 
@@ -100,7 +104,7 @@ Request data the same to [Cyano scan qrcode Invoke](https://github.com/ontio-cya
 1、Check if cyano App is installed locally
 
 ```
-NSString *appUrl = [NSURL URLWithString:@"ont://com.github.cyano?data="];
+NSString *appUrl = [NSURL URLWithString:@"ontprovider://ont.io?param="];
 BOOL isCanOpen = [[UIApplication sharedApplication] canOpenURL:appUrl];
 if (!isCanOpen) {
    NSLog(@"Not installed cyano");
@@ -109,16 +113,20 @@ if (!isCanOpen) {
 }
 ```
 
-2、Convert Request data to base64
+2、Convert Request data to jsonString
 
-3、Stitch base64 data into appUrl
+3、UrlEncode on jsonString
+
+4、Convert UrlEncodeString to base64
+
+5、Stitch base64 data into appUrl
 
 ```
-NSString *urlString = [NSString stringWithFormat:@"ont://com.github.cyano?   
-                                                   data=%@",base64];
+NSString *urlString = [NSString stringWithFormat:@"ontprovider://ont.io?
+                                                   param=%@",base64];
 ```
 
-4、Invoke
+6、Invoke
 
 ```
 [[UIApplication sharedApplication] openURL:[NSURL URLWithString:urlString] 
